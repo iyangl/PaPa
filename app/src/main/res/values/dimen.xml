@@ -7,4 +7,6 @@
     <dimen name="bottom_divider_size">2px</dimen>
     <dimen name="title_size">42px</dimen>
     <dimen name="tab_width">142px</dimen>
+    <dimen name="video_pic_preview_width">360px</dimen>
+    <dimen name="video_pic_preview_height">200px</dimen>
 </resources>
