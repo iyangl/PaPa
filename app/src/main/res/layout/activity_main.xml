@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="state"
+            type="Integer"/>
+
+    </data>
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.dasheng.papa.mvp.MainActivity">
+
+
+        <com.dasheng.papa.widget.NoScrollViewPager
+            android:id="@+id/sub_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_divider_size"
+            android:background="#eeeeee"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_size"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                app:state="@{state}">
+
+                <ImageView
+                    android:id="@+id/iv_home"
+                    style="@style/Bottom_bar_icon"
+                    android:src="@drawable/selector_home"/>
+
+                <TextView
+                    android:id="@+id/tv_home"
+                    style="@style/Bottom_bar_text"
+                    android:layout_below="@+id/iv_home"
+                    android:text="@string/home"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/category"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                app:state="@{state}">
+
+                <ImageView
+                    android:id="@+id/iv_category"
+                    style="@style/Bottom_bar_icon"
+                    android:src="@drawable/selector_category"/>
+
+                <TextView
+                    android:id="@+id/tv_category"
+                    style="@style/Bottom_bar_text"
+                    android:layout_below="@+id/iv_category"
+                    android:text="@string/category"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/beauty"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                app:state="@{state}">
+
+                <ImageView
+                    android:id="@+id/iv_beauty"
+                    style="@style/Bottom_bar_icon"
+                    android:src="@drawable/selector_beauty"/>
+
+                <TextView
+                    android:id="@+id/tv_beauty"
+                    style="@style/Bottom_bar_text"
+                    android:layout_below="@+id/iv_beauty"
+                    android:text="@string/beauty"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rank"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                app:state="@{state}">
+
+                <ImageView
+                    android:id="@+id/iv_rank"
+                    style="@style/Bottom_bar_icon"
+                    android:src="@drawable/selectot_rank"/>
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    style="@style/Bottom_bar_text"
+                    android:layout_below="@+id/iv_rank"
+                    android:text="@string/rank"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
+

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">啪啪视频</string>
+    <string name="home">首页</string>
+    <string name="category">分类</string>
+    <string name="beauty">美图</string>
+    <string name="rank">排行榜</string>
+</resources>
