@@ -14,14 +14,18 @@ import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
 
+import timber.log.Timber;
+
 public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBinding> {
+
+    private boolean isFirst;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         String title = bundle.getString(Constant.Intent_Extra.HOME_CATEGORY_TYPE);
-
+        Timber.d("onActivityCreated: %s  %b", title, isFirst);
         initView();
     }
 
@@ -64,6 +68,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
+        Timber.d("onFragmentVisibleChange: %b", isVisible);
         if (isVisible) {
 
         } else {
@@ -75,7 +80,8 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     @Override
     protected void onFragmentFirstVisible() {
-
+        Timber.d("onFragmentFirstVisible");
+        isFirst = true;
     }
 
     @Override

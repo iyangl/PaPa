@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         mFragments.add(new RankFragment());
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), mFragments);
         binding.subContent.setAdapter(mainPagerAdapter);
+        binding.subContent.setOffscreenPageLimit(mFragments.size());
         binding.subContent.setCurrentItem(0, false);
     }
 

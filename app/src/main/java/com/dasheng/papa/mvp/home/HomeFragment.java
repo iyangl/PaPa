@@ -51,6 +51,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             fragments.add(fragment);
         }
         vpHome.setAdapter(new MainPagerAdapter(getChildFragmentManager(), fragments, strings));
+        vpHome.setOffscreenPageLimit(fragments.size());
         tab.setupWithViewPager(vpHome);
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

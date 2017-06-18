@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 /**
  * Created by dasu on 2016/9/27.
@@ -60,11 +61,11 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, setLayoutId(), null, false);
-        /*if (binding != null) {
+        if (binding != null) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
             binding.getRoot().setLayoutParams(layoutParams);
-        }*/
+        }
         return binding != null ? binding.getRoot() : super.onCreateView(inflater, container, savedInstanceState);
     }
 
