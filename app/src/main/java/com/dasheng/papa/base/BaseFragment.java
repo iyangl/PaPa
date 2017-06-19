@@ -5,10 +5,15 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+
+import com.dasheng.papa.R;
+import com.dasheng.papa.databinding.FragmentBaseBinding;
 
 /**
  * Created by dasu on 2016/9/27.
@@ -23,6 +28,7 @@ import android.widget.RelativeLayout;
  */
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
+    private FragmentBaseBinding baseBinding;
     protected T binding;
 
     private boolean isFragmentVisible;
@@ -60,13 +66,14 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        baseBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_base, null, false);
         binding = DataBindingUtil.inflate(inflater, setLayoutId(), null, false);
-        if (binding != null) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT);
-            binding.getRoot().setLayoutParams(layoutParams);
-        }
-        return binding != null ? binding.getRoot() : super.onCreateView(inflater, container, savedInstanceState);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        binding.getRoot().setLayoutParams(layoutParams);
+        baseBinding.container.addView(binding.getRoot());
+        return baseBinding.getRoot();
     }
 
     @Override
@@ -148,6 +155,19 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
     protected boolean isFragmentVisible() {
         return isFragmentVisible;
+    }
+
+    protected void switchFragment(Fragment fragment) {
+        FragmentManager childFragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment).addToBackStack(null).commit();
+    }
+
+    protected void backFragment() {
+        FragmentManager childFragmentManager = getChildFragmentManager();
+        if (childFragmentManager.getBackStackEntryCount() > 0) {
+            childFragmentManager.popBackStack();
+        }
     }
 }
 

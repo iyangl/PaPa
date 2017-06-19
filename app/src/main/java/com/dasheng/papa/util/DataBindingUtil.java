@@ -22,4 +22,12 @@ public class DataBindingUtil {
                     R.color.colorAccent : R.color.text_color_unselected));
         }
     }
+
+    @BindingAdapter("android:src")
+    public static void setDrawableById(ImageView iv, int id) {
+        if (id == 0) {
+            return;
+        }
+        iv.setImageResource(id);
+    }
 }

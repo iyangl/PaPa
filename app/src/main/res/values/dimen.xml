@@ -6,7 +6,21 @@
     <dimen name="bottom_text_margin">8px</dimen>
     <dimen name="bottom_divider_size">2px</dimen>
     <dimen name="title_size">42px</dimen>
-    <dimen name="tab_width">142px</dimen>
+    <dimen name="tab_height">142px</dimen>
     <dimen name="video_pic_preview_width">360px</dimen>
     <dimen name="video_pic_preview_height">200px</dimen>
+    <dimen name="home_category_title_image_size">30px</dimen>
+    <dimen name="home_category_title_margin_top">8px</dimen>
+    <dimen name="category_icon_size">140px</dimen>
+    <dimen name="category_icon_padding">40px</dimen>
+    <dimen name="category_icon_divide_height">30px</dimen>
+
+    <dimen name="category_detail_thumbnail_width">268px</dimen>
+    <dimen name="category_detail_thumbnail_height">140px</dimen>
+    <dimen name="category_detail_padding_top">26px</dimen>
+    <dimen name="category_detail_padding_bottom">26px</dimen>
+    <dimen name="category_detail_padding_left">21px</dimen>
+    <dimen name="category_detail_padding_right">24px</dimen>
+    <dimen name="category_detail_thumbnail_margin_right">35px</dimen>
+
 </resources>

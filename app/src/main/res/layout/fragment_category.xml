@@ -8,11 +8,10 @@
                     android:orientation="vertical"
                     tools:context=".mvp.category.CategoryFragment">
 
-        <TextView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:text="@string/category"/>
+            android:layout_height="match_parent"/>
 
     </RelativeLayout>
 

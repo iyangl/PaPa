@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_category_title_margin_top"
+            android:padding="@dimen/bottom_text_margin">
+
+            <ImageView
+                android:id="@+id/icon_left"
+                android:layout_width="@dimen/home_category_title_image_size"
+                android:layout_height="@dimen/home_category_title_image_size"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/home_category_title_left"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/icon_left"
+                android:paddingLeft="@dimen/bottom_divider_size"
+                android:text="今日精选"
+                android:textColor="@color/black"
+                android:textSize="@dimen/bottom_text_size"/>
+
+            <ImageView
+                android:id="@+id/icon_goto"
+                android:layout_width="@dimen/home_category_title_image_size"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/bottom_divider_size"
+                android:scaleType="centerInside"
+                android:src="@drawable/go_to"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/icon_goto"
+                android:text="更多"
+                android:textColor="@color/text_color_unselected"
+                android:textSize="@dimen/bottom_text_size"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

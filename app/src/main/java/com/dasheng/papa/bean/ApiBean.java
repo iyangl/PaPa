@@ -1,6 +1,8 @@
 package com.dasheng.papa.bean;
 
-public class ApiBean {
+import android.databinding.BaseObservable;
+
+public class ApiBean extends BaseObservable {
 
 
 }

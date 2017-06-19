@@ -4,4 +4,12 @@
     <string name="category">分类</string>
     <string name="beauty">美图</string>
     <string name="rank">排行榜</string>
+    <string name="category_anecdote">奇闻趣事</string>
+    <string name="category_embarrass">雷人囧事</string>
+    <string name="category_entertainment_selection">娱乐精选</string>
+    <string name="category_roast">最强吐槽</string>
+    <string name="category_spoof">恶搞新编</string>
+    <string name="category_weixin">关注公众号</string>
+    <string name="category_funny_talent">搞笑达人</string>
+    <string name="category_beauty">美女图集</string>
 </resources>
