@@ -3,7 +3,6 @@ package com.dasheng.papa.mvp.category;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.widget.Toast;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.CategoryAdapter;
@@ -11,8 +10,11 @@ import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.CategoryBean;
 import com.dasheng.papa.databinding.FragmentCategoryBinding;
+import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.mvp.category.child.CategoryDetailFragment;
 import com.dasheng.papa.util.CommonUtils;
+import com.dasheng.papa.util.Constant;
+import com.dasheng.papa.util.ToastUtil;
 
 import timber.log.Timber;
 
@@ -39,8 +41,12 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
         categoryAdapter.setOnItemClickListener(new OnItemClickListener<CategoryBean>() {
             @Override
             public void onClick(CategoryBean categoryBean, int position) {
-                Toast.makeText(CategoryFragment.this.getActivity(), "position: " + position, Toast.LENGTH_SHORT).show();
-                switchFragment(new CategoryDetailFragment());
+                ToastUtil.show(getActivity(), "position:" + position);
+                CategoryDetailFragment categoryDetailFragment = new CategoryDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constant.Intent_Extra.CATEGORY_TYPE, categoryBean.getTitle());
+                categoryDetailFragment.setArguments(bundle);
+                ((MainActivity) getActivity()).switchFragment(categoryDetailFragment);
             }
         });
     }
@@ -69,6 +75,9 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         Timber.d("onFragmentVisibleChange: %b", isVisible);
+        if (isVisible) {
+            baseActivity.setTitle(R.string.category_title);
+        }
     }
 
     @Override

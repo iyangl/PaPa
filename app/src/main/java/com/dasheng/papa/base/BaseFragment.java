@@ -5,8 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.databinding.FragmentBaseBinding;
+import com.dasheng.papa.util.CommonUtils;
 
 /**
  * Created by dasu on 2016/9/27.
@@ -30,6 +29,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
     private FragmentBaseBinding baseBinding;
     protected T binding;
+    protected BaseActivity baseActivity;
 
     private boolean isFragmentVisible;
     private boolean isReuseView;
@@ -72,7 +72,9 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         binding.getRoot().setLayoutParams(layoutParams);
+        binding.getRoot().setBackgroundColor(CommonUtils.getColor(android.R.color.background_light));
         baseBinding.container.addView(binding.getRoot());
+        baseActivity = (BaseActivity) getActivity();
         return baseBinding.getRoot();
     }
 
@@ -155,19 +157,6 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
     protected boolean isFragmentVisible() {
         return isFragmentVisible;
-    }
-
-    protected void switchFragment(Fragment fragment) {
-        FragmentManager childFragmentManager = getChildFragmentManager();
-        FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment).addToBackStack(null).commit();
-    }
-
-    protected void backFragment() {
-        FragmentManager childFragmentManager = getChildFragmentManager();
-        if (childFragmentManager.getBackStackEntryCount() > 0) {
-            childFragmentManager.popBackStack();
-        }
     }
 }
 

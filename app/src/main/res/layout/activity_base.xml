@@ -9,8 +9,8 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  tools:context=".base.BaseActivity"
-                  android:orientation="vertical">
+                  android:orientation="vertical"
+                  tools:context=".base.BaseActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -18,27 +18,24 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/toolbar_back">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/papa_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/papa_logo"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/papa_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/papa_logo"
+                android:scaleType="centerCrop"
+                android:visibility="gone"/>
 
-                <TextView
-                    android:id="@+id/title"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/title_size"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
 
-            </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
 

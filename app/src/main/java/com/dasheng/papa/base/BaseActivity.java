@@ -64,6 +64,10 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AutoLayout
         });
     }
 
+    public void hideNavigationIcon() {
+        baseBinding.toolbar.setNavigationIcon(null);
+    }
+
     protected void addSubscription(Subscription subscription) {
         if (compositeSubscription == null) {
             compositeSubscription = new CompositeSubscription();

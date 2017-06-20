@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.MainPagerAdapter;
@@ -26,7 +27,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Timber.d("onActivityCreated");
         initTabLayout();
         initViewPager();
     }
@@ -75,6 +76,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         Timber.d("onFragmentVisibleChange: %b", isVisible);
+        if (isVisible) {
+            baseActivity.setTitle("");
+            baseActivity.setLogoVisible(View.VISIBLE);
+        } else {
+            baseActivity.setLogoVisible(View.GONE);
+        }
     }
 
     @Override
@@ -85,5 +92,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     protected int setLayoutId() {
         return R.layout.fragment_home;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Timber.d("onResume");
     }
 }

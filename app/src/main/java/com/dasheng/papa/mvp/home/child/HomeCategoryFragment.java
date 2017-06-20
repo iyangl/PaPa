@@ -3,7 +3,6 @@ package com.dasheng.papa.mvp.home.child;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.widget.Toast;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.HomeCategoryAdapter;
@@ -12,6 +11,7 @@ import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
+import com.dasheng.papa.util.ToastUtil;
 
 import timber.log.Timber;
 
@@ -48,7 +48,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         homeCategoryAdapter.setOnItemClickListener(new OnItemClickListener<ApiBean>() {
             @Override
             public void onClick(ApiBean apiBean, int position) {
-                Toast.makeText(HomeCategoryFragment.this.getActivity(), "click" + position, Toast.LENGTH_SHORT).show();
+                ToastUtil.show(getActivity(), "click" + position);
             }
         });
     }

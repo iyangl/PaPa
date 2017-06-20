@@ -13,7 +13,6 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
 
     @Override
     public void onBindViewHolder(BaseRecyclerViewHolder holder, final int position) {
-        System.out.println("onBindViewHolder" + data.size());
         holder.onBaseBindViewHolder(data.get(position), position);
         holder.itemView.setTag(position);
     }

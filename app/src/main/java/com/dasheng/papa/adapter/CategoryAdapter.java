@@ -57,7 +57,8 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryBean> imple
     @Override
     public void onClick(View v) {
         if (listener != null) {
-            listener.onClick(null, (int) v.getTag());
+            int postion = (int) v.getTag();
+            listener.onClick(postion == data.size() ? data.get(postion - 1) : data.get(postion), postion);
         }
     }
 

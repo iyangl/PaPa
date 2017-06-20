@@ -4,6 +4,9 @@
     <string name="category">分类</string>
     <string name="beauty">美图</string>
     <string name="rank">排行榜</string>
+    <string name="category_title">频道分类</string>
+    <string name="beauty_title">美女图集</string>
+    <string name="rank_title">排行榜</string>
     <string name="category_anecdote">奇闻趣事</string>
     <string name="category_embarrass">雷人囧事</string>
     <string name="category_entertainment_selection">娱乐精选</string>
