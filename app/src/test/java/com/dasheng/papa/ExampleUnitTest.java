@@ -11,8 +11,6 @@ import android.graphics.drawable.StateListDrawable;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -21,7 +19,18 @@ import static org.junit.Assert.assertEquals;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        double x = (double)768 / 1242;
+        double y = (double)1280 / 2280;
+        System.out.println("x:" + x + "  y:" + y);
+        System.out.println("y35 = " + (double) 35 * y);
+        System.out.println("y40 = " + (double) 40 * y);
+        System.out.println("y45 = " + (double) 45 * y);
+        System.out.println("y50 = " + (double) 50 * y);
+        System.out.println("");
+        System.out.println("x15 = " + (double) 15 * x);
+        System.out.println("x35 = " + (double) 35 * x);
+        System.out.println("x75 = " + (double) 75 * x);
+        System.out.println("x110 = " + (double) 110 * x);
     }
 
     public static StateListDrawable getStateListDrawable(Drawable normal) {

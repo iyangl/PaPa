@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/video_head_height"
+            android:orientation="vertical">
+
+            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+                android:id="@+id/player"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/video_head_padding_bottom"
+                android:paddingLeft="@dimen/video_head_padding_left"
+                android:paddingRight="@dimen/video_head_padding_right"
+                android:paddingTop="@dimen/video_head_padding_top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/video_head_title_padding_bottom"
+                    android:paddingTop="@dimen/video_head_title_padding_top"
+                    android:text="高考在即，唐僧神吐槽高考花式减压法！"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/video_head_title_text_size"
+                    android:textStyle="bold"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/praise_add"
+                        android:layout_width="@dimen/video_head_praise_size"
+                        android:layout_height="@dimen/video_head_praise_size"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/video_head_praise_padding_right"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_launcher"/>
+
+                    <TextView
+                        android:id="@+id/praise_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/praise_add"
+                        android:text="17"/>
+
+                    <ImageView
+                        android:id="@+id/praise_del"
+                        android:layout_width="@dimen/video_head_praise_size"
+                        android:layout_height="@dimen/video_head_praise_size"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/video_head_praise_padding_left"
+                        android:layout_toRightOf="@+id/praise_count"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_launcher"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/praise_del"
+                        android:text="17"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="623次观看"
+                        android:textColor="@color/text_color_unselected"/>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/item_category_divide"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
