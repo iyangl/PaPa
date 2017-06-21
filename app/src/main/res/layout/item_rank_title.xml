@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="color"
+            type="String"/>
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:paddingBottom="@dimen/rank_item_title_padding_bottom"
+                  android:paddingLeft="@dimen/rank_item_title_padding_horizontal"
+                  android:paddingRight="@dimen/rank_item_title_padding_horizontal"
+                  android:paddingTop="@dimen/rank_item_title_padding_top">
+
+        <RadioGroup
+            android:id="@+id/rg_rank"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/rank_item_title_radio_height"
+            android:background="@drawable/shape_rank_title_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/rank_item_title_bg_stroke">
+
+            <RadioButton
+                android:id="@+id/rb_week"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_rank_title_button_bg_left"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/rank_title_week"
+                android:textSize="@dimen/rank_item_title_text_size"
+                app:color="@{color}"/>
+
+            <RadioButton
+                android:id="@+id/rb_month"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_rank_title_button_bg_right"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/rank_title_month"
+                android:textSize="@dimen/rank_item_title_text_size"
+                app:color="@{color}"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</layout>

@@ -3,6 +3,8 @@ package com.dasheng.papa.util;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.dasheng.papa.app;
+
 public class ToastUtil {
     private static Toast toast;
 
@@ -22,6 +24,10 @@ public class ToastUtil {
         }
         toast.show();
 
+    }
+
+    public static void show(CharSequence message) {
+        show(app.getInstance(), message);
     }
 
     /**

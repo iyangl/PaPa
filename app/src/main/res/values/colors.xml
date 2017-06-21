@@ -8,4 +8,5 @@
     <color name="text_color_unselected">#999999</color>
     <color name="text_color_selected">#E7524D</color>
     <color name="category_divide_color">#E6E6E6</color>
+    <color name="rank_title_bg">#F5AE06</color>
 </resources>

@@ -3,6 +3,7 @@ package com.dasheng.papa.util;
 import android.databinding.BindingAdapter;
 import android.text.TextUtils;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,4 +40,12 @@ public class DataBindingUtil {
         }
     }
 
+    @BindingAdapter("color")
+    public static void setRadioButtonColor(RadioButton radio, String color) {
+        if (radio.isChecked()) {
+            radio.setTextColor(CommonUtils.getColor(R.color.white));
+        } else {
+            radio.setTextColor(CommonUtils.getColor(R.color.rank_title_bg));
+        }
+    }
 }

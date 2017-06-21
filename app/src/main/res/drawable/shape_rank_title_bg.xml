@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/white"/>
+
+    <corners android:radius="@dimen/rank_item_title_bg_radius"/>
+
+    <stroke
+        android:width="@dimen/rank_item_title_bg_stroke"
+        android:color="@color/rank_title_bg"/>
+
+</shape>

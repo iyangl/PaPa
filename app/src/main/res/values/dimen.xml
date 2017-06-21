@@ -33,4 +33,13 @@
     <dimen name="beauty_item_pic_width">726px</dimen>
     <dimen name="beauty_item_pic_height">888px</dimen>
 
+    <dimen name="rank_item_title_padding_top">15dp</dimen>
+    <dimen name="rank_item_title_padding_bottom">7dp</dimen>
+    <dimen name="rank_item_title_padding_horizontal">30dp</dimen>
+    <dimen name="rank_item_title_text_size">16sp</dimen>
+    <dimen name="rank_item_title_radio_height">35dp</dimen>
+    <dimen name="rank_item_title_bg_radius">7dp</dimen>
+    <dimen name="rank_item_title_button_radius">6dp</dimen>
+    <dimen name="rank_item_title_bg_stroke">1dp</dimen>
+
 </resources>
