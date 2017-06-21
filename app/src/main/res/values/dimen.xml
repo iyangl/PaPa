@@ -23,4 +23,14 @@
     <dimen name="category_detail_padding_right">24px</dimen>
     <dimen name="category_detail_thumbnail_margin_right">35px</dimen>
 
+    <dimen name="beauty_item_padding_horizontal">21px</dimen>
+    <dimen name="beauty_item_padding_vertical">19px</dimen>
+    <dimen name="beauty_item_text_size">34px</dimen>
+    <dimen name="beauty_item_text_padding_top">8px</dimen>
+    <dimen name="beauty_item_text_padding_bottom">20px</dimen>
+    <dimen name="beauty_item_date_size">21px</dimen>
+    <dimen name="beauty_item_date_padding_top">20px</dimen>
+    <dimen name="beauty_item_pic_width">726px</dimen>
+    <dimen name="beauty_item_pic_height">888px</dimen>
+
 </resources>

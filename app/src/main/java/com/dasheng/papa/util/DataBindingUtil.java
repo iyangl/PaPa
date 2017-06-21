@@ -1,6 +1,7 @@
 package com.dasheng.papa.util;
 
 import android.databinding.BindingAdapter;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,4 +31,12 @@ public class DataBindingUtil {
         }
         iv.setImageResource(id);
     }
+
+    @BindingAdapter("imgurl")
+    public static void loadImage(ImageView iv, String imgUrl) {
+        if (TextUtils.isEmpty(imgUrl)) {
+            iv.setBackgroundColor(CommonUtils.randomColor());
+        }
+    }
+
 }
