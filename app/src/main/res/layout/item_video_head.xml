@@ -47,7 +47,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/video_head_praise_padding_right"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@drawable/up"/>
 
                     <TextView
                         android:id="@+id/praise_count"
@@ -64,7 +64,7 @@
                         android:layout_marginLeft="@dimen/video_head_praise_padding_left"
                         android:layout_toRightOf="@+id/praise_count"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@drawable/down"/>
 
                     <TextView
                         android:layout_width="wrap_content"

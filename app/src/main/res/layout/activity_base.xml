@@ -21,21 +21,50 @@
 
             <ImageView
                 android:id="@+id/papa_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/papa_logo"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/papapa_logo"
                 android:scaleType="centerCrop"
                 android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/title"
-                android:singleLine="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:singleLine="true"
                 android:textColor="@color/white"
                 android:textSize="20sp"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_search"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:background="@drawable/shape_home_search_bg"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/search"
+                    android:singleLine="true"
+                    android:background="@null"
+                    android:hint="高考"/>
+
+                <ImageView
+                    android:id="@+id/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/search"/>
+
+            </RelativeLayout>
 
 
         </android.support.v7.widget.Toolbar>

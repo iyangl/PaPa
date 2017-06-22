@@ -101,4 +101,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         }
         super.onBackPressed();
     }
+
+    @Override
+    public int[] hideSoftByEditViewIds() {
+        return new int[]{R.id.et_search};
+    }
 }
