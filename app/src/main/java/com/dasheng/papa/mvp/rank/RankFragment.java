@@ -1,5 +1,6 @@
 package com.dasheng.papa.mvp.rank;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -12,10 +13,12 @@ import android.widget.RadioGroup;
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.RankAdapter;
 import com.dasheng.papa.base.BaseFragment;
+import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.base.headandfoot.HeaderAndFooterWrapper;
 import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.databinding.FragmentRankBinding;
 import com.dasheng.papa.databinding.ItemRankTitleBinding;
+import com.dasheng.papa.mvp.video.VideoDetailActivity;
 import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.widget.DividerItemDecoration;
 
@@ -47,6 +50,13 @@ public class RankFragment extends BaseFragment<FragmentRankBinding> {
         addRankTitle();
         binding.recycler.setAdapter(headerAndFooterWrapper);
         binding.recycler.addItemDecoration(new DividerItemDecoration(getActivity(), VERTICAL_LIST, 1));
+        rankAdapter.setOnItemClickListener(new OnItemClickListener<ApiBean>() {
+            @Override
+            public void onClick(ApiBean apiBean, int position) {
+                ToastUtil.show(getActivity(), "position:" + position);
+                getActivity().startActivity(new Intent(getActivity(), VideoDetailActivity.class));
+            }
+        });
     }
 
     private void addRankTitle() {

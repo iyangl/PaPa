@@ -21,7 +21,9 @@ public class RankAdapter extends BaseRecyclerViewAdapter<ApiBean> implements Vie
 
     @Override
     public void onClick(View v) {
-
+        if (listener != null) {
+            listener.onClick(null, (int) v.getTag());
+        }
     }
 
 

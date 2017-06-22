@@ -42,16 +42,17 @@
     <dimen name="rank_item_title_button_radius">6dp</dimen>
     <dimen name="rank_item_title_bg_stroke">1dp</dimen>
     
-    <dimen name="video_head_height">565px</dimen>
+    <dimen name="video_head_height">690px</dimen>
     <dimen name="video_head_padding_left">22px</dimen>
-    <dimen name="video_head_padding_right">68px</dimen>
+    <dimen name="video_head_padding_right">24px</dimen>
     <dimen name="video_head_padding_bottom">46px</dimen>
     <dimen name="video_head_padding_top">10px</dimen>
     <dimen name="video_head_title_padding_top">10px</dimen>
     <dimen name="video_head_title_padding_bottom">22px</dimen>
     <dimen name="video_head_praise_padding_right">9px</dimen>
     <dimen name="video_head_praise_padding_left">46px</dimen>
-    <dimen name="video_head_praise_size">20px</dimen>
+    <dimen name="video_head_praise_size">22px</dimen>
     <dimen name="video_head_title_text_size">28px</dimen>
+    <dimen name="video_head_list_title_padding">25px</dimen>
 
 </resources>

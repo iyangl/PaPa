@@ -29,6 +29,7 @@ public class ExampleUnitTest {
         System.out.println("");
         System.out.println("x15 = " + (double) 15 * x);
         System.out.println("x35 = " + (double) 35 * x);
+        System.out.println("x50 = " + (double) 35 * x);
         System.out.println("x75 = " + (double) 75 * x);
         System.out.println("x110 = " + (double) 110 * x);
     }
