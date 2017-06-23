@@ -36,6 +36,7 @@ public class SpringView extends ViewGroup {
     private boolean isMoveNow = false;       //当前是否正在拖动
     private long lastMoveTime;
     private boolean enable = true;           //是否禁用（默认可用）
+    private boolean isDataFinish;
 
     private int MOVE_TIME = 400;
     private int MOVE_TIME_OVER = 200;
@@ -465,14 +466,14 @@ public class SpringView extends ViewGroup {
                 if ((isTopOverFarm()) && !isCallDown) {
                     isCallDown = true;
                     if (headerHander != null)
-                        headerHander.onLimitDes(header, upORdown);
+                        headerHander.onLimitDes(header, upORdown, isDataFinish);
                     isCallUp = false;
                 }
             } else {
                 if (!isTopOverFarm() && !isCallUp) {
                     isCallUp = true;
                     if (headerHander != null)
-                        headerHander.onLimitDes(header, upORdown);
+                        headerHander.onLimitDes(header, upORdown, isDataFinish);
                     isCallDown = false;
                 }
             }
@@ -481,14 +482,14 @@ public class SpringView extends ViewGroup {
                 if (isBottomOverFarm() && !isCallUp) {
                     isCallUp = true;
                     if (footerHander != null)
-                        footerHander.onLimitDes(footer, upORdown);
+                        footerHander.onLimitDes(footer, upORdown, isDataFinish);
                     isCallDown = false;
                 }
             } else {
                 if (!isBottomOverFarm() && !isCallDown) {
                     isCallDown = true;
                     if (footerHander != null)
-                        footerHander.onLimitDes(footer, upORdown);
+                        footerHander.onLimitDes(footer, upORdown, isDataFinish);
                     isCallUp = false;
                 }
             }
@@ -589,7 +590,11 @@ public class SpringView extends ViewGroup {
             if (isTop()) {
                 listener.onRefresh();
             } else if (isBottom()) {
-                listener.onLoadMore();
+                if (!isDataFinish) {
+                    listener.onLoadMore();
+                }else {
+                    onFinishFreshAndLoad();
+                }
             }
         } else if (type == Type.OVERLAP) {
             if (!isMoveNow) {
@@ -598,7 +603,11 @@ public class SpringView extends ViewGroup {
                     if (callFreshORload == 1)
                         listener.onRefresh();
                     if (callFreshORload == 2)
-                        listener.onLoadMore();
+                        if (!isDataFinish) {
+                            listener.onLoadMore();
+                        }else {
+                            onFinishFreshAndLoad();
+                        }
                 }
             }
         }
@@ -659,7 +668,11 @@ public class SpringView extends ViewGroup {
                 if (footerHander != null)
                     footerHander.onFinishAnim();
                 if (give == Give.TOP || give == Give.NONE) {
-                    listener.onLoadMore();
+                    if (!isDataFinish) {
+                        listener.onLoadMore();
+                    } else {
+                        onFinishFreshAndLoad();
+                    }
                 }
             }
             callFreshORload = 0;
@@ -1037,6 +1050,17 @@ public class SpringView extends ViewGroup {
     }
 
     /**
+     * 数据是否已加载完成，没有更多了
+     */
+    public boolean isDataFinish() {
+        return isDataFinish;
+    }
+
+    public void setDataFinish(boolean dataFinish) {
+        isDataFinish = dataFinish;
+    }
+
+    /**
      * 设置监听
      */
     public void setListener(OnFreshListener listener) {
@@ -1175,7 +1199,7 @@ public class SpringView extends ViewGroup {
          *
          * @param upORdown 是上拉还是下拉
          */
-        void onLimitDes(View rootView, boolean upORdown);
+        void onLimitDes(View rootView, boolean upORdown, boolean isDataFinish);
 
         /**
          * 拉动超过临界点后松开时回调

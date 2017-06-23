@@ -15,12 +15,13 @@ public class DefaultFooter extends BaseFooter {
     private int rotationSrc;
     private TextView footerTitle;
     private ProgressBar footerProgressbar;
+    private boolean isDataFinish;
 
-    public DefaultFooter(Context context){
+    public DefaultFooter(Context context) {
         this(context, R.drawable.progress_small);
     }
 
-    public DefaultFooter(Context context,int rotationSrc){
+    public DefaultFooter(Context context, int rotationSrc) {
         this.context = context;
         this.rotationSrc = rotationSrc;
     }
@@ -30,7 +31,7 @@ public class DefaultFooter extends BaseFooter {
         View view = inflater.inflate(R.layout.default_footer, viewGroup, true);
         footerTitle = (TextView) view.findViewById(R.id.default_footer_title);
         footerProgressbar = (ProgressBar) view.findViewById(R.id.default_footer_progressbar);
-        footerProgressbar.setIndeterminateDrawable(ContextCompat.getDrawable(context,rotationSrc));
+        footerProgressbar.setIndeterminateDrawable(ContextCompat.getDrawable(context, rotationSrc));
         return view;
     }
 
@@ -43,7 +44,12 @@ public class DefaultFooter extends BaseFooter {
     }
 
     @Override
-    public void onLimitDes(View rootView, boolean upORdown) {
+    public void onLimitDes(View rootView, boolean upORdown, boolean isDataFinish) {
+        this.isDataFinish = isDataFinish;
+        if (isDataFinish) {
+            footerTitle.setText("没有更多了");
+            return;
+        }
         if (upORdown) {
             footerTitle.setText("松开载入更多");
         } else {
@@ -53,13 +59,18 @@ public class DefaultFooter extends BaseFooter {
 
     @Override
     public void onStartAnim() {
+        if (isDataFinish) {
+            return;
+        }
         footerTitle.setVisibility(View.INVISIBLE);
         footerProgressbar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onFinishAnim() {
-        footerTitle.setText("查看更多");
+        if (!isDataFinish) {
+            footerTitle.setText("查看更多");
+        }
         footerTitle.setVisibility(View.VISIBLE);
         footerProgressbar.setVisibility(View.INVISIBLE);
     }
