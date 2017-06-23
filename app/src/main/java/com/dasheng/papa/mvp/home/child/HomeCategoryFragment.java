@@ -10,8 +10,10 @@ import com.dasheng.papa.adapter.HomeCategoryAdapter;
 import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
+import com.dasheng.papa.util.GsonUtil;
 import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
@@ -19,19 +21,22 @@ import com.dasheng.papa.widget.springview.SpringView;
 
 import timber.log.Timber;
 
-public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBinding> {
+public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBinding>
+        implements HomeCategoryContact.View {
 
-    private boolean isFirst;
     private HomeCategoryAdapter homeCategoryAdapter;
+    private HomeCategoryPresenter homeCategotyPresenter;
+    private String type_id;
+    private boolean isLoading;
+    private int mCurrentPage;
+    private int mTotalPages;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Bundle bundle = getArguments();
-        String title = bundle.getString(Constant.Intent_Extra.HOME_CATEGORY_TYPE);
-        Timber.d("onActivityCreated: %s  %b", title, isFirst);
         initView();
         initEvent();
+        Timber.d("onActivityCreated");
     }
 
     private void initView() {
@@ -43,76 +48,108 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         binding.swipe.setHeader(new DefaultHeader(getActivity()));
         binding.swipe.setFooter(new DefaultFooter(getActivity()));
         binding.swipe.setType(SpringView.Type.FOLLOW);
-        binding.swipe.setListener(new SpringView.OnFreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.swipe.onFinishFreshAndLoad();
-                        initEvent();
-                    }
-                }, 3000);
-            }
-
-            @Override
-            public void onLoadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        initEvent();
-                        binding.swipe.onFinishFreshAndLoad();
-                    }
-                }, 3000);
-            }
-        });
     }
 
     private void initRecyclerView() {
         binding.recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         homeCategoryAdapter = new HomeCategoryAdapter();
         binding.recycler.setAdapter(homeCategoryAdapter);
-        homeCategoryAdapter.setOnItemClickListener(new OnItemClickListener<ApiBean>() {
-            @Override
-            public void onClick(ApiBean apiBean, int position) {
-                ToastUtil.show(getActivity(), "click" + position);
-            }
-        });
     }
 
     private void initEvent() {
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.add(new ApiBean());
-        homeCategoryAdapter.notifyDataSetChanged();
+        homeCategoryAdapter.setOnItemClickListener(new OnItemClickListener<Object>() {
+            @Override
+            public void onClick(Object apiBean, int position) {
+                ToastUtil.show(getActivity(), "click" + position);
+            }
+        });
+
+        binding.swipe.setListener(new SpringView.OnFreshListener() {
+            @Override
+            public void onRefresh() {
+                if (isLoading) {
+                    return;
+                }
+                isLoading = true;
+                binding.swipe.setDataFinish(false);
+                homeCategotyPresenter.refresh(type_id);
+            }
+
+            @Override
+            public void onLoadMore() {
+                if (isLoading) {
+                    return;
+                }
+                if (mCurrentPage >= mTotalPages) {
+                    binding.swipe.setDataFinish(true);
+                    binding.swipe.onFinishFreshAndLoad();
+                    return;
+                }
+                isLoading = true;
+                homeCategotyPresenter.loadMore(type_id, "1");
+            }
+        });
     }
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         Timber.d("onFragmentVisibleChange: %b", isVisible);
-        if (isVisible) {
-
-        } else {
-
-        }
     }
 
     @Override
     protected void onFragmentFirstVisible() {
-        Timber.d("onFragmentFirstVisible");
-        isFirst = true;
+        Timber.d("onFragmentFirstVisible %b", getArguments() == null);
+        homeCategotyPresenter = new HomeCategoryPresenter(this);
+        Bundle bundle = getArguments();
+        type_id = bundle.getString(Constant.Intent_Extra.HOME_CATEGORY_TYPE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.swipe.callFresh();
+            }
+        }, 500);
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.fragment_home_category;
+    }
+
+    @Override
+    public void onShowLoading() {
+
+    }
+
+    @Override
+    public void onLoadingDismiss() {
+
+    }
+
+    @Override
+    public void onRefresh(ApiBean<HomeResponseBean> apiBean) {
+        Timber.d("onNext %s", GsonUtil.GsonString(apiBean));
+        resetLoadingData();
+        mCurrentPage = 1;
+        homeCategoryAdapter.addData(apiBean, true);
+    }
+
+    @Override
+    public void onLoadMoreSuccess(ApiBean<HomeResponseBean> apiBean) {
+        Timber.d("onNext %s", GsonUtil.GsonString(apiBean));
+        resetLoadingData();
+        mCurrentPage++;
+        mTotalPages = apiBean.getTotal();
+        homeCategoryAdapter.addData(apiBean, false);
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        resetLoadingData();
+        Timber.d("onError: %s", e.getMessage());
+    }
+
+    private void resetLoadingData() {
+        binding.swipe.onFinishFreshAndLoad();
+        isLoading = false;
     }
 }

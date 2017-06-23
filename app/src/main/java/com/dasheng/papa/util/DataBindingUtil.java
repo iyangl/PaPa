@@ -1,7 +1,6 @@
 package com.dasheng.papa.util;
 
 import android.databinding.BindingAdapter;
-import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -35,9 +34,7 @@ public class DataBindingUtil {
 
     @BindingAdapter("imgurl")
     public static void loadImage(ImageView iv, String imgUrl) {
-        if (TextUtils.isEmpty(imgUrl)) {
-            iv.setBackgroundColor(CommonUtils.randomColor());
-        }
+        ImageLoader.loadImage(iv.getContext(), imgUrl, iv);
     }
 
     @BindingAdapter("color")

@@ -19,8 +19,8 @@ import org.junit.Test;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        double x = (double)768 / 1242;
-        double y = (double)1280 / 2280;
+        double x = (double) 768 / 1242;
+        double y = (double) 1280 / 2280;
         System.out.println("x:" + x + "  y:" + y);
         System.out.println("y35 = " + (double) 35 * y);
         System.out.println("y40 = " + (double) 40 * y);

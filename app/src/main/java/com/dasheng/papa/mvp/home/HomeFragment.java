@@ -34,7 +34,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     private void initTabLayout() {
         tab = binding.tab;
-        strings = new String[]{"11111", "22222", "33333", "44444", "55555", "66666", "77777", "888888", "99999"};
+        strings = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
         for (String string : strings) {
             tab.addTab(tab.newTab().setText(string));
         }

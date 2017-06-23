@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="back"
-            type="Integer"/>
-
-        <variable
-            name="title"
-            type="String"/>
+            name="response"
+            type="com.dasheng.papa.bean.HomeResponseBean"/>
 
     </data>
 
@@ -23,7 +19,18 @@
             android:layout_height="@dimen/video_pic_preview_height"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/bottom_text_margin"
-            android:background="@{back}"/>
+            app:imgurl="@{response.img}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image"
+            android:layout_alignRight="@+id/image"
+            android:layout_marginBottom="25px"
+            android:layout_marginRight="20px"
+            android:text="@{response.local_time}"
+            android:textColor="@color/white"
+            android:textSize="17px"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +38,7 @@
             android:layout_alignLeft="@+id/image"
             android:layout_below="@+id/image"
             android:padding="@dimen/bottom_text_margin"
-            android:text="@{title}"
+            android:text="@{response.title}"
             android:textColor="@color/black"
             android:textSize="@dimen/bottom_text_size"/>
 
