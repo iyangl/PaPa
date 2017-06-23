@@ -45,6 +45,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     //glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    //autoLayout
     compile project(':autolayout')
     //timber
     compile 'com.jakewharton.timber:timber:4.5.1'
@@ -52,4 +53,6 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     //½Ú²Ù²¥·ÅÆ÷
     compile 'fm.jiecao:jiecaovideoplayer:5.5.4'
+    //CommonPullToRefresh
+    compile project(':cptr')
 }

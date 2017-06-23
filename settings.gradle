@@ -1,1 +1,1 @@
-include ':app', ':autolayout', ':recycler_manager'
+include ':app', ':autolayout', ':cptr'

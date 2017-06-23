@@ -7,3 +7,5 @@
 /build
 /captures
 .externalNativeBuild
+test/*
+recycler_manager/*

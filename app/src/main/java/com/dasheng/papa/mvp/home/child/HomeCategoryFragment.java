@@ -1,6 +1,7 @@
 package com.dasheng.papa.mvp.home.child;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 
@@ -12,6 +13,9 @@ import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ToastUtil;
+import com.dasheng.papa.widget.springview.DefaultFooter;
+import com.dasheng.papa.widget.springview.DefaultHeader;
+import com.dasheng.papa.widget.springview.SpringView;
 
 import timber.log.Timber;
 
@@ -36,9 +40,32 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
     }
 
     private void initSwipeRefreshLayout() {
-        binding.swipe.setColorSchemeResources(android.R.color.holo_blue_light,
-                android.R.color.holo_red_light, android.R.color.holo_orange_light,
-                android.R.color.holo_green_light);
+        binding.swipe.setHeader(new DefaultHeader(getActivity()));
+        binding.swipe.setFooter(new DefaultFooter(getActivity()));
+        binding.swipe.setType(SpringView.Type.FOLLOW);
+        binding.swipe.setListener(new SpringView.OnFreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.swipe.onFinishFreshAndLoad();
+                        initEvent();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void onLoadMore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initEvent();
+                        binding.swipe.onFinishFreshAndLoad();
+                    }
+                }, 3000);
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -74,9 +101,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         if (isVisible) {
 
         } else {
-            if (binding.swipe.isRefreshing()) {
-                binding.swipe.setRefreshing(false);
-            }
+
         }
     }
 
