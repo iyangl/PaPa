@@ -11,9 +11,6 @@ import rx.Subscriber;
 public class BaseValueValidOperator<T extends ApiBean>
         implements Observable.Operator<T, T> {
 
-    public BaseValueValidOperator() {
-    }
-
     @Override
     public Subscriber<? super T> call(final Subscriber<? super T> subscriber) {
         return new Subscriber<T>() {

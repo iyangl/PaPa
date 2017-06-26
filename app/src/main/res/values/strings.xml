@@ -17,4 +17,5 @@
     <string name="category_beauty">美女图集</string>
     <string name="rank_title_week">周排行</string>
     <string name="rank_title_month">月排行</string>
+    <string name="network_unavailable">当前网络不可用，请检查网络情况</string>
 </resources>

@@ -3,13 +3,13 @@ package com.dasheng.papa.mvp.home.child;
 import android.support.annotation.NonNull;
 
 import com.dasheng.papa.api.ApiFactory;
+import com.dasheng.papa.api.BaseSubscriber;
 import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.GsonUtil;
 
 import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Func2;
 import timber.log.Timber;
 
@@ -34,7 +34,7 @@ public class HomeCategoryPresenter {
                         apiBean.setBanner(banner.getRes());
                         return apiBean;
                     }
-                }).subscribe(new Subscriber<ApiBean<HomeResponseBean>>() {
+                }).subscribe(new BaseSubscriber<ApiBean<HomeResponseBean>>() {
             @Override
             public void onCompleted() {
 
@@ -54,7 +54,7 @@ public class HomeCategoryPresenter {
 
     public void loadMore(String type_id, String page) {
         mModel.loadMore(type_id, page)
-                .subscribe(new Subscriber<ApiBean<HomeResponseBean>>() {
+                .subscribe(new BaseSubscriber<ApiBean<HomeResponseBean>>() {
                     @Override
                     public void onCompleted() {
 
