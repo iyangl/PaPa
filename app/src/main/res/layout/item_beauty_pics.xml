@@ -28,6 +28,7 @@
             android:textSize="@dimen/beauty_item_text_size"/>
 
         <ImageView
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="@dimen/beauty_item_pic_height"
             app:imgurl="@{beauty.img}"/>

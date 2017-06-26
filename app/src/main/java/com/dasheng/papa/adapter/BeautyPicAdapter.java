@@ -26,7 +26,8 @@ public class BeautyPicAdapter extends BaseRecyclerViewAdapter<ImgBean.ImginfoBea
     @Override
     public void onClick(View v) {
         if (listener != null) {
-            listener.onClick(null, (int) v.getTag());
+            int position = (int) v.getTag();
+            listener.onClick(data.get(position), position);
         }
     }
 

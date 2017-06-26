@@ -2,6 +2,7 @@ package com.dasheng.papa.api;
 
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ApiSingleResBean;
+import com.dasheng.papa.bean.BeautyPicBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.bean.ImgBean;
 
@@ -38,4 +39,13 @@ public interface PaPaApiService {
     Observable<ApiSingleResBean<ImgBean>> img(@Query("id") String id,
                                               @Query("page") String page,
                                               @Query("size") String size);
+
+    /**
+     * 获取图片接口
+     *
+     * @param id 图片id
+     * @return
+     */
+    @GET("img")
+    Observable<ApiSingleResBean<BeautyPicBean>> loadPics(@Query("id") String id);
 }

@@ -14,9 +14,9 @@ import com.dasheng.papa.databinding.ItemBeautyListBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BeautyListPagerAdapter<ApiBean> extends PagerAdapter {
-    private List<ApiBean> data;
-    private OnItemClickListener<ApiBean> listener;
+public class BeautyListPagerAdapter extends PagerAdapter {
+    private List<String> data;
+    private OnItemClickListener<String> listener;
     private SparseArray<View> mCacheView;
 
     public BeautyListPagerAdapter() {
@@ -24,7 +24,7 @@ public class BeautyListPagerAdapter<ApiBean> extends PagerAdapter {
         mCacheView = new SparseArray<>();
     }
 
-    public BeautyListPagerAdapter(List<ApiBean> data) {
+    public BeautyListPagerAdapter(List<String> data) {
         this.data = data;
         mCacheView = new SparseArray<>();
     }
@@ -55,7 +55,7 @@ public class BeautyListPagerAdapter<ApiBean> extends PagerAdapter {
                     return false;
                 }
             });
-            binding.setBeauty(null);
+            binding.setBeauty(data.get(position));
             view = binding.getRoot();
             mCacheView.append(position, view);
         }
@@ -68,11 +68,12 @@ public class BeautyListPagerAdapter<ApiBean> extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    public void addAll(List<ApiBean> data) {
+    public void addAll(List<String> data) {
         this.data.addAll(data);
+        notifyDataSetChanged();
     }
 
-    public void add(ApiBean object) {
+    public void add(String object) {
         data.add(object);
     }
 
@@ -80,7 +81,7 @@ public class BeautyListPagerAdapter<ApiBean> extends PagerAdapter {
         data.clear();
     }
 
-    public void remove(ApiBean object) {
+    public void remove(String object) {
         data.remove(object);
     }
 
@@ -88,11 +89,11 @@ public class BeautyListPagerAdapter<ApiBean> extends PagerAdapter {
         data.remove(position);
     }
 
-    public void removeAll(List<ApiBean> data) {
+    public void removeAll(List<String> data) {
         this.data.retainAll(data);
     }
 
-    public void setOnItemClickListener(OnItemClickListener<ApiBean> listener) {
+    public void setOnItemClickListener(OnItemClickListener<String> listener) {
         this.listener = listener;
     }
 }

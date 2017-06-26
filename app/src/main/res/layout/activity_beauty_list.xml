@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="beauty"
+            type="com.dasheng.papa.bean.ImgBean.ImginfoBean"/>
+
+        <variable
             name="page"
             type="String"/>
 
@@ -23,7 +27,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/beauty_item_text_padding_bottom"
             android:paddingTop="@dimen/beauty_item_text_padding_top"
-            android:text="童颜巨乳萌妹妹衣裳半裸秀魔鬼身材"
+            android:text="@{beauty.title}"
             android:textColor="@color/black"
             android:textSize="@dimen/beauty_item_text_size"/>
 
@@ -31,36 +35,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/beauty_item_date_padding_top"
-            android:text="2017-06-07 16:25"
+            android:text="@{beauty.addtime}"
             android:textSize="@dimen/beauty_item_date_size"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/beauty_item_pic_height"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:paddingBottom="@dimen/beauty_item_date_padding_top"
             android:paddingTop="@dimen/beauty_item_date_padding_top">
 
             <Button
                 android:id="@+id/pre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="上一页"/>
+                android:text="@string/pre_page"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
                 android:text="@{page}"/>
 
             <Button
                 android:id="@+id/next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="下一页"/>
+                android:text="@string/next_page"/>
 
         </LinearLayout>
 

@@ -6,7 +6,7 @@
 
         <variable
             name="beauty"
-            type="com.dasheng.papa.bean.ApiBean"/>
+            type="String"/>
 
     </data>
 
@@ -15,11 +15,11 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:background="@color/black"
             android:id="@+id/beauty_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:imgurl="@{beauty.msg}"/>
+            android:scaleType="centerInside"
+            app:imgurl="@{beauty}"/>
 
     </LinearLayout>
 

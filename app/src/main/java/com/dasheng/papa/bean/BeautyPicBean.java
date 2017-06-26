@@ -2,49 +2,48 @@ package com.dasheng.papa.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class ImgBean extends ResBean {
+public class BeautyPicBean extends ResBean {
 
-    private String status;
-    private String keywords;
-    private String date;
-    private List<ImginfoBean> imginfo;
+    private InfoBean info;
+    private PreBean pre;
+    private NextBean next;
+    private List<String> content;
 
-    public String getStatus() {
-        return status;
+    public InfoBean getInfo() {
+        return info;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setInfo(InfoBean info) {
+        this.info = info;
     }
 
-    public String getKeywords() {
-        return keywords;
+    public PreBean getPre() {
+        return pre;
     }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
+    public void setPre(PreBean pre) {
+        this.pre = pre;
     }
 
-    public String getDate() {
-        return date;
+    public NextBean getNext() {
+        return next;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setNext(NextBean next) {
+        this.next = next;
     }
 
-    public List<ImginfoBean> getImginfo() {
-        return imginfo;
+    public List<String> getContent() {
+        return content;
     }
 
-    public void setImginfo(List<ImginfoBean> imginfo) {
-        this.imginfo = imginfo;
+    public void setContent(List<String> content) {
+        this.content = content;
     }
 
-    public static class ImginfoBean implements Serializable{
+    public static class InfoBean {
 
         private String id;
         private String title;
@@ -136,6 +135,68 @@ public class ImgBean extends ResBean {
 
         public void setStatus(String status) {
             this.status = status;
+        }
+    }
+
+    public static class PreBean {
+
+        private String id;
+        private String title;
+        private String img;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+    }
+
+    public static class NextBean {
+
+        private String id;
+        private String title;
+        private String img;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
         }
     }
 }

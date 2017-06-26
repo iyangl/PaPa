@@ -3,6 +3,7 @@ package com.dasheng.papa.api;
 import com.dasheng.papa.base.BaseView;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ApiSingleResBean;
+import com.dasheng.papa.bean.BeautyPicBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.bean.ImgBean;
 import com.dasheng.papa.rx.RxUtils;
@@ -40,5 +41,11 @@ public class ApiFactory {
         return getApi().img(id, page, size)
                 .lift(new BaseValueValidOperator<ApiSingleResBean<ImgBean>>())
                 .compose(RxUtils.<ApiSingleResBean<ImgBean>>rxSchedulerHelper(view));
+    }
+
+    public static Observable<ApiSingleResBean<BeautyPicBean>> loadPics(String id, BaseView view) {
+        return getApi().loadPics(id)
+                .lift(new BaseValueValidOperator<ApiSingleResBean<BeautyPicBean>>())
+                .compose(RxUtils.<ApiSingleResBean<BeautyPicBean>>rxSchedulerHelper(view));
     }
 }

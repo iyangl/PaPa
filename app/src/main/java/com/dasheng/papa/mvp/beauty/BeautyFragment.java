@@ -15,6 +15,7 @@ import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.ImgBean;
 import com.dasheng.papa.databinding.FragmentBeautyBinding;
 import com.dasheng.papa.mvp.beauty.child.BeautyListActivity;
+import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
@@ -62,7 +63,9 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
             @Override
             public void onClick(ImgBean.ImginfoBean apiBean, int position) {
                 ToastUtil.show(getActivity(), position + "");
-                getActivity().startActivity(new Intent(getActivity(), BeautyListActivity.class));
+                Intent intent = new Intent(getActivity(), BeautyListActivity.class);
+                intent.putExtra(Constant.Intent_Extra.BEAUTY_PIC, apiBean);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -131,6 +134,7 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
     public void onRefresh(ApiSingleResBean<ImgBean> apiBean) {
         resetLoadingStatus();
         binding.swipe.setDataFinish(false);
+        mTotalPages = apiBean.getTotal();
         mCurrentPage = 1;
         beautyPicAdapter.addImg(apiBean.getRes().getImginfo(), true);
     }

@@ -130,6 +130,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         Timber.d("onNext %s", GsonUtil.GsonString(apiBean));
         resetLoadingStatus();
         mCurrentPage = 1;
+        mTotalPages = apiBean.getTotal();
         homeCategoryAdapter.addData(apiBean, true);
     }
 

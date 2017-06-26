@@ -8,13 +8,20 @@ import android.view.View;
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.BeautyListPagerAdapter;
 import com.dasheng.papa.base.BaseActivity;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.ApiSingleResBean;
+import com.dasheng.papa.bean.BeautyPicBean;
+import com.dasheng.papa.bean.ImgBean;
 import com.dasheng.papa.databinding.ActivityBeautyListBinding;
+import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ToastUtil;
 
-public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding> implements View.OnClickListener {
+public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
+        implements View.OnClickListener, BeautyListContact.View {
 
     private BeautyListPagerAdapter beautyListPagerAdapter;
+    private String mId;
+    private boolean isLoading;
+    private BeautyListPresenter beautyListPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +31,15 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding> 
 
     @Override
     protected void initView() {
+        ImgBean.ImginfoBean beautyPic = (ImgBean.ImginfoBean) getIntent().
+                getSerializableExtra(Constant.Intent_Extra.BEAUTY_PIC);
+        if (beautyPic != null) {
+            mId = beautyPic.getId();
+            binding.setBeauty(beautyPic);
+        } else {
+            finish();
+        }
+
         setTitle(R.string.beauty_title);
         setNavigationIcon();
         initViewPager();
@@ -36,18 +52,12 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding> 
 
     @Override
     protected void initEvent() {
+        isLoading = true;
+        beautyListPresenter = new BeautyListPresenter(this);
+        beautyListPresenter.loadPics(mId);
+
         binding.pre.setOnClickListener(this);
         binding.next.setOnClickListener(this);
-
-        beautyListPagerAdapter.add(new ApiBean());
-        beautyListPagerAdapter.add(new ApiBean());
-        beautyListPagerAdapter.add(new ApiBean());
-        beautyListPagerAdapter.add(new ApiBean());
-        beautyListPagerAdapter.add(new ApiBean());
-        beautyListPagerAdapter.add(new ApiBean());
-        beautyListPagerAdapter.add(new ApiBean());
-        beautyListPagerAdapter.notifyDataSetChanged();
-        binding.setPage(String.format("%s/%s 页", 1, beautyListPagerAdapter.getCount()));
 
         binding.pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -70,6 +80,9 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding> 
 
     @Override
     public void onClick(View v) {
+        if (isLoading) {
+            return;
+        }
         int currentItem = binding.pager.getCurrentItem();
         switch (v.getId()) {
             case R.id.pre:
@@ -87,5 +100,27 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding> 
                 binding.pager.setCurrentItem(currentItem + 1);
                 break;
         }
+    }
+
+    @Override
+    public void onShowLoading() {
+
+    }
+
+    @Override
+    public void onLoadingDismiss() {
+
+    }
+
+    @Override
+    public void onLoadPicsSuccess(ApiSingleResBean<BeautyPicBean> pics) {
+        isLoading = false;
+        beautyListPagerAdapter.addAll(pics.getRes().getContent());
+        binding.setPage(String.format("%s/%s 页", 1, beautyListPagerAdapter.getCount()));
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        isLoading = false;
     }
 }
