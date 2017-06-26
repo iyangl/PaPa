@@ -5,7 +5,7 @@
 
         <variable
             name="beauty"
-            type="com.dasheng.papa.bean.ApiBean"/>
+            type="com.dasheng.papa.bean.ImgBean.ImginfoBean"/>
 
     </data>
 
@@ -23,20 +23,20 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/beauty_item_text_padding_bottom"
             android:paddingTop="@dimen/beauty_item_text_padding_top"
-            android:text="童颜巨乳萌妹妹衣裳半裸秀魔鬼身材"
+            android:text="@{beauty.title}"
             android:textColor="@color/black"
             android:textSize="@dimen/beauty_item_text_size"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/beauty_item_pic_height"
-            app:imgurl="@{beauty.msg}"/>
+            app:imgurl="@{beauty.img}"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/beauty_item_date_padding_top"
-            android:text="2017-06-07 16:25"
+            android:text="@{beauty.addtime}"
             android:textSize="@dimen/beauty_item_date_size"/>
 
     </LinearLayout>

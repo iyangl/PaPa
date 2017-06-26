@@ -2,35 +2,12 @@ package com.dasheng.papa.bean;
 
 import android.databinding.BaseObservable;
 
-import java.util.List;
-
-public class ApiBean<T extends ResBean> extends BaseObservable {
+public class ApiBean extends BaseObservable {
 
     private int status;
     private String msg;
     private int num;
     private int total;
-    private List<T> res;
-    private List<T> banner;
-
-    public List<T> getBanner() {
-        return banner;
-    }
-
-    public void setBanner(List<T> banner) {
-        this.banner = banner;
-    }
-
-    public ApiBean() {
-    }
-
-    public List<T> getRes() {
-        return res;
-    }
-
-    public void setRes(List<T> res) {
-        this.res = res;
-    }
 
     public int getStatus() {
         return status;

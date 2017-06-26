@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseRecyclerViewAdapter;
 import com.dasheng.papa.base.BaseRecyclerViewHolder;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.ImgBean;
 import com.dasheng.papa.databinding.ItemBeautyPicsBinding;
 
-public class BeautyPicAdapter extends BaseRecyclerViewAdapter<ApiBean> implements View.OnClickListener {
+import java.util.List;
+
+public class BeautyPicAdapter extends BaseRecyclerViewAdapter<ImgBean.ImginfoBean> implements View.OnClickListener {
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View pic = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_beauty_pics, null, false);
@@ -28,18 +30,30 @@ public class BeautyPicAdapter extends BaseRecyclerViewAdapter<ApiBean> implement
         }
     }
 
+    public void addImg(List<ImgBean.ImginfoBean> imginfoBeen, boolean isClear) {
+        if (isClear) {
+            data.clear();
+        }
+        data.addAll(imginfoBeen);
+        notifyDataSetChanged();
+    }
+
+    public void addImg(List<ImgBean.ImginfoBean> imginfoBeen) {
+        addImg(imginfoBeen, false);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    class BeautyPicViewHolder extends BaseRecyclerViewHolder<ApiBean, ItemBeautyPicsBinding> {
+    class BeautyPicViewHolder extends BaseRecyclerViewHolder<ImgBean.ImginfoBean, ItemBeautyPicsBinding> {
 
         public BeautyPicViewHolder(View view) {
             super(view);
         }
 
         @Override
-        public void onBindViewHolder(ApiBean object, int position) {
-
+        public void onBindViewHolder(ImgBean.ImginfoBean imginfoBean, int position) {
+            binding.setBeauty(imginfoBean);
         }
     }
 }

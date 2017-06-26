@@ -15,7 +15,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseRecyclerViewAdapter;
 import com.dasheng.papa.base.BaseRecyclerViewHolder;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.databinding.ItemHomeCategoryBannerBinding;
 import com.dasheng.papa.databinding.ItemHomeCategoryGridBinding;
@@ -90,7 +90,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
         }
     }
 
-    public void addData(ApiBean<HomeResponseBean> apiBean, boolean isClear) {
+    public void addData(ApiListResBean<HomeResponseBean> apiBean, boolean isClear) {
         if (isClear) {
             data.clear();
             data.add(apiBean);
@@ -100,7 +100,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
         notifyDataSetChanged();
     }
 
-    public void addData(ApiBean<HomeResponseBean> apiBean) {
+    public void addData(ApiListResBean<HomeResponseBean> apiBean) {
         addData(apiBean, false);
     }
 
@@ -114,8 +114,8 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
 
         @Override
         public void onBindViewHolder(Object apiBean, int position) {
-            if (apiBean instanceof ApiBean) {
-                List banner = ((ApiBean) apiBean).getBanner();
+            if (apiBean instanceof ApiListResBean) {
+                List banner = ((ApiListResBean) apiBean).getBanner();
                 if (banner == null || banner.size() <= 0 ||
                         !(banner.get(0) instanceof HomeResponseBean)) {
                     return;

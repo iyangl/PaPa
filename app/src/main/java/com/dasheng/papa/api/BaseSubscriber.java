@@ -9,7 +9,7 @@ import com.dasheng.papa.util.ToastUtil;
 
 import rx.Subscriber;
 
-public class BaseSubscriber<T extends ApiBean> extends Subscriber<T> {
+public abstract class BaseSubscriber<T extends ApiBean> extends Subscriber<T> {
     @Override
     public void onStart() {
         if (!NetWorkUtil.isNetWorkAvailable(app.getInstance())) {
@@ -17,20 +17,5 @@ public class BaseSubscriber<T extends ApiBean> extends Subscriber<T> {
             onCompleted();
         }
         super.onStart();
-    }
-
-    @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(T o) {
-
     }
 }

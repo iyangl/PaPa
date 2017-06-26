@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.dasheng.papa.api.ApiFactory;
 import com.dasheng.papa.api.BaseSubscriber;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.GsonUtil;
@@ -25,16 +25,17 @@ public class HomeCategoryPresenter {
     public void refresh(String type_id) {
         Observable.zip(mModel.refresh(type_id, "3"),
                 mModel.refresh(type_id, null),
-                new Func2<ApiBean<HomeResponseBean>, ApiBean<HomeResponseBean>, ApiBean<HomeResponseBean>>() {
+                new Func2<ApiListResBean<HomeResponseBean>, ApiListResBean<HomeResponseBean>,
+                        ApiListResBean<HomeResponseBean>>() {
                     @Override
-                    public ApiBean<HomeResponseBean> call(ApiBean<HomeResponseBean> banner,
-                                                          ApiBean<HomeResponseBean> apiBean) {
+                    public ApiListResBean<HomeResponseBean> call(ApiListResBean<HomeResponseBean> banner,
+                                                                 ApiListResBean<HomeResponseBean> apiBean) {
                         Timber.d("banner: %s \n apiBean: %s", GsonUtil.GsonString(banner), GsonUtil.GsonString
                                 (apiBean));
                         apiBean.setBanner(banner.getRes());
                         return apiBean;
                     }
-                }).subscribe(new BaseSubscriber<ApiBean<HomeResponseBean>>() {
+                }).subscribe(new BaseSubscriber<ApiListResBean<HomeResponseBean>>() {
             @Override
             public void onCompleted() {
 
@@ -46,7 +47,7 @@ public class HomeCategoryPresenter {
             }
 
             @Override
-            public void onNext(ApiBean<HomeResponseBean> apiBean) {
+            public void onNext(ApiListResBean<HomeResponseBean> apiBean) {
                 mView.onRefresh(apiBean);
             }
         });
@@ -54,7 +55,7 @@ public class HomeCategoryPresenter {
 
     public void loadMore(String type_id, String page) {
         mModel.loadMore(type_id, page)
-                .subscribe(new BaseSubscriber<ApiBean<HomeResponseBean>>() {
+                .subscribe(new BaseSubscriber<ApiListResBean<HomeResponseBean>>() {
                     @Override
                     public void onCompleted() {
 
@@ -66,7 +67,7 @@ public class HomeCategoryPresenter {
                     }
 
                     @Override
-                    public void onNext(ApiBean<HomeResponseBean> apiBean) {
+                    public void onNext(ApiListResBean<HomeResponseBean> apiBean) {
                         mView.onLoadMoreSuccess(apiBean);
                     }
                 });
@@ -77,12 +78,12 @@ public class HomeCategoryPresenter {
     private HomeCategoryContact.Model initModel() {
         return new HomeCategoryContact.Model() {
             @Override
-            public Observable<ApiBean<HomeResponseBean>> refresh(String type_id, String status) {
+            public Observable<ApiListResBean<HomeResponseBean>> refresh(String type_id, String status) {
                 return ApiFactory.get_Content(type_id, status, null, "0", Constant.Api.SINGLE_PAGE_SIZE, mView);
             }
 
             @Override
-            public Observable<ApiBean<HomeResponseBean>> loadMore(String type_id, String page) {
+            public Observable<ApiListResBean<HomeResponseBean>> loadMore(String type_id, String page) {
                 return ApiFactory.get_Content(type_id, null, null, page, Constant.Api.SINGLE_PAGE_SIZE, mView);
             }
         };

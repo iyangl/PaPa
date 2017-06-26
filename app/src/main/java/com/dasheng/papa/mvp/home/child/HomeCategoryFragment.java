@@ -9,7 +9,7 @@ import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.HomeCategoryAdapter;
 import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
@@ -86,7 +86,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
                     return;
                 }
                 isLoading = true;
-                homeCategotyPresenter.loadMore(type_id, "1");
+                homeCategotyPresenter.loadMore(type_id, String.valueOf(mCurrentPage + 1));
             }
         });
     }
@@ -107,7 +107,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
             public void run() {
                 binding.swipe.callFresh();
             }
-        }, 500);
+        }, 300);
     }
 
     @Override
@@ -126,17 +126,17 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
     }
 
     @Override
-    public void onRefresh(ApiBean<HomeResponseBean> apiBean) {
+    public void onRefresh(ApiListResBean<HomeResponseBean> apiBean) {
         Timber.d("onNext %s", GsonUtil.GsonString(apiBean));
-        resetLoadingData();
+        resetLoadingStatus();
         mCurrentPage = 1;
         homeCategoryAdapter.addData(apiBean, true);
     }
 
     @Override
-    public void onLoadMoreSuccess(ApiBean<HomeResponseBean> apiBean) {
+    public void onLoadMoreSuccess(ApiListResBean<HomeResponseBean> apiBean) {
         Timber.d("onNext %s", GsonUtil.GsonString(apiBean));
-        resetLoadingData();
+        resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
         homeCategoryAdapter.addData(apiBean, false);
@@ -144,11 +144,11 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     @Override
     public void onError(Throwable e) {
-        resetLoadingData();
+        resetLoadingStatus();
         Timber.d("onError: %s", e.getMessage());
     }
 
-    private void resetLoadingData() {
+    private void resetLoadingStatus() {
         binding.swipe.onFinishFreshAndLoad();
         isLoading = false;
     }
