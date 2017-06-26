@@ -17,5 +17,6 @@ public class Constant {
         public static final String HOME_CATEGORY_TYPE = "home_category_type";
         public static final String CATEGORY_TYPE = "category_type";
         public static final String BEAUTY_PIC = "beauty_pic";
+        public static final String RANK_DAY_TYPE = "rank_day_type";
     }
 }

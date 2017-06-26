@@ -13,8 +13,6 @@ import com.dasheng.papa.databinding.ItemCategoryDetailBinding;
 import java.util.List;
 
 public class RankAdapter extends BaseRecyclerViewAdapter<RankItemBean> implements View.OnClickListener {
-    private List<RankItemBean> dayList;
-    private List<RankItemBean> weekList;
 
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,18 +29,16 @@ public class RankAdapter extends BaseRecyclerViewAdapter<RankItemBean> implement
         }
     }
 
-    public void addRankItem(List<RankItemBean> list, int type_id, boolean isClear) {
+    public void addRankItem(List<RankItemBean> list, boolean isClear) {
         if (isClear) {
-            if (type_id == 1) {
-                dayList.addAll(list);
-            } else if (type_id == 2) {
-                weekList.addAll(list);
-            }
+            data.clear();
         }
+        data.addAll(list);
+        notifyDataSetChanged();
     }
 
-    public void addRankItem(List<RankItemBean> list, int type_id) {
-        addRankItem(list, type_id, false);
+    public void addRankItem(List<RankItemBean> list) {
+        addRankItem(list, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -55,7 +51,7 @@ public class RankAdapter extends BaseRecyclerViewAdapter<RankItemBean> implement
 
         @Override
         public void onBindViewHolder(RankItemBean object, int position) {
-
+            binding.setRank(object);
         }
     }
 }

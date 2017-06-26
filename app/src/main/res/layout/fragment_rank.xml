@@ -64,10 +64,16 @@
 
         </LinearLayout>
 
+        <com.dasheng.papa.widget.NoScrollViewPager
+            android:id="@+id/vp_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <com.dasheng.papa.widget.springview.SpringView
             android:id="@+id/swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"

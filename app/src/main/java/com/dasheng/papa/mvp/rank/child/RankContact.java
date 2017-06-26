@@ -1,4 +1,4 @@
-package com.dasheng.papa.mvp.rank;
+package com.dasheng.papa.mvp.rank.child;
 
 import com.dasheng.papa.base.BaseView;
 import com.dasheng.papa.bean.ApiListResBean;

@@ -50,9 +50,9 @@ public class ApiFactory {
                 .compose(RxUtils.<ApiSingleResBean<BeautyPicBean>>rxSchedulerHelper(view));
     }
 
-    public static Observable<ApiListResBean<RankItemBean>> rank(String type_id, String page,
+    public static Observable<ApiListResBean<RankItemBean>> rank(String day_type, String page,
                                                                 String size, BaseView view) {
-        return getApi().rank(type_id, page, size)
+        return getApi().rank(day_type, page, size)
                 .lift(new BaseValueValidOperator<ApiListResBean<RankItemBean>>())
                 .compose(RxUtils.<ApiListResBean<RankItemBean>>rxSchedulerHelper(view));
     }

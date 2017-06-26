@@ -58,7 +58,8 @@ public interface PaPaApiService {
      * @param size    每页个数
      * @return {@link RankItemBean}
      */
-    Observable<ApiListResBean<RankItemBean>> rank(@Query("type_id") String type_id,
+    @GET("get_other")
+    Observable<ApiListResBean<RankItemBean>> rank(@Query("day_type") String type_id,
                                                   @Query("page") String page,
                                                   @Query("size") String size);
 }

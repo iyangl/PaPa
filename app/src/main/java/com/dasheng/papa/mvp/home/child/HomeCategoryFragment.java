@@ -13,7 +13,6 @@ import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
-import com.dasheng.papa.util.GsonUtil;
 import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
@@ -127,7 +126,6 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     @Override
     public void onRefresh(ApiListResBean<HomeResponseBean> apiBean) {
-        Timber.d("onNext %s", GsonUtil.GsonString(apiBean));
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
@@ -136,7 +134,6 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     @Override
     public void onLoadMoreSuccess(ApiListResBean<HomeResponseBean> apiBean) {
-        Timber.d("onNext %s", GsonUtil.GsonString(apiBean));
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
