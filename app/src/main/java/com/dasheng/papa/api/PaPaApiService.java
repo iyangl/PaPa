@@ -5,6 +5,7 @@ import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.bean.ImgBean;
+import com.dasheng.papa.bean.RankItemBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -20,7 +21,7 @@ public interface PaPaApiService {
      * @param id      id
      * @param page    页码
      * @param size    每页个数
-     * @return
+     * @return {@link HomeResponseBean}
      */
     @GET("get_content")
     Observable<ApiListResBean<HomeResponseBean>> get_Content(@Query("type_id") String type_id,
@@ -33,7 +34,7 @@ public interface PaPaApiService {
      * 获取图片接口
      *
      * @param id 图片id，null为获取所有图片
-     * @return
+     * @return {@link ImgBean}
      */
     @GET("img")
     Observable<ApiSingleResBean<ImgBean>> img(@Query("id") String id,
@@ -44,8 +45,20 @@ public interface PaPaApiService {
      * 获取图片接口
      *
      * @param id 图片id
-     * @return
+     * @return {@link BeautyPicBean}
      */
     @GET("img")
     Observable<ApiSingleResBean<BeautyPicBean>> loadPics(@Query("id") String id);
+
+    /**
+     * 获取排行榜接口
+     *
+     * @param type_id 类型 1：日排行  2：周排行
+     * @param page    页码
+     * @param size    每页个数
+     * @return {@link RankItemBean}
+     */
+    Observable<ApiListResBean<RankItemBean>> rank(@Query("type_id") String type_id,
+                                                  @Query("page") String page,
+                                                  @Query("size") String size);
 }

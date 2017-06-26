@@ -18,4 +18,9 @@ public abstract class BaseSubscriber<T extends ApiBean> extends Subscriber<T> {
         }
         super.onStart();
     }
+
+    @Override
+    public void onCompleted() {
+
+    }
 }

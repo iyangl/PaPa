@@ -7,10 +7,15 @@ import android.view.ViewGroup;
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseRecyclerViewAdapter;
 import com.dasheng.papa.base.BaseRecyclerViewHolder;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.RankItemBean;
 import com.dasheng.papa.databinding.ItemCategoryDetailBinding;
 
-public class RankAdapter extends BaseRecyclerViewAdapter<ApiBean> implements View.OnClickListener {
+import java.util.List;
+
+public class RankAdapter extends BaseRecyclerViewAdapter<RankItemBean> implements View.OnClickListener {
+    private List<RankItemBean> dayList;
+    private List<RankItemBean> weekList;
+
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -26,17 +31,30 @@ public class RankAdapter extends BaseRecyclerViewAdapter<ApiBean> implements Vie
         }
     }
 
+    public void addRankItem(List<RankItemBean> list, int type_id, boolean isClear) {
+        if (isClear) {
+            if (type_id == 1) {
+                dayList.addAll(list);
+            } else if (type_id == 2) {
+                weekList.addAll(list);
+            }
+        }
+    }
+
+    public void addRankItem(List<RankItemBean> list, int type_id) {
+        addRankItem(list, type_id, false);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    class CategoryDetailViewHolder extends BaseRecyclerViewHolder<ApiBean, ItemCategoryDetailBinding> {
+    class CategoryDetailViewHolder extends BaseRecyclerViewHolder<RankItemBean, ItemCategoryDetailBinding> {
 
         public CategoryDetailViewHolder(View view) {
             super(view);
         }
 
         @Override
-        public void onBindViewHolder(ApiBean object, int position) {
+        public void onBindViewHolder(RankItemBean object, int position) {
 
         }
     }

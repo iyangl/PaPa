@@ -28,26 +28,26 @@
             android:padding="@dimen/rank_item_title_bg_stroke">
 
             <RadioButton
-                android:id="@+id/rb_week"
+                android:id="@+id/rb_day"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/selector_rank_title_button_bg_left"
                 android:button="@null"
                 android:gravity="center"
-                android:text="@string/rank_title_week"
+                android:text="@string/rank_title_day"
                 android:textSize="@dimen/rank_item_title_text_size"
                 app:color="@{color}"/>
 
             <RadioButton
-                android:id="@+id/rb_month"
+                android:id="@+id/rb_week"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/selector_rank_title_button_bg_right"
                 android:button="@null"
                 android:gravity="center"
-                android:text="@string/rank_title_month"
+                android:text="@string/rank_title_week"
                 android:textSize="@dimen/rank_item_title_text_size"
                 app:color="@{color}"/>
 

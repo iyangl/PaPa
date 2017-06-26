@@ -15,8 +15,8 @@
     <string name="category_weixin">关注公众号</string>
     <string name="category_funny_talent">搞笑达人</string>
     <string name="category_beauty">美女图集</string>
+    <string name="rank_title_day">日排行</string>
     <string name="rank_title_week">周排行</string>
-    <string name="rank_title_month">月排行</string>
     <string name="network_unavailable">当前网络不可用，请检查网络情况</string>
     <string name="pre_page">上一页</string>
     <string name="next_page">下一页</string>

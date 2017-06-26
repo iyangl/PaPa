@@ -6,6 +6,7 @@ import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.bean.ImgBean;
+import com.dasheng.papa.bean.RankItemBean;
 import com.dasheng.papa.rx.RxUtils;
 
 import rx.Observable;
@@ -47,5 +48,12 @@ public class ApiFactory {
         return getApi().loadPics(id)
                 .lift(new BaseValueValidOperator<ApiSingleResBean<BeautyPicBean>>())
                 .compose(RxUtils.<ApiSingleResBean<BeautyPicBean>>rxSchedulerHelper(view));
+    }
+
+    public static Observable<ApiListResBean<RankItemBean>> rank(String type_id, String page,
+                                                                String size, BaseView view) {
+        return getApi().rank(type_id, page, size)
+                .lift(new BaseValueValidOperator<ApiListResBean<RankItemBean>>())
+                .compose(RxUtils.<ApiListResBean<RankItemBean>>rxSchedulerHelper(view));
     }
 }
