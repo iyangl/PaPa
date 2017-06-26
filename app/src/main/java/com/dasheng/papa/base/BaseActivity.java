@@ -1,8 +1,10 @@
 package com.dasheng.papa.base;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,15 +15,42 @@ import android.widget.FrameLayout;
 import com.dasheng.papa.R;
 import com.dasheng.papa.databinding.ActivityBaseBinding;
 import com.dasheng.papa.util.KeyBoardUtils;
-import com.zhy.autolayout.AutoLayoutActivity;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.zhy.autolayout.AutoFrameLayout;
+import com.zhy.autolayout.AutoLinearLayout;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class BaseActivity<T extends ViewDataBinding> extends AutoLayoutActivity {
+public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompatActivity {
     private ActivityBaseBinding baseBinding;
     protected T binding;
     private CompositeSubscription compositeSubscription;
+
+    private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
+    private static final String LAYOUT_FRAMELAYOUT = "FrameLayout";
+    private static final String LAYOUT_RELATIVELAYOUT = "RelativeLayout";
+
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        View view = null;
+        if (name.equals(LAYOUT_FRAMELAYOUT)) {
+            view = new AutoFrameLayout(context, attrs);
+        }
+
+        if (name.equals(LAYOUT_LINEARLAYOUT)) {
+            view = new AutoLinearLayout(context, attrs);
+        }
+
+        if (name.equals(LAYOUT_RELATIVELAYOUT)) {
+            view = new AutoRelativeLayout(context, attrs);
+        }
+
+        if (view != null) return view;
+
+        return super.onCreateView(name, context, attrs);
+    }
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {

@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.dasheng.papa.R;
 import com.dasheng.papa.databinding.FragmentBaseBinding;
 import com.dasheng.papa.util.CommonUtils;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 /**
  * Created by dasu on 2016/9/27.
@@ -25,7 +25,7 @@ import com.dasheng.papa.util.CommonUtils;
  * @see #onFragmentVisibleChange(boolean)
  * @see #onFragmentFirstVisible()
  */
-public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
+public abstract class BaseFragment<T extends ViewDataBinding> extends RxFragment {
 
     private FragmentBaseBinding baseBinding;
     protected T binding;

@@ -177,6 +177,12 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     class TitleViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryTitleBinding> {
+        private int type_id;
+
+        public TitleViewHolder(View view, int type_id) {
+            super(view);
+            this.type_id = type_id;
+        }
 
         public TitleViewHolder(View view) {
             super(view);
@@ -184,7 +190,12 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
 
         @Override
         public void onBindViewHolder(Object object, int position) {
+            binding.iconGoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                }
+            });
         }
     }
 }

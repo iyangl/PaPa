@@ -29,7 +29,8 @@ public class HomeCategoryPresenter {
                     @Override
                     public ApiBean<HomeResponseBean> call(ApiBean<HomeResponseBean> banner,
                                                           ApiBean<HomeResponseBean> apiBean) {
-                        Timber.d("banner: %s \n apiBean: %s", GsonUtil.GsonString(banner), GsonUtil.GsonString(apiBean));
+                        Timber.d("banner: %s \n apiBean: %s", GsonUtil.GsonString(banner), GsonUtil.GsonString
+                                (apiBean));
                         apiBean.setBanner(banner.getRes());
                         return apiBean;
                     }
@@ -77,12 +78,12 @@ public class HomeCategoryPresenter {
         return new HomeCategoryContact.Model() {
             @Override
             public Observable<ApiBean<HomeResponseBean>> refresh(String type_id, String status) {
-                return ApiFactory.get_Content(type_id, status, null, "0", Constant.Api.SINGLE_PAGE_SIZE);
+                return ApiFactory.get_Content(type_id, status, null, "0", Constant.Api.SINGLE_PAGE_SIZE, mView);
             }
 
             @Override
             public Observable<ApiBean<HomeResponseBean>> loadMore(String type_id, String page) {
-                return ApiFactory.get_Content(type_id, null, null, page, Constant.Api.SINGLE_PAGE_SIZE);
+                return ApiFactory.get_Content(type_id, null, null, page, Constant.Api.SINGLE_PAGE_SIZE, mView);
             }
         };
     }

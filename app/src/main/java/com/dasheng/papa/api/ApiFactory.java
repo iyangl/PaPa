@@ -1,5 +1,6 @@
 package com.dasheng.papa.api;
 
+import com.dasheng.papa.base.BaseView;
 import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.rx.RxUtils;
@@ -27,9 +28,10 @@ public class ApiFactory {
                                                                     String status,
                                                                     String id,
                                                                     String page,
-                                                                    String size) {
+                                                                    String size,
+                                                                    BaseView view) {
         return getApi().get_Content(type_id, status, id, page, size)
                 .lift(new BaseValueValidOperator<ApiBean<HomeResponseBean>>())
-                .compose(RxUtils.<ApiBean<HomeResponseBean>>rxSchedulerHelper());
+                .compose(RxUtils.<ApiBean<HomeResponseBean>>rxSchedulerHelper(view));
     }
 }
