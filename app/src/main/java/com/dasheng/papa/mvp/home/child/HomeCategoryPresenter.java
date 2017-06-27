@@ -24,7 +24,7 @@ public class HomeCategoryPresenter {
 
     public void refresh(String type_id) {
         Observable.zip(mModel.refresh(type_id, "3"),
-                mModel.refresh(type_id, null),
+                mModel.refresh(type_id, "1"),
                 new Func2<ApiListResBean<ResponseItemBean>, ApiListResBean<ResponseItemBean>,
                         ApiListResBean<ResponseItemBean>>() {
                     @Override

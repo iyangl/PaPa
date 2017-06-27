@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseRecyclerViewAdapter;
 import com.dasheng.papa.base.BaseRecyclerViewHolder;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.ItemCategoryDetailBinding;
 
-public class CategoryDetailAdapter extends BaseRecyclerViewAdapter<ApiBean> implements View.OnClickListener {
+import java.util.List;
+
+public class CategoryDetailAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> implements View.OnClickListener {
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -22,22 +24,35 @@ public class CategoryDetailAdapter extends BaseRecyclerViewAdapter<ApiBean> impl
     @Override
     public void onClick(View v) {
         if (listener != null) {
-            listener.onClick(null, (int) v.getTag());
+            int position = (int) v.getTag();
+            listener.onClick(data.get(position), position);
         }
+    }
+
+    public void addItems(List<ResponseItemBean> list, boolean isClear) {
+        if (isClear) {
+            data.clear();
+        }
+        data.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void addItems(List<ResponseItemBean> list) {
+        addItems(list, false);
     }
 
 
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
-    class CategoryDetailViewHolder extends BaseRecyclerViewHolder<ApiBean, ItemCategoryDetailBinding> {
+    class CategoryDetailViewHolder extends BaseRecyclerViewHolder<ResponseItemBean, ItemCategoryDetailBinding> {
 
         public CategoryDetailViewHolder(View view) {
             super(view);
         }
 
         @Override
-        public void onBindViewHolder(ApiBean object, int position) {
-
+        public void onBindViewHolder(ResponseItemBean object, int position) {
+            binding.setRank(object);
         }
     }
 

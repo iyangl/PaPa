@@ -10,8 +10,9 @@ import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.CategoryDetailAdapter;
 import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
-import com.dasheng.papa.bean.ApiBean;
+import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.CategoryBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentCategoryDetailBinding;
 import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.util.Constant;
@@ -21,7 +22,8 @@ import com.dasheng.papa.widget.springview.SpringView;
 
 import timber.log.Timber;
 
-public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailBinding> {
+public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailBinding> implements
+        CategoryDetailContact.View {
 
     private CategoryDetailAdapter categoryDetailAdapter;
     private MainActivity mainActivity;
@@ -31,6 +33,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
     private boolean isLoading;
     private int mCurrentPage;
     private int mTotalPages;
+    private CategoryDetailPresenter categoryDetailPresenter;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -62,9 +65,9 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         categoryDetailAdapter = new CategoryDetailAdapter();
         binding.recycler.setAdapter(categoryDetailAdapter);
         binding.recycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        categoryDetailAdapter.setOnItemClickListener(new OnItemClickListener<ApiBean>() {
+        categoryDetailAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
-            public void onClick(ApiBean apiBean, int position) {
+            public void onClick(ResponseItemBean apiBean, int position) {
 
             }
         });
@@ -79,6 +82,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
                 }
                 isLoading = true;
                 binding.swipe.setDataFinish(false);
+                categoryDetailPresenter.refresh(mId);
             }
 
             @Override
@@ -92,6 +96,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
                     return;
                 }
                 isLoading = true;
+                categoryDetailPresenter.loadMore(mId, mCurrentPage + 1);
             }
         });
     }
@@ -107,6 +112,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         if (categoryBean != null) {
             mId = categoryBean.getId();
         }
+        categoryDetailPresenter = new CategoryDetailPresenter(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -127,4 +133,39 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         mainActivity.hideNavigationIcon();
     }
 
+    @Override
+    public void onShowLoading() {
+
+    }
+
+    @Override
+    public void onLoadingDismiss() {
+
+    }
+
+    @Override
+    public void onRefreshSuccess(ApiListResBean<ResponseItemBean> apiBean) {
+        resetLoadingStatus();
+        mCurrentPage = 1;
+        mTotalPages = apiBean.getTotal();
+        categoryDetailAdapter.addItems(apiBean.getRes(), true);
+    }
+
+    @Override
+    public void onLoadMoreSuccess(ApiListResBean<ResponseItemBean> apiBean) {
+        resetLoadingStatus();
+        mCurrentPage++;
+        mTotalPages = apiBean.getTotal();
+        categoryDetailAdapter.addItems(apiBean.getRes());
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        resetLoadingStatus();
+    }
+
+    private void resetLoadingStatus() {
+        binding.swipe.onFinishFreshAndLoad();
+        isLoading = false;
+    }
 }
