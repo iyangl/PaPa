@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/video_head_list_title_padding"
+            android:paddingLeft="@dimen/video_head_padding_left"
+            android:paddingTop="@dimen/video_head_list_title_padding"
+            >
+
+            <ImageView
+                android:id="@+id/icon_left"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/home_category_title_image_size"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/home_category_title_left"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/icon_left"
+                android:paddingLeft="@dimen/bottom_divider_size"
+                android:text="今日精选"
+                android:textColor="@color/black"
+                android:textSize="@dimen/bottom_text_size"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -6,6 +6,7 @@ import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
 import com.dasheng.papa.bean.ImgBean;
 import com.dasheng.papa.bean.ResponseItemBean;
+import com.dasheng.papa.bean.VideoDetailBean;
 import com.dasheng.papa.rx.RxUtils;
 
 import rx.Observable;
@@ -54,5 +55,11 @@ public class ApiFactory {
         return getApi().rank(day_type, page, size)
                 .lift(new BaseValueValidOperator<ApiListResBean<ResponseItemBean>>())
                 .compose(RxUtils.<ApiListResBean<ResponseItemBean>>rxSchedulerHelper(view));
+    }
+
+    public static Observable<ApiSingleResBean<VideoDetailBean>> get_content_detail(String id, BaseView view) {
+        return getApi().get_Content_detail(id)
+                .lift(new BaseValueValidOperator<ApiSingleResBean<VideoDetailBean>>())
+                .compose(RxUtils.<ApiSingleResBean<VideoDetailBean>>rxSchedulerHelper(view));
     }
 }

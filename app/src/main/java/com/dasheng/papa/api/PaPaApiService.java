@@ -5,6 +5,7 @@ import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
 import com.dasheng.papa.bean.ImgBean;
 import com.dasheng.papa.bean.ResponseItemBean;
+import com.dasheng.papa.bean.VideoDetailBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -61,4 +62,7 @@ public interface PaPaApiService {
     Observable<ApiListResBean<ResponseItemBean>> rank(@Query("day_type") String type_id,
                                                       @Query("page") String page,
                                                       @Query("size") String size);
+
+    @GET("get_content")
+    Observable<ApiSingleResBean<VideoDetailBean>> get_Content_detail(@Query("id") String id);
 }

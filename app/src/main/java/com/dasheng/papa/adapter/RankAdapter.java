@@ -25,7 +25,8 @@ public class RankAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> imple
     @Override
     public void onClick(View v) {
         if (listener != null) {
-            listener.onClick(null, (int) v.getTag());
+            int position = (int) v.getTag();
+            listener.onClick(data.get(position), position);
         }
     }
 

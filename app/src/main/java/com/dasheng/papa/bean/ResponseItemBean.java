@@ -2,7 +2,9 @@ package com.dasheng.papa.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseItemBean extends ResBean {
+import java.io.Serializable;
+
+public class ResponseItemBean extends ResBean implements Serializable {
 
     private String id;
     private String typeid;
@@ -25,6 +27,24 @@ public class ResponseItemBean extends ResBean {
     private String source;
     private String content;
     private String local_time;
+    private int vnum;
+    private int dnum;
+
+    public int getVnum() {
+        return vnum;
+    }
+
+    public void setVnum(int vnum) {
+        this.vnum = vnum;
+    }
+
+    public int getDnum() {
+        return dnum;
+    }
+
+    public void setDnum(int dnum) {
+        this.dnum = dnum;
+    }
 
     public String getLocal_time() {
         return local_time;

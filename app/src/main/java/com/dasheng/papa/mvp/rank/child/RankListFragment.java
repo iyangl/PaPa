@@ -58,7 +58,9 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
             @Override
             public void onClick(ResponseItemBean apiBean, int position) {
                 ToastUtil.show(getActivity(), "position:" + position);
-                getActivity().startActivity(new Intent(getActivity(), VideoDetailActivity.class));
+                Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
+                intent.putExtra(Constant.Intent_Extra.VIDEO_DETAIL_INFO, apiBean);
+                getActivity().startActivity(intent);
             }
         });
     }

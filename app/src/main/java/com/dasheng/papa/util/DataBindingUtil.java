@@ -54,4 +54,10 @@ public class DataBindingUtil {
         }
     }
 
+    @BindingAdapter("text")
+    public static void setPraiseText(TextView tv, int count) {
+        tv.setText(count + "");
+    }
+
+
 }
