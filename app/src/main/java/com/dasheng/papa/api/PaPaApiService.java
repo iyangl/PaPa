@@ -3,9 +3,8 @@ package com.dasheng.papa.api;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
-import com.dasheng.papa.bean.HomeResponseBean;
 import com.dasheng.papa.bean.ImgBean;
-import com.dasheng.papa.bean.RankItemBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -21,10 +20,10 @@ public interface PaPaApiService {
      * @param id      id
      * @param page    页码
      * @param size    每页个数
-     * @return {@link HomeResponseBean}
+     * @return {@link ResponseItemBean}
      */
     @GET("get_content")
-    Observable<ApiListResBean<HomeResponseBean>> get_Content(@Query("type_id") String type_id,
+    Observable<ApiListResBean<ResponseItemBean>> get_Content(@Query("type_id") String type_id,
                                                              @Query("status") String status,
                                                              @Query("id") String id,
                                                              @Query("page") String page,
@@ -56,10 +55,10 @@ public interface PaPaApiService {
      * @param type_id 类型 1：日排行  2：周排行
      * @param page    页码
      * @param size    每页个数
-     * @return {@link RankItemBean}
+     * @return {@link ResponseItemBean}
      */
     @GET("get_other")
-    Observable<ApiListResBean<RankItemBean>> rank(@Query("day_type") String type_id,
-                                                  @Query("page") String page,
-                                                  @Query("size") String size);
+    Observable<ApiListResBean<ResponseItemBean>> rank(@Query("day_type") String type_id,
+                                                      @Query("page") String page,
+                                                      @Query("size") String size);
 }

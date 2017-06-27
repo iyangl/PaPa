@@ -5,7 +5,7 @@
 
         <variable
             name="rank"
-            type="com.dasheng.papa.bean.RankItemBean"/>
+            type="com.dasheng.papa.bean.ResponseItemBean"/>
 
     </data>
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/thumbnail"
             android:layout_toRightOf="@+id/thumbnail"
-            android:text="@{rank.click}"
+            app:click="@{rank.click}"
             android:textColor="@color/text_color_unselected"/>
 
         <TextView

@@ -2,27 +2,29 @@ package com.dasheng.papa.bean;
 
 import android.support.annotation.DrawableRes;
 
-public class CategoryBean extends ApiBean {
+import java.io.Serializable;
+
+public class CategoryBean extends ApiBean implements Serializable{
 
     public CategoryBean() {
     }
 
-    public CategoryBean(String title, int drawable, String tag) {
+    public CategoryBean(String title, int drawable, int id) {
         this.title = title;
         this.drawable = drawable;
-        this.tag = tag;
+        this.id = id;
     }
 
     private String title;
     private int drawable;
-    private String tag;
+    private int id;
 
-    public String getTag() {
-        return tag;
+    public int getId() {
+        return id;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

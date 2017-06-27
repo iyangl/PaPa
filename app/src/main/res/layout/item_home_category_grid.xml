@@ -5,7 +5,7 @@
 
         <variable
             name="response"
-            type="com.dasheng.papa.bean.HomeResponseBean"/>
+            type="com.dasheng.papa.bean.ResponseItemBean"/>
 
     </data>
 

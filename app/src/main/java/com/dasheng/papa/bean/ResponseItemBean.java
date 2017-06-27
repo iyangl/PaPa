@@ -2,7 +2,7 @@ package com.dasheng.papa.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RankItemBean extends ResBean {
+public class ResponseItemBean extends ResBean {
 
     private String id;
     private String typeid;
@@ -24,6 +24,15 @@ public class RankItemBean extends ResBean {
     private String tag;
     private String source;
     private String content;
+    private String local_time;
+
+    public String getLocal_time() {
+        return local_time;
+    }
+
+    public void setLocal_time(String local_time) {
+        this.local_time = local_time;
+    }
 
     public String getId() {
         return id;

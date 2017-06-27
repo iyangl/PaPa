@@ -3,7 +3,7 @@ package com.dasheng.papa.mvp.rank.child;
 import com.dasheng.papa.api.ApiFactory;
 import com.dasheng.papa.api.BaseSubscriber;
 import com.dasheng.papa.bean.ApiListResBean;
-import com.dasheng.papa.bean.RankItemBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.util.Constant;
 
 import rx.Observable;
@@ -19,14 +19,14 @@ public class RankPresenter {
 
     public void refresh(int day_type) {
         mModel.refresh(day_type)
-                .subscribe(new BaseSubscriber<ApiListResBean<RankItemBean>>() {
+                .subscribe(new BaseSubscriber<ApiListResBean<ResponseItemBean>>() {
                     @Override
                     public void onError(Throwable e) {
                         mView.onError(e);
                     }
 
                     @Override
-                    public void onNext(ApiListResBean<RankItemBean> apiListResBean) {
+                    public void onNext(ApiListResBean<ResponseItemBean> apiListResBean) {
                         mView.onRefreshSuccess(apiListResBean);
                     }
                 });
@@ -34,14 +34,14 @@ public class RankPresenter {
 
     public void loadMore(int day_type, int page) {
         mModel.loadMore(day_type, page)
-                .subscribe(new BaseSubscriber<ApiListResBean<RankItemBean>>() {
+                .subscribe(new BaseSubscriber<ApiListResBean<ResponseItemBean>>() {
                     @Override
                     public void onError(Throwable e) {
                         mView.onError(e);
                     }
 
                     @Override
-                    public void onNext(ApiListResBean<RankItemBean> apiListResBean) {
+                    public void onNext(ApiListResBean<ResponseItemBean> apiListResBean) {
                         mView.onLoadMoreSuccess(apiListResBean);
                     }
                 });
@@ -50,12 +50,12 @@ public class RankPresenter {
     private RankContact.Model initModel() {
         return new RankContact.Model() {
             @Override
-            public Observable<ApiListResBean<RankItemBean>> refresh(int day_type) {
+            public Observable<ApiListResBean<ResponseItemBean>> refresh(int day_type) {
                 return ApiFactory.rank(String.valueOf(day_type), "0", Constant.Api.SINGLE_PAGE_SIZE, mView);
             }
 
             @Override
-            public Observable<ApiListResBean<RankItemBean>> loadMore(int day_type, int page) {
+            public Observable<ApiListResBean<ResponseItemBean>> loadMore(int day_type, int page) {
                 return ApiFactory.rank(String.valueOf(day_type), String.valueOf(page),
                         Constant.Api.SINGLE_PAGE_SIZE, mView);
             }

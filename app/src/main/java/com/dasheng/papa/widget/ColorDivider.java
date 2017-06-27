@@ -50,13 +50,13 @@ public class ColorDivider<T extends CategoryBean> extends RecyclerView.ItemDecor
             int position = params.getViewLayoutPosition();
             //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
             if (position > 0) {
-                if (null != mDatas.get(position).getTag() && !mDatas.get(position).getTag().equals(mDatas.get
+                /*if (null != mDatas.get(position).getTag() && !mDatas.get(position).getTag().equals(mDatas.get
                         (position - 1).getTag())) {
                     //不为空 且跟前一个tag不一样了，说明是新的分类，也要title
                     drawTitleArea(c, left, right, child, params, position);
                 } else {
                     //none
-                }
+                }*/
             }
         }
     }
@@ -84,12 +84,12 @@ public class ColorDivider<T extends CategoryBean> extends RecyclerView.ItemDecor
         int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
         //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
         if (position > 0) {
-            if (null != mDatas.get(position).getTag() && !mDatas.get(position).getTag().equals(mDatas.get
+            /*if (null != mDatas.get(position).getTag() && !mDatas.get(position).getTag().equals(mDatas.get
                     (position - 1).getTag())) {
                 outRect.set(0, mTitleHeight, 0, 0);//不为空 且跟前一个tag不一样了，说明是新的分类，也要title
             } else {
                 outRect.set(0, 0, 0, 0);
-            }
+            }*/
         }
     }
 }

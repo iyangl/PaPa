@@ -44,7 +44,7 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
                 ToastUtil.show(getActivity(), "position:" + position);
                 CategoryDetailFragment categoryDetailFragment = new CategoryDetailFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constant.Intent_Extra.CATEGORY_TYPE, categoryBean.getTitle());
+                bundle.putSerializable(Constant.Intent_Extra.CATEGORY_TYPE, categoryBean);
                 categoryDetailFragment.setArguments(bundle);
                 ((MainActivity) getActivity()).switchFragment(categoryDetailFragment);
             }
@@ -53,22 +53,22 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
 
     private void initData() {
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_entertainment_selection),
-                R.drawable.category_entertainment_selection, "1"));
+                R.drawable.category_entertainment_selection, 1));
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_roast),
-                R.drawable.category_roast, "1"));
+                R.drawable.category_roast, 2));
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_spoof),
-                R.drawable.category_spoof, "1"));
+                R.drawable.category_spoof, 3));
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_embarrass),
-                R.drawable.category_embarrass, "1"));
+                R.drawable.category_embarrass, 4));
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_funny_talent),
-                R.drawable.category_funny_talent, "1"));
+                R.drawable.category_funny_talent, 5));
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_anecdote),
-                R.drawable.category_anecdote, "1"));
+                R.drawable.category_anecdote, 6));
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_beauty),
-                R.drawable.category_beauty, "1"));
+                R.drawable.category_beauty, 7));
         categoryAdapter.add(null);
         categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_weixin),
-                R.drawable.category_weixin, "2"));
+                R.drawable.category_weixin, 8));
         binding.recycler.setAdapter(categoryAdapter);
     }
 

@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseRecyclerViewAdapter;
 import com.dasheng.papa.base.BaseRecyclerViewHolder;
-import com.dasheng.papa.bean.RankItemBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.ItemCategoryDetailBinding;
 
 import java.util.List;
 
-public class RankAdapter extends BaseRecyclerViewAdapter<RankItemBean> implements View.OnClickListener {
+public class RankAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> implements View.OnClickListener {
 
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -29,7 +29,7 @@ public class RankAdapter extends BaseRecyclerViewAdapter<RankItemBean> implement
         }
     }
 
-    public void addRankItem(List<RankItemBean> list, boolean isClear) {
+    public void addRankItem(List<ResponseItemBean> list, boolean isClear) {
         if (isClear) {
             data.clear();
         }
@@ -37,20 +37,20 @@ public class RankAdapter extends BaseRecyclerViewAdapter<RankItemBean> implement
         notifyDataSetChanged();
     }
 
-    public void addRankItem(List<RankItemBean> list) {
+    public void addRankItem(List<ResponseItemBean> list) {
         addRankItem(list, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    class CategoryDetailViewHolder extends BaseRecyclerViewHolder<RankItemBean, ItemCategoryDetailBinding> {
+    class CategoryDetailViewHolder extends BaseRecyclerViewHolder<ResponseItemBean, ItemCategoryDetailBinding> {
 
         public CategoryDetailViewHolder(View view) {
             super(view);
         }
 
         @Override
-        public void onBindViewHolder(RankItemBean object, int position) {
+        public void onBindViewHolder(ResponseItemBean object, int position) {
             binding.setRank(object);
         }
     }

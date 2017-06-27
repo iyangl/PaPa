@@ -1,6 +1,7 @@
 package com.dasheng.papa.util;
 
 import android.databinding.BindingAdapter;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -45,4 +46,12 @@ public class DataBindingUtil {
             radio.setTextColor(CommonUtils.getColor(R.color.rank_title_bg));
         }
     }
+
+    @BindingAdapter("click")
+    public static void setClickText(TextView tv, String click) {
+        if (!TextUtils.isEmpty(click)) {
+            tv.setText(String.format("%s次观看", click));
+        }
+    }
+
 }

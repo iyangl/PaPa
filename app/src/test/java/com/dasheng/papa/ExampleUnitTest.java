@@ -57,4 +57,10 @@ public class ExampleUnitTest {
                 new int[]{android.R.attr.state_enabled}, normal);
         return listDrawable;
     }
+
+    @Test
+    public void test(){
+        String s = "\\u6ca1\\u6709\\u67e5\\u8be2\\u5230";
+        System.out.println(s);
+    }
 }

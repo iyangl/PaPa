@@ -16,7 +16,7 @@ import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseRecyclerViewAdapter;
 import com.dasheng.papa.base.BaseRecyclerViewHolder;
 import com.dasheng.papa.bean.ApiListResBean;
-import com.dasheng.papa.bean.HomeResponseBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.ItemHomeCategoryBannerBinding;
 import com.dasheng.papa.databinding.ItemHomeCategoryGridBinding;
 import com.dasheng.papa.databinding.ItemHomeCategoryTitleBinding;
@@ -90,7 +90,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
         }
     }
 
-    public void addData(ApiListResBean<HomeResponseBean> apiBean, boolean isClear) {
+    public void addData(ApiListResBean<ResponseItemBean> apiBean, boolean isClear) {
         if (isClear) {
             data.clear();
             data.add(apiBean);
@@ -100,7 +100,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
         notifyDataSetChanged();
     }
 
-    public void addData(ApiListResBean<HomeResponseBean> apiBean) {
+    public void addData(ApiListResBean<ResponseItemBean> apiBean) {
         addData(apiBean, false);
     }
 
@@ -117,7 +117,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
             if (apiBean instanceof ApiListResBean) {
                 List banner = ((ApiListResBean) apiBean).getBanner();
                 if (banner == null || banner.size() <= 0 ||
-                        !(banner.get(0) instanceof HomeResponseBean)) {
+                        !(banner.get(0) instanceof ResponseItemBean)) {
                     return;
                 }
                 binding.banner.setPages(
@@ -141,7 +141,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
             }
         }
 
-        public class LocalImageHolderView implements Holder<HomeResponseBean> {
+        public class LocalImageHolderView implements Holder<ResponseItemBean> {
             private ImageView imageView;
 
             @Override
@@ -152,7 +152,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
             }
 
             @Override
-            public void UpdateUI(Context context, final int position, HomeResponseBean data) {
+            public void UpdateUI(Context context, final int position, ResponseItemBean data) {
                 ImageLoader.loadImage(context, data.getImg(), imageView);
             }
         }
@@ -168,8 +168,8 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
 
         @Override
         public void onBindViewHolder(Object object, int position) {
-            if (object instanceof HomeResponseBean) {
-                binding.setResponse((HomeResponseBean) object);
+            if (object instanceof ResponseItemBean) {
+                binding.setResponse((ResponseItemBean) object);
             }
         }
     }

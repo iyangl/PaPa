@@ -12,7 +12,7 @@ import com.dasheng.papa.adapter.RankAdapter;
 import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
-import com.dasheng.papa.bean.RankItemBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentRankListBinding;
 import com.dasheng.papa.mvp.video.VideoDetailActivity;
 import com.dasheng.papa.util.Constant;
@@ -54,9 +54,9 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         rankAdapter = new RankAdapter();
         binding.recycler.setAdapter(rankAdapter);
         binding.recycler.addItemDecoration(new DividerItemDecoration(getActivity(), VERTICAL_LIST, 0));
-        rankAdapter.setOnItemClickListener(new OnItemClickListener<RankItemBean>() {
+        rankAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
-            public void onClick(RankItemBean apiBean, int position) {
+            public void onClick(ResponseItemBean apiBean, int position) {
                 ToastUtil.show(getActivity(), "position:" + position);
                 getActivity().startActivity(new Intent(getActivity(), VideoDetailActivity.class));
             }
@@ -131,7 +131,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     }
 
     @Override
-    public void onRefreshSuccess(ApiListResBean<RankItemBean> apiBean) {
+    public void onRefreshSuccess(ApiListResBean<ResponseItemBean> apiBean) {
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
@@ -139,7 +139,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     }
 
     @Override
-    public void onLoadMoreSuccess(ApiListResBean<RankItemBean> apiBean) {
+    public void onLoadMoreSuccess(ApiListResBean<ResponseItemBean> apiBean) {
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();

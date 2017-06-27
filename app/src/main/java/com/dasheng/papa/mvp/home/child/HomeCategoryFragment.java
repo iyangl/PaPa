@@ -10,7 +10,7 @@ import com.dasheng.papa.adapter.HomeCategoryAdapter;
 import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
-import com.dasheng.papa.bean.HomeResponseBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ToastUtil;
@@ -125,7 +125,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
     }
 
     @Override
-    public void onRefresh(ApiListResBean<HomeResponseBean> apiBean) {
+    public void onRefresh(ApiListResBean<ResponseItemBean> apiBean) {
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
@@ -133,7 +133,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
     }
 
     @Override
-    public void onLoadMoreSuccess(ApiListResBean<HomeResponseBean> apiBean) {
+    public void onLoadMoreSuccess(ApiListResBean<ResponseItemBean> apiBean) {
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
