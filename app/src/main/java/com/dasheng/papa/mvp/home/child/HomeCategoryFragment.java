@@ -1,5 +1,6 @@
 package com.dasheng.papa.mvp.home.child;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
+import com.dasheng.papa.mvp.video.VideoDetailActivity;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.widget.springview.DefaultFooter;
@@ -60,6 +62,11 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
             @Override
             public void onClick(Object apiBean, int position) {
                 ToastUtil.show(getActivity(), "click" + position);
+                if (apiBean instanceof ResponseItemBean) {
+                    Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
+                    intent.putExtra(Constant.Intent_Extra.VIDEO_DETAIL_INFO, (ResponseItemBean) apiBean);
+                    getActivity().startActivity(intent);
+                }
             }
         });
 
@@ -137,7 +144,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
-        homeCategoryAdapter.addData(apiBean, false);
+        homeCategoryAdapter.addData(apiBean);
     }
 
     @Override

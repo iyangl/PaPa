@@ -7,12 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.VideoDetailAdapter;
 import com.dasheng.papa.base.BaseActivity;
+import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.bean.VideoDetailBean;
 import com.dasheng.papa.databinding.ActivityVideoDetailBinding;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ImageLoader;
+import com.dasheng.papa.util.UrlUtils;
 import com.dasheng.papa.widget.DividerItemDecoration;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -20,7 +22,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class VideoDetailActivity extends BaseActivity<ActivityVideoDetailBinding> implements VideoDetailContact.View {
 
-    private VideoDetailAdapter videioDetailAdapter;
+    private VideoDetailAdapter videoDetailAdapter;
     private ResponseItemBean responseItemBean;
     private int mId;
     private VideoDetailPresenter videoDetailPresenter;
@@ -40,19 +42,20 @@ public class VideoDetailActivity extends BaseActivity<ActivityVideoDetailBinding
             mId = Integer.parseInt(responseItemBean.getId());
         }
         initRecyclerView();
+        binding.player.player.setUp("", JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
     }
 
     private void initJCVideoPlayer() {
         binding.player.setVideo(responseItemBean);
-        binding.player.player.setUp(responseItemBean.getContent()
-                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"");
+        binding.player.player.setUp(UrlUtils.formatUrl(responseItemBean.getContent())
+                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
         ImageLoader.loadImage(this, responseItemBean.getImg(), binding.player.player.thumbImageView);
     }
 
     private void initRecyclerView() {
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        videioDetailAdapter = new VideoDetailAdapter();
-        binding.recycler.setAdapter(videioDetailAdapter);
+        videoDetailAdapter = new VideoDetailAdapter();
+        binding.recycler.setAdapter(videoDetailAdapter);
         binding.recycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, 1));
     }
 
@@ -60,6 +63,12 @@ public class VideoDetailActivity extends BaseActivity<ActivityVideoDetailBinding
     protected void initEvent() {
         videoDetailPresenter = new VideoDetailPresenter(this);
         videoDetailPresenter.refresh(mId);
+        videoDetailAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
+            @Override
+            public void onClick(ResponseItemBean responseItemBean, int position) {
+                videoDetailPresenter.refresh(Integer.parseInt(responseItemBean.getId()));
+            }
+        });
     }
 
     @Override
@@ -90,8 +99,9 @@ public class VideoDetailActivity extends BaseActivity<ActivityVideoDetailBinding
     public void onRefreshSuccess(ApiSingleResBean<VideoDetailBean> apiBean) {
         if (apiBean.getRes().getHead() != null && apiBean.getRes().getHead().size() > 0) {
             responseItemBean = apiBean.getRes().getHead().get(0);
-            videioDetailAdapter.addItems(apiBean.getRes().getFoot());
+            videoDetailAdapter.addItems(apiBean.getRes().getFoot());
             initJCVideoPlayer();
+            setTitle(responseItemBean.getTitle());
         }
     }
 

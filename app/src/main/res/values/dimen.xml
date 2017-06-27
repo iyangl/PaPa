@@ -41,8 +41,8 @@
     <dimen name="rank_item_title_bg_radius">7dp</dimen>
     <dimen name="rank_item_title_button_radius">6dp</dimen>
     <dimen name="rank_item_title_bg_stroke">1dp</dimen>
-    
-    <dimen name="video_head_height">590px</dimen>
+
+    <dimen name="video_head_height">420px</dimen>
     <dimen name="video_head_padding_left">22px</dimen>
     <dimen name="video_head_padding_right">24px</dimen>
     <dimen name="video_head_padding_bottom">46px</dimen>
@@ -54,5 +54,8 @@
     <dimen name="video_head_praise_size">28px</dimen>
     <dimen name="video_head_title_text_size">28px</dimen>
     <dimen name="video_head_list_title_padding">25px</dimen>
+
+    <dimen name="shape_page_indicator_width">17dp</dimen>
+    <dimen name="shape_page_indicator_height">4dp</dimen>
 
 </resources>

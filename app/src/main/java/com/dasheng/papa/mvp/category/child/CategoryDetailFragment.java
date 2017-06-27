@@ -1,5 +1,6 @@
 package com.dasheng.papa.mvp.category.child;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.dasheng.papa.bean.CategoryBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentCategoryDetailBinding;
 import com.dasheng.papa.mvp.MainActivity;
+import com.dasheng.papa.mvp.video.VideoDetailActivity;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
@@ -68,7 +70,9 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         categoryDetailAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
             public void onClick(ResponseItemBean apiBean, int position) {
-
+                Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
+                intent.putExtra(Constant.Intent_Extra.VIDEO_DETAIL_INFO, apiBean);
+                getActivity().startActivity(intent);
             }
         });
     }

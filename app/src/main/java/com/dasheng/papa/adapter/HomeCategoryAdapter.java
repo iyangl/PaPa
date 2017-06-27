@@ -25,7 +25,7 @@ import com.dasheng.papa.util.ImageLoader;
 
 import java.util.List;
 
-public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
+public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> implements View.OnClickListener {
     private static final int TYPE_BANNER = 0xffff01;
     private static final int TYPE_GRID = 0xffff02;
     private static final int TYPE_TITLE = 0xffff03;
@@ -43,6 +43,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
         if (viewType == TYPE_GRID) {
             View grid = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_home_category_grid, null, false);
+            grid.setOnClickListener(this);
             return new GridViewHolder(grid);
         }
         if (viewType == TYPE_TITLE) {
@@ -104,6 +105,17 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
         addData(apiBean, false);
     }
 
+    @Override
+    public void onClick(View v) {
+        if (listener != null) {
+            int position = (int) v.getTag();
+            if (data.size() > position && data.get(position) != null &&
+                    data.get(position) instanceof ResponseItemBean) {
+                listener.onClick(data.get(position), position);
+            }
+        }
+    }
+
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     class BannerViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryBannerBinding> {
@@ -115,7 +127,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
         @Override
         public void onBindViewHolder(Object apiBean, int position) {
             if (apiBean instanceof ApiListResBean) {
-                List banner = ((ApiListResBean) apiBean).getBanner();
+                final List banner = ((ApiListResBean) apiBean).getBanner();
                 if (banner == null || banner.size() <= 0 ||
                         !(banner.get(0) instanceof ResponseItemBean)) {
                     return;
@@ -127,15 +139,17 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> {
                                 return new LocalImageHolderView();
                             }
                         }, banner)
+                        .setPageIndicator(new int[]{R.drawable.shape_page_indicator,
+                                R.drawable.shape_page_indicator_focused})
                         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
                         .setCanLoop(true);
-                if (binding.banner.isCanLoop() && !binding.banner.isTurning()) {
+                if (binding.banner.isCanLoop() && !binding.banner.isTurning() && banner.size() > 1) {
                     binding.banner.startTurning(3000);
                 }
                 binding.banner.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        listener.onClick(null, position);
+                        listener.onClick(banner.get(position), position);
                     }
                 });
             }

@@ -13,7 +13,7 @@ import com.dasheng.papa.databinding.ItemVideoListHeadBinding;
 
 import java.util.List;
 
-public class VideoDetailAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> {
+public class VideoDetailAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> implements View.OnClickListener {
     public static final int TYPE_HEAD = 0xffff06;
     public static final int TYPE_LIST = 0xffff07;
 
@@ -25,6 +25,7 @@ public class VideoDetailAdapter extends BaseRecyclerViewAdapter<ResponseItemBean
         }
         if (viewType == TYPE_LIST) {
             View list = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_detail, null, false);
+            list.setOnClickListener(this);
             return new CategoryDetailViewHolder(list);
         }
         return null;
@@ -47,6 +48,16 @@ public class VideoDetailAdapter extends BaseRecyclerViewAdapter<ResponseItemBean
         data.add(new ResponseItemBean());
         data.addAll(list);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (listener != null) {
+            int position = (int) v.getTag();
+            if (data.size() > position && data.get(position) != null) {
+                listener.onClick(data.get(position), position);
+            }
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
