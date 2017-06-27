@@ -24,8 +24,12 @@
         <activity
             android:name=".mvp.video.VideoDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity android:name=".mvp.beauty.child.BeautyListActivity"/>
+        <activity
+            android:name=".mvp.article.ArticleDetailActivity"
+            android:launchMode="singleTask"/>
 
         <meta-data
             android:name="design_width"

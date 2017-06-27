@@ -1,6 +1,5 @@
 package com.dasheng.papa.mvp.rank.child;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,10 +13,9 @@ import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentRankListBinding;
-import com.dasheng.papa.mvp.video.VideoDetailActivity;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.FragmentUserVisibleController;
-import com.dasheng.papa.util.ToastUtil;
+import com.dasheng.papa.util.UrlUtils;
 import com.dasheng.papa.widget.DividerItemDecoration;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
@@ -57,10 +55,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         rankAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
             public void onClick(ResponseItemBean apiBean, int position) {
-                ToastUtil.show(getActivity(), "position:" + position);
-                Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
-                intent.putExtra(Constant.Intent_Extra.VIDEO_DETAIL_INFO, apiBean);
-                getActivity().startActivity(intent);
+                UrlUtils.jumpToArticleOrVideo(getActivity(), apiBean);
             }
         });
     }

@@ -1,6 +1,5 @@
 package com.dasheng.papa.mvp.home.child;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,9 +12,9 @@ import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
-import com.dasheng.papa.mvp.video.VideoDetailActivity;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ToastUtil;
+import com.dasheng.papa.util.UrlUtils;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
 import com.dasheng.papa.widget.springview.SpringView;
@@ -63,9 +62,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
             public void onClick(Object apiBean, int position) {
                 ToastUtil.show(getActivity(), "click" + position);
                 if (apiBean instanceof ResponseItemBean) {
-                    Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
-                    intent.putExtra(Constant.Intent_Extra.VIDEO_DETAIL_INFO, (ResponseItemBean) apiBean);
-                    getActivity().startActivity(intent);
+                    UrlUtils.jumpToArticleOrVideo(getActivity(), (ResponseItemBean) apiBean);
                 }
             }
         });
