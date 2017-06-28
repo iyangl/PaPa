@@ -85,7 +85,6 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
                     return;
                 }
                 if (mCurrentPage >= mTotalPages) {
-                    binding.swipe.setDataFinish(true);
                     binding.swipe.onFinishFreshAndLoad();
                     return;
                 }
@@ -144,6 +143,9 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         beautyPicAdapter.addImg(apiBean.getRes().getImginfo());
     }
 

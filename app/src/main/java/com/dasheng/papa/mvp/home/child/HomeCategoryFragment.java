@@ -84,7 +84,6 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
                     return;
                 }
                 if (mCurrentPage >= mTotalPages) {
-                    binding.swipe.setDataFinish(true);
                     binding.swipe.onFinishFreshAndLoad();
                     return;
                 }
@@ -141,6 +140,9 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         homeCategoryAdapter.addData(apiBean);
     }
 

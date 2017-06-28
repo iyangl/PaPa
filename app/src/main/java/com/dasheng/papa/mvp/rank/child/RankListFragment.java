@@ -17,7 +17,9 @@ import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.FragmentUserVisibleController;
 import com.dasheng.papa.util.UrlUtils;
 import com.dasheng.papa.widget.DividerItemDecoration;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.dasheng.papa.widget.springview.DefaultFooter;
+import com.dasheng.papa.widget.springview.DefaultHeader;
+import com.dasheng.papa.widget.springview.SpringView;
 
 import timber.log.Timber;
 
@@ -41,6 +43,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     }
 
     private void initView() {
+        initSwipeRefreshLayout();
         initRecyclerView();
     }
 
@@ -57,28 +60,14 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         });
     }
 
+    private void initSwipeRefreshLayout() {
+        binding.swipe.setHeader(new DefaultHeader(getActivity()));
+        binding.swipe.setFooter(new DefaultFooter(getActivity()));
+        binding.swipe.setType(SpringView.Type.FOLLOW);
+    }
+
     private void initEvent() {
-        binding.recycler.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                if (isLoading) {
-                    return;
-                }
-                isLoading = true;
-                rankPresenter.refresh(day_type);
-            }
-
-            @Override
-            public void onLoadMore() {
-                if (isLoading) {
-                    return;
-                }
-
-                isLoading = true;
-                rankPresenter.loadMore(day_type, mCurrentPage + 1);
-            }
-        });
-        /*binding.swipe.setListener(new SpringView.OnFreshListener() {
+        binding.swipe.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
                 if (isLoading) {
@@ -95,14 +84,13 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
                     return;
                 }
                 if (mCurrentPage >= mTotalPages) {
-                    binding.swipe.setDataFinish(true);
                     binding.swipe.onFinishFreshAndLoad();
                     return;
                 }
                 isLoading = true;
                 rankPresenter.loadMore(day_type, mCurrentPage + 1);
             }
-        });*/
+        });
     }
 
     @Override
@@ -118,7 +106,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //                binding.swipe.callFresh();
+                binding.swipe.callFresh();
             }
         }, 300);
     }
@@ -152,7 +140,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
         if (mCurrentPage >= mTotalPages) {
-            binding.recycler.setNoMore(true);
+            binding.swipe.setDataFinish(true);
         }
         rankAdapter.addRankItem(apiBean.getRes());
     }
@@ -163,8 +151,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     }
 
     private void resetLoadingStatus() {
-        binding.recycler.loadMoreComplete();
-        binding.recycler.refreshComplete();
+        binding.swipe.onFinishFreshAndLoad();
         isLoading = false;
     }
 
