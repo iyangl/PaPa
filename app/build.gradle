@@ -60,6 +60,6 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     //½Ú²Ù²¥·ÅÆ÷
     compile 'fm.jiecao:jiecaovideoplayer:5.5.4'
-    //CommonPullToRefresh
-    compile project(':cptr')
+    //bga_banner
+    compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
 }
