@@ -13,7 +13,6 @@ import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
-import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.util.UrlUtils;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
@@ -60,7 +59,6 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         homeCategoryAdapter.setOnItemClickListener(new OnItemClickListener<Object>() {
             @Override
             public void onClick(Object apiBean, int position) {
-                ToastUtil.show(getActivity(), "click" + position);
                 if (apiBean instanceof ResponseItemBean) {
                     UrlUtils.jumpToArticleOrVideo(getActivity(), (ResponseItemBean) apiBean);
                 }
