@@ -17,7 +17,6 @@ import com.dasheng.papa.mvp.category.child.CategoryDetailFragment;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.GsonUtil;
 import com.dasheng.papa.util.SPUtil;
-import com.dasheng.papa.util.ToastUtil;
 
 import java.util.List;
 
@@ -44,10 +43,17 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> impl
     private void initRecyclerView() {
         binding.recycler.setLayoutManager(new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false));
         categoryAdapter = new CategoryAdapter();
+        binding.recycler.setAdapter(categoryAdapter);
         categoryAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
             public void onClick(ResponseItemBean categoryBean, int position) {
-                ToastUtil.show(getActivity(), "position:" + position);
+                if ("关注公众号".equals(categoryBean.getName())) {
+                    return;
+                }
+                if ("美女图集".equals(categoryBean.getName())) {
+                    ((MainActivity) getActivity()).gotoBeauty();
+                    return;
+                }
                 CategoryDetailFragment categoryDetailFragment = new CategoryDetailFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.Intent_Extra.CATEGORY_TYPE, categoryBean);
@@ -67,7 +73,7 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> impl
         ResponseItemBean bean = new ResponseItemBean();
         bean.setName("关注公众号");
         categoryAdapter.add(bean);
-        binding.recycler.setAdapter(categoryAdapter);
+        categoryAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -87,8 +93,8 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> impl
             categoryPresenter.loadCategory();
         } else {
             responseItemBeanList = GsonUtil.jsonToList(categoryInfo, ResponseItemBean.class);
-            initData();
         }
+        initData();
     }
 
     @Override

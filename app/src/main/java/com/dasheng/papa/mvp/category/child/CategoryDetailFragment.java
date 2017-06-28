@@ -111,6 +111,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         categoryBean = (ResponseItemBean) getArguments().getSerializable(Constant.Intent_Extra.CATEGORY_TYPE);
         if (categoryBean != null) {
             mId = Integer.parseInt(categoryBean.getId());
+            baseActivity.setTitle(categoryBean.getName());
         }
         categoryDetailPresenter = new CategoryDetailPresenter(this);
         new Handler().postDelayed(new Runnable() {
