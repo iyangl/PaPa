@@ -1,8 +1,10 @@
 package com.dasheng.papa.mvp.video;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.VideoDetailAdapter;
@@ -12,6 +14,7 @@ import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.bean.VideoDetailBean;
 import com.dasheng.papa.databinding.ActivityVideoDetailBinding;
+import com.dasheng.papa.mvp.article.ArticleDetailActivity;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.ImageLoader;
 import com.dasheng.papa.util.UrlUtils;
@@ -66,7 +69,13 @@ public class VideoDetailActivity extends BaseActivity<ActivityVideoDetailBinding
         videoDetailAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
             public void onClick(ResponseItemBean responseItemBean, int position) {
-                videoDetailPresenter.refresh(Integer.parseInt(responseItemBean.getId()));
+                if (TextUtils.isEmpty(responseItemBean.getContent())) {
+                    Intent intent = new Intent(VideoDetailActivity.this, ArticleDetailActivity.class);
+                    intent.putExtra(Constant.Intent_Extra.VIDEO_DETAIL_INFO, responseItemBean);
+                    VideoDetailActivity.this.startActivity(intent);
+                } else {
+                    videoDetailPresenter.refresh(Integer.parseInt(responseItemBean.getId()));
+                }
             }
         });
     }

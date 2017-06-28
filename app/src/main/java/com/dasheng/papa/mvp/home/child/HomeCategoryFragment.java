@@ -132,6 +132,9 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         homeCategoryAdapter.addData(apiBean, true);
     }
 

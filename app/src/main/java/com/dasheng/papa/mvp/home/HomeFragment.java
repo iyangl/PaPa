@@ -133,7 +133,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements H
     @Override
     public void onLoadCategoryInfoSuccess(ApiListResBean<ResponseItemBean> apiBean) {
         if (apiBean.getRes() != null && apiBean.getRes().size() > 0) {
-            SPUtil.put(Constant.Api.CATEGORY_INFO_LIST, GsonUtil.GsonString(apiBean));
+            SPUtil.put(Constant.Api.CATEGORY_INFO_LIST, GsonUtil.GsonString(apiBean.getRes()));
             responseItemBeanList = apiBean.getRes();
             initTabLayout();
             initViewPager();

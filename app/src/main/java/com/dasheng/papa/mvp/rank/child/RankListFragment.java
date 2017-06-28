@@ -131,6 +131,9 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         rankAdapter.addRankItem(apiBean.getRes(), true);
     }
 

@@ -135,6 +135,9 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
         binding.swipe.setDataFinish(false);
         mTotalPages = apiBean.getTotal();
         mCurrentPage = 1;
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         beautyPicAdapter.addImg(apiBean.getRes().getImginfo(), true);
     }
 
