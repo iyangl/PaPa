@@ -10,8 +10,7 @@ import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.bean.VideoDetailBean;
 import com.dasheng.papa.databinding.ActivityArticleDetailBinding;
 import com.dasheng.papa.util.Constant;
-
-import timber.log.Timber;
+import com.dasheng.papa.util.HtmlUtil;
 
 public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBinding>
         implements ArticleDetailContact.View {
@@ -56,7 +55,8 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
         if (apiBean.getRes().getHead() != null && apiBean.getRes().getHead().size() > 0) {
             responseItemBean = apiBean.getRes().getHead().get(0);
             setTitle(responseItemBean.getTitle());
-            binding.web.loadData(responseItemBean.getArticle(), "text/html; charset=UTF-8", null);
+            binding.web.loadData(HtmlUtil.getNewContent(responseItemBean.getArticle()),
+                    "text/html; charset=UTF-8", null);
         }
     }
 
