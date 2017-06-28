@@ -11,6 +11,7 @@ public class Constant {
         public static final String GET_OTHER = "get_other";
         public static final String SEARCH = "search";
         public static final String SINGLE_PAGE_SIZE = "10";
+        public static final String CATEGORY_INFO_LIST = "category_info_list";
     }
 
     public static class Intent_Extra {
