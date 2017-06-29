@@ -2,6 +2,7 @@ package com.dasheng.papa.mvp.video;
 
 import com.dasheng.papa.api.ApiFactory;
 import com.dasheng.papa.api.BaseSubscriber;
+import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.VideoDetailBean;
 
@@ -22,7 +23,6 @@ public class VideoDetailPresenter {
                 .subscribe(new BaseSubscriber<ApiSingleResBean<VideoDetailBean>>() {
                     @Override
                     public void onError(Throwable e) {
-                        mView.onError(e);
                     }
 
                     @Override
@@ -32,11 +32,31 @@ public class VideoDetailPresenter {
                 });
     }
 
+    public void zan(String id, final String status) {
+        mModel.zan(id, status)
+                .subscribe(new BaseSubscriber<ApiBean>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onNext(ApiBean apiSingleResBean) {
+                        mView.onZanSuccess(apiSingleResBean, status);
+                    }
+                });
+    }
+
     private VideoDetailContact.Model initModel() {
         return new VideoDetailContact.Model() {
             @Override
             public Observable<ApiSingleResBean<VideoDetailBean>> refresh(int id) {
                 return ApiFactory.get_content_detail(String.valueOf(id), mView);
+            }
+
+            @Override
+            public Observable<ApiBean> zan(String id, String status) {
+                return ApiFactory.zan(id, status, mView);
             }
         };
     }

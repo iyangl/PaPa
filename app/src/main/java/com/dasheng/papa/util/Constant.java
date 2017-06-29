@@ -12,6 +12,8 @@ public class Constant {
         public static final String SEARCH = "search";
         public static final String SINGLE_PAGE_SIZE = "10";
         public static final String CATEGORY_INFO_LIST = "category_info_list";
+        public static final String ZAN_STATUS_ADD = "1";
+        public static final String ZAN_STATUS_DEL = "0";
     }
 
     public static class Intent_Extra {

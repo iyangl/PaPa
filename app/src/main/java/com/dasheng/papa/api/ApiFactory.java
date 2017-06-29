@@ -1,6 +1,7 @@
 package com.dasheng.papa.api;
 
 import com.dasheng.papa.base.BaseView;
+import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
@@ -68,4 +69,11 @@ public class ApiFactory {
                 .lift(new BaseValueValidOperator<ApiSingleResBean<VideoDetailBean>>())
                 .compose(RxUtils.<ApiSingleResBean<VideoDetailBean>>rxSchedulerHelper(view));
     }
+
+    public static Observable<ApiBean> zan(String id, String status, BaseView view) {
+        return getApi().zan(id, status)
+                .lift(new BaseValueValidOperator<>())
+                .compose(RxUtils.<ApiBean>rxSchedulerHelper(view));
+    }
 }
+

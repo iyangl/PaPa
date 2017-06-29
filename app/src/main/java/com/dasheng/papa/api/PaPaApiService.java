@@ -1,5 +1,6 @@
 package com.dasheng.papa.api;
 
+import com.dasheng.papa.bean.ApiBean;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
@@ -63,6 +64,22 @@ public interface PaPaApiService {
                                                       @Query("page") String page,
                                                       @Query("size") String size);
 
+    /**
+     * 详细内容
+     *
+     * @param id
+     * @return
+     */
     @GET("get_content")
     Observable<ApiSingleResBean<VideoDetailBean>> get_Content_detail(@Query("id") String id);
+
+    /**
+     * 踩、赞接口
+     *
+     * @param id     id
+     * @param status 0：踩 1：赞
+     * @return
+     */
+    @GET("zan")
+    Observable<ApiBean> zan(@Query("id") String id, @Query("status") String status);
 }
