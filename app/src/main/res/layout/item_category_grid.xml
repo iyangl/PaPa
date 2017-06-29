@@ -27,7 +27,7 @@
             android:paddingTop="@dimen/bottom_text_margin"
             android:text="@{category.name}"
             android:textColor="@color/text_color_unselected"
-            android:textSize="@dimen/bottom_text_size"/>
+            android:textSize="@dimen/text_size_with_pics"/>
 
 
     </LinearLayout>

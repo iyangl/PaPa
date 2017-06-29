@@ -79,7 +79,7 @@ public class HomeCategoryPresenter {
         return new HomeCategoryContact.Model() {
             @Override
             public Observable<ApiListResBean<ResponseItemBean>> refresh(String type_id, String status) {
-                return ApiFactory.get_Content(type_id, status, null, "0", Constant.Api.SINGLE_PAGE_SIZE, mView);
+                return ApiFactory.get_Content(type_id, status, null, "0", "4", mView);
             }
 
             @Override

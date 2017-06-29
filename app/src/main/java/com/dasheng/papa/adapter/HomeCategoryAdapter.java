@@ -46,7 +46,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
         if (viewType == TYPE_BANNER) {
             View banner = View.inflate(parent.getContext(), R.layout.item_home_category_banner, null);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    CommonUtils.dip2px(banner.getContext(), 140));
+                    CommonUtils.dip2px(banner.getContext(), 110));
             banner.setLayoutParams(layoutParams);
             return new BannerViewHolder(banner);
         }
