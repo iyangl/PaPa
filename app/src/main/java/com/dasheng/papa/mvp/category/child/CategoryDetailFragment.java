@@ -48,7 +48,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
     private void initView() {
         mainActivity = (MainActivity) getActivity();
         if (categoryBean != null) {
-            mainActivity.setTitle(categoryBean.getTitle());
+            mainActivity.setTitle(categoryBean.getName());
         }
         mainActivity.setNavigationIcon();
         initRecyclerView();

@@ -18,6 +18,16 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/toolbar_back">
 
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
             <LinearLayout
                 android:id="@+id/papa_logo"
                 android:layout_width="match_parent"
@@ -67,17 +77,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="20sp"/>
 
         </android.support.v7.widget.Toolbar>
 
