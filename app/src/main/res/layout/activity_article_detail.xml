@@ -16,21 +16,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/article_title_padding"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_size"
-                android:padding="15px"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/time"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_margin="15px"
+                android:layout_height="@dimen/article_divider_height"
+                android:layout_margin="@dimen/article_title_padding"
                 android:background="@color/text_color_unselected"/>
 
             <WebView

@@ -58,4 +58,7 @@
     <dimen name="shape_page_indicator_width">17dp</dimen>
     <dimen name="shape_page_indicator_height">4dp</dimen>
 
+    <dimen name="article_title_padding">15px</dimen>
+    <dimen name="article_divider_height">1px</dimen>
+
 </resources>
