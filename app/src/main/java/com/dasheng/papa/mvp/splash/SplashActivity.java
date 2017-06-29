@@ -81,8 +81,8 @@ public class SplashActivity extends AppCompatActivity {
 
     public void gotoMainActivity(long l) {
         Long delay = 0L;
-        if (l < 3000) {
-            delay = 3000 - l;
+        if (l < 2000) {
+            delay = 2000 - l;
         }
         handler.postDelayed(new Runnable() {
             @Override

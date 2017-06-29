@@ -10,6 +10,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- 防止欢迎页白屏或者黑屏，设置图片 -->
+    <style name="SplashTheme" parent="Base.AppTheme">
+        <item name="android:windowBackground">@drawable/app_splash</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+        <!--<item name="android:windowDisablePreview">true</item>-->
+    </style>
+
     <style name="AppTheme" parent="Base.AppTheme"/>
 
     <style name="Bottom_bar_text">

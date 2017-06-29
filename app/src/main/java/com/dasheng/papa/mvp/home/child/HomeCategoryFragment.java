@@ -117,7 +117,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
             public void run() {
                 binding.swipe.callFresh();
             }
-        }, 300);
+        }, 500);
     }
 
     private String initType_Id() {
