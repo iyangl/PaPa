@@ -100,7 +100,6 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
                     return;
                 }
                 if (mCurrentPage >= mTotalPages) {
-                    binding.swipe.setDataFinish(true);
                     binding.swipe.onFinishFreshAndLoad();
                     return;
                 }
@@ -160,6 +159,9 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         categoryDetailAdapter.addItems(apiBean.getRes(), true);
     }
 
@@ -168,6 +170,9 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         categoryDetailAdapter.addItems(apiBean.getRes());
     }
 

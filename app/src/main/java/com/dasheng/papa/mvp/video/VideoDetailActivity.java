@@ -128,10 +128,10 @@ public class VideoDetailActivity extends BaseActivity<ActivityVideoDetailBinding
         ToastUtil.show(this, apiSingleResBean.getMsg());
         if (Constant.Api.ZAN_STATUS_ADD.equals(status)) {
             binding.player.praiseCountAdd.setText(
-                    Integer.parseInt(binding.player.praiseCountAdd.getText().toString().trim()) + 1);
+                    Integer.parseInt(binding.player.praiseCountAdd.getText().toString().trim()) + 1 + "");
         } else if (Constant.Api.ZAN_STATUS_DEL.equals(status)) {
             binding.player.praiseCountDel.setText(
-                    Integer.parseInt(binding.player.praiseCountDel.getText().toString().trim()) + 1);
+                    Integer.parseInt(binding.player.praiseCountDel.getText().toString().trim()) + 1 + "");
         }
     }
 
@@ -145,9 +145,11 @@ public class VideoDetailActivity extends BaseActivity<ActivityVideoDetailBinding
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.praise_add:
+                int i1 = Integer.parseInt(binding.player.praiseCountAdd.getText().toString().trim());
                 videoDetailPresenter.zan(String.valueOf(mId), Constant.Api.ZAN_STATUS_ADD);
                 break;
             case R.id.praise_del:
+                int i = Integer.parseInt(binding.player.praiseCountDel.getText().toString().trim());
                 videoDetailPresenter.zan(String.valueOf(mId), Constant.Api.ZAN_STATUS_DEL);
                 break;
         }
