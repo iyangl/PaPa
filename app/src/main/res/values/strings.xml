@@ -20,4 +20,6 @@
     <string name="network_unavailable">当前网络不可用，请检查网络情况</string>
     <string name="pre_page">上一页</string>
     <string name="next_page">下一页</string>
+    <string name="praise_status_add">1</string>
+    <string name="praise_status_del">0</string>
 </resources>

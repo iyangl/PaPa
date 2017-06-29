@@ -62,7 +62,6 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
         beautyPicAdapter.setOnItemClickListener(new OnItemClickListener<ImgBean.ImginfoBean>() {
             @Override
             public void onClick(ImgBean.ImginfoBean apiBean, int position) {
-                ToastUtil.show(getActivity(), position + "");
                 Intent intent = new Intent(getActivity(), BeautyListActivity.class);
                 intent.putExtra(Constant.Intent_Extra.BEAUTY_PIC, apiBean);
                 getActivity().startActivity(intent);
@@ -85,7 +84,6 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
                     return;
                 }
                 if (mCurrentPage >= mTotalPages) {
-                    binding.swipe.setDataFinish(true);
                     binding.swipe.onFinishFreshAndLoad();
                     return;
                 }
@@ -136,6 +134,9 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
         binding.swipe.setDataFinish(false);
         mTotalPages = apiBean.getTotal();
         mCurrentPage = 1;
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         beautyPicAdapter.addImg(apiBean.getRes().getImginfo(), true);
     }
 
@@ -144,6 +145,9 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         beautyPicAdapter.addImg(apiBean.getRes().getImginfo());
     }
 

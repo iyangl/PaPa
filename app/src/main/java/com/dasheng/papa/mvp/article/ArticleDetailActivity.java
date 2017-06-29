@@ -10,8 +10,7 @@ import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.bean.VideoDetailBean;
 import com.dasheng.papa.databinding.ActivityArticleDetailBinding;
 import com.dasheng.papa.util.Constant;
-
-import timber.log.Timber;
+import com.dasheng.papa.util.HtmlUtil;
 
 public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBinding>
         implements ArticleDetailContact.View {
@@ -28,6 +27,7 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
     @Override
     protected void initView() {
         setNavigationIcon();
+        setTitle("文章详情");
         responseItemBean = (ResponseItemBean) getIntent()
                 .getSerializableExtra(Constant.Intent_Extra.VIDEO_DETAIL_INFO);
         if (responseItemBean != null) {
@@ -55,8 +55,10 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
     public void onRefreshSuccess(ApiSingleResBean<VideoDetailBean> apiBean) {
         if (apiBean.getRes().getHead() != null && apiBean.getRes().getHead().size() > 0) {
             responseItemBean = apiBean.getRes().getHead().get(0);
-            setTitle(responseItemBean.getTitle());
-            binding.web.loadData(responseItemBean.getArticle(), "text/html; charset=UTF-8", null);
+            binding.title.setText(responseItemBean.getTitle());
+            binding.time.setText(String.format("更新时间：%s", responseItemBean.getAddtime()));
+            binding.web.loadData(HtmlUtil.getNewContent(responseItemBean.getArticle()),
+                    "text/html; charset=UTF-8", null);
         }
     }
 

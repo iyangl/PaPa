@@ -38,6 +38,15 @@ public class DataBindingUtil {
         ImageLoader.loadImage(iv.getContext(), imgUrl, iv);
     }
 
+    @BindingAdapter("category")
+    public static void loadCategory(ImageView iv, String imgUrl) {
+        if (TextUtils.isEmpty(imgUrl)) {
+            iv.setImageResource(R.drawable.category_weixin);
+            return;
+        }
+        ImageLoader.loadImage(iv.getContext(), imgUrl, iv);
+    }
+
     @BindingAdapter("color")
     public static void setRadioButtonColor(RadioButton radio, String color) {
         if (radio.isChecked()) {

@@ -13,7 +13,6 @@ import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
-import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.util.UrlUtils;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
@@ -60,7 +59,6 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         homeCategoryAdapter.setOnItemClickListener(new OnItemClickListener<Object>() {
             @Override
             public void onClick(Object apiBean, int position) {
-                ToastUtil.show(getActivity(), "click" + position);
                 if (apiBean instanceof ResponseItemBean) {
                     UrlUtils.jumpToArticleOrVideo(getActivity(), (ResponseItemBean) apiBean);
                 }
@@ -84,7 +82,6 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
                     return;
                 }
                 if (mCurrentPage >= mTotalPages) {
-                    binding.swipe.setDataFinish(true);
                     binding.swipe.onFinishFreshAndLoad();
                     return;
                 }
@@ -133,6 +130,9 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         homeCategoryAdapter.addData(apiBean, true);
     }
 
@@ -141,6 +141,9 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         homeCategoryAdapter.addData(apiBean);
     }
 

@@ -1,4 +1,4 @@
-package com.dasheng.papa.mvp.home;
+package com.dasheng.papa.mvp.category;
 
 import com.dasheng.papa.api.ApiFactory;
 import com.dasheng.papa.api.BaseSubscriber;
@@ -7,12 +7,12 @@ import com.dasheng.papa.bean.ResponseItemBean;
 
 import rx.Observable;
 
-public class HomePresenter {
+public class CategoryPresenter {
 
-    private HomeContact.View view;
-    private HomeContact.Model model;
+    private CategoryContact.View view;
+    private CategoryContact.Model model;
 
-    public HomePresenter(HomeContact.View view) {
+    public CategoryPresenter(CategoryContact.View view) {
         this.view = view;
         this.model = getModel();
     }
@@ -33,8 +33,8 @@ public class HomePresenter {
     }
 
 
-    private HomeContact.Model getModel() {
-        return new HomeContact.Model() {
+    private CategoryContact.Model getModel() {
+        return new CategoryContact.Model() {
             @Override
             public Observable<ApiListResBean<ResponseItemBean>> loadCategoryInfo() {
                 return ApiFactory.rank(null, null, null, view);

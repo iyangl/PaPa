@@ -82,6 +82,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         }
     }
 
+    public void gotoBeauty() {
+        binding.subContent.setCurrentItem(2);
+        binding.setState(R.id.beauty);
+    }
+
     public void switchFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.sub_container, fragment).addToBackStack(null).commit();

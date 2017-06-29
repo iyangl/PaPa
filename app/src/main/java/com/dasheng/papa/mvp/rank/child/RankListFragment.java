@@ -84,7 +84,6 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
                     return;
                 }
                 if (mCurrentPage >= mTotalPages) {
-                    binding.swipe.setDataFinish(true);
                     binding.swipe.onFinishFreshAndLoad();
                     return;
                 }
@@ -132,6 +131,9 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         rankAdapter.addRankItem(apiBean.getRes(), true);
     }
 
@@ -140,6 +142,9 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         resetLoadingStatus();
         mCurrentPage++;
         mTotalPages = apiBean.getTotal();
+        if (mCurrentPage >= mTotalPages) {
+            binding.swipe.setDataFinish(true);
+        }
         rankAdapter.addRankItem(apiBean.getRes());
     }
 

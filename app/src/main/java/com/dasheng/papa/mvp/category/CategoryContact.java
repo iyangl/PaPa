@@ -1,4 +1,4 @@
-package com.dasheng.papa.mvp.home;
+package com.dasheng.papa.mvp.category;
 
 import com.dasheng.papa.base.BaseView;
 import com.dasheng.papa.bean.ApiListResBean;
@@ -6,7 +6,7 @@ import com.dasheng.papa.bean.ResponseItemBean;
 
 import rx.Observable;
 
-public interface HomeContact {
+public interface CategoryContact {
 
     public static interface View extends BaseView {
         void onLoadCategoryInfoSuccess(ApiListResBean<ResponseItemBean> apiBean);

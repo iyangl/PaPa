@@ -11,7 +11,17 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.dasheng.papa.R;
+import com.dasheng.papa.api.ApiFactory;
+import com.dasheng.papa.api.BaseSubscriber;
+import com.dasheng.papa.bean.ApiListResBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.mvp.MainActivity;
+import com.dasheng.papa.util.Constant;
+import com.dasheng.papa.util.GsonUtil;
+import com.dasheng.papa.util.SPUtil;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -20,37 +30,67 @@ public class SplashActivity extends AppCompatActivity {
     private boolean isFirst = true;
     private Handler handler = new Handler();
     private SharedPreferences.Editor editor;
+    private Long requestTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
         SharedPreferences preferences = getSharedPreferences(IS_First, MODE_PRIVATE);
         editor = preferences.edit();
-        isFirst = preferences.getBoolean(IS_First,isFirst);
+        isFirst = preferences.getBoolean(IS_First, isFirst);
         if (isFirst) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(SplashActivity.this,GuideActivity.class));
+                    startActivity(new Intent(SplashActivity.this, GuideActivity.class));
                     finish();
-                    editor.putBoolean(IS_First,false);
+                    editor.putBoolean(IS_First, false);
                     editor.apply();
                 }
-            },1500);
-        }else{
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
-                    finish();
-                }
-            },1500);
+            }, 0);
+        } else {
+            requestTime = System.currentTimeMillis();
+            loadCategoryInfo();
         }
+    }
+
+    private void loadCategoryInfo() {
+        ApiFactory.rank(null, null, null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<ApiListResBean<ResponseItemBean>>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        gotoMainActivity(System.currentTimeMillis() - requestTime);
+                    }
+
+                    @Override
+                    public void onNext(ApiListResBean<ResponseItemBean> apiBean) {
+                        if (apiBean.getRes() != null && apiBean.getRes().size() > 0) {
+                            SPUtil.put(Constant.Api.CATEGORY_INFO_LIST, GsonUtil.GsonString(apiBean.getRes()));
+                        }
+                        gotoMainActivity(System.currentTimeMillis() - requestTime);
+                    }
+                });
+    }
+
+    public void gotoMainActivity(long l) {
+        Long delay = 0L;
+        if (l < 3000) {
+            delay = 3000 - l;
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
+            }
+        }, delay);
     }
 
     @Override

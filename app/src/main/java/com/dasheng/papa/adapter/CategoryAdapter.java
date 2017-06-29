@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseRecyclerViewAdapter;
 import com.dasheng.papa.base.BaseRecyclerViewHolder;
-import com.dasheng.papa.bean.CategoryBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.ItemCategoryDivideBinding;
 import com.dasheng.papa.databinding.ItemCategoryGridBinding;
 
-public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryBean> implements View.OnClickListener {
+import java.util.List;
+
+public class CategoryAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> implements View.OnClickListener {
     private static final int TYPE_GRID = 0xffff04;
     private static final int TYPE_DIVIDER = 0xffff05;
 
@@ -33,7 +35,7 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryBean> imple
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 7) {
+        if (data.get(position) == null) {
             return TYPE_DIVIDER;
         }
         return TYPE_GRID;
@@ -62,30 +64,40 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryBean> imple
         }
     }
 
+    public void addItemList(List<ResponseItemBean> list) {
+        data.clear();
+        data.addAll(list);
+        data.add(null);
+        ResponseItemBean bean = new ResponseItemBean();
+        bean.setName("关注公众号");
+        data.add(bean);
+        notifyDataSetChanged();
+    }
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
-    class CategoryGridViewHolder extends BaseRecyclerViewHolder<CategoryBean, ItemCategoryGridBinding> {
+    class CategoryGridViewHolder extends BaseRecyclerViewHolder<ResponseItemBean, ItemCategoryGridBinding> {
 
         public CategoryGridViewHolder(View view) {
             super(view);
         }
 
         @Override
-        public void onBindViewHolder(CategoryBean categoryBean, int position) {
+        public void onBindViewHolder(ResponseItemBean categoryBean, int position) {
             binding.setCategory(categoryBean);
         }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
-    class DividerViewHolder extends BaseRecyclerViewHolder<CategoryBean, ItemCategoryDivideBinding> {
+    class DividerViewHolder extends BaseRecyclerViewHolder<ResponseItemBean, ItemCategoryDivideBinding> {
 
         public DividerViewHolder(View itemView) {
             super(itemView);
         }
 
         @Override
-        public void onBindViewHolder(CategoryBean object, int position) {
+        public void onBindViewHolder(ResponseItemBean object, int position) {
 
         }
     }

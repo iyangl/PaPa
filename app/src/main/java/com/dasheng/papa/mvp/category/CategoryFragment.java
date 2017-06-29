@@ -3,32 +3,37 @@ package com.dasheng.papa.mvp.category;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.CategoryAdapter;
 import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
-import com.dasheng.papa.bean.CategoryBean;
+import com.dasheng.papa.bean.ApiListResBean;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentCategoryBinding;
 import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.mvp.category.child.CategoryDetailFragment;
-import com.dasheng.papa.util.CommonUtils;
 import com.dasheng.papa.util.Constant;
-import com.dasheng.papa.util.ToastUtil;
+import com.dasheng.papa.util.GsonUtil;
+import com.dasheng.papa.util.SPUtil;
+
+import java.util.List;
 
 import timber.log.Timber;
 
-public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
+public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> implements CategoryContact.View {
 
 
     private CategoryAdapter categoryAdapter;
+    private CategoryPresenter categoryPresenter;
+    private List<ResponseItemBean> responseItemBeanList;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         initView();
-        initData();
     }
 
     private void initView() {
@@ -38,10 +43,17 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
     private void initRecyclerView() {
         binding.recycler.setLayoutManager(new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false));
         categoryAdapter = new CategoryAdapter();
-        categoryAdapter.setOnItemClickListener(new OnItemClickListener<CategoryBean>() {
+        binding.recycler.setAdapter(categoryAdapter);
+        categoryAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
-            public void onClick(CategoryBean categoryBean, int position) {
-                ToastUtil.show(getActivity(), "position:" + position);
+            public void onClick(ResponseItemBean categoryBean, int position) {
+                if ("关注公众号".equals(categoryBean.getName())) {
+                    return;
+                }
+                if ("美女图集".equals(categoryBean.getName())) {
+                    ((MainActivity) getActivity()).gotoBeauty();
+                    return;
+                }
                 CategoryDetailFragment categoryDetailFragment = new CategoryDetailFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.Intent_Extra.CATEGORY_TYPE, categoryBean);
@@ -52,24 +64,16 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
     }
 
     private void initData() {
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_entertainment_selection),
-                R.drawable.category_entertainment_selection, 1));
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_roast),
-                R.drawable.category_roast, 2));
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_spoof),
-                R.drawable.category_spoof, 3));
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_embarrass),
-                R.drawable.category_embarrass, 4));
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_funny_talent),
-                R.drawable.category_funny_talent, 5));
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_anecdote),
-                R.drawable.category_anecdote, 6));
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_beauty),
-                R.drawable.category_beauty, 7));
+        if (responseItemBeanList != null) {
+            for (ResponseItemBean bean : responseItemBeanList) {
+                categoryAdapter.add(bean);
+            }
+        }
         categoryAdapter.add(null);
-        categoryAdapter.add(new CategoryBean(CommonUtils.getString(R.string.category_weixin),
-                R.drawable.category_weixin, 8));
-        binding.recycler.setAdapter(categoryAdapter);
+        ResponseItemBean bean = new ResponseItemBean();
+        bean.setName("关注公众号");
+        categoryAdapter.add(bean);
+        categoryAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -83,10 +87,37 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> {
     @Override
     protected void onFragmentFirstVisible() {
         Timber.d("onFragmentFirstVisible");
+        String categoryInfo = (String) SPUtil.get(Constant.Api.CATEGORY_INFO_LIST, "");
+        if (TextUtils.isEmpty(categoryInfo)) {
+            categoryPresenter = new CategoryPresenter(this);
+            categoryPresenter.loadCategory();
+        } else {
+            responseItemBeanList = GsonUtil.jsonToList(categoryInfo, ResponseItemBean.class);
+        }
+        initData();
     }
 
     @Override
     protected int setLayoutId() {
         return R.layout.fragment_category;
+    }
+
+    @Override
+    public void onShowLoading() {
+
+    }
+
+    @Override
+    public void onLoadingDismiss() {
+
+    }
+
+    @Override
+    public void onLoadCategoryInfoSuccess(ApiListResBean<ResponseItemBean> apiBean) {
+        if (apiBean.getRes() != null && apiBean.getRes().size() > 0) {
+            SPUtil.put(Constant.Api.CATEGORY_INFO_LIST, GsonUtil.GsonString(apiBean.getRes()));
+            responseItemBeanList = apiBean.getRes();
+            categoryAdapter.addItemList(responseItemBeanList);
+        }
     }
 }

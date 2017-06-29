@@ -57,7 +57,7 @@
                         android:src="@drawable/up"/>
 
                     <TextView
-                        android:id="@+id/praise_count"
+                        android:id="@+id/praise_count_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/praise_add"
@@ -69,11 +69,12 @@
                         android:layout_height="@dimen/video_head_praise_size"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/video_head_praise_padding_left"
-                        android:layout_toRightOf="@+id/praise_count"
+                        android:layout_toRightOf="@+id/praise_count_add"
                         android:scaleType="centerInside"
                         android:src="@drawable/down"/>
 
                     <TextView
+                        android:id="@+id/praise_count_del"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/praise_del"

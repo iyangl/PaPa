@@ -11,7 +11,6 @@ import com.dasheng.papa.adapter.CategoryDetailAdapter;
 import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
-import com.dasheng.papa.bean.CategoryBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentCategoryDetailBinding;
 import com.dasheng.papa.mvp.MainActivity;
@@ -29,7 +28,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
     private CategoryDetailAdapter categoryDetailAdapter;
     private MainActivity mainActivity;
     private int mId;
-    private CategoryBean categoryBean;
+    private ResponseItemBean categoryBean;
 
     private boolean isLoading;
     private int mCurrentPage;
@@ -109,9 +108,10 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
 
     @Override
     protected void onFragmentFirstVisible() {
-        categoryBean = (CategoryBean) getArguments().getSerializable(Constant.Intent_Extra.CATEGORY_TYPE);
+        categoryBean = (ResponseItemBean) getArguments().getSerializable(Constant.Intent_Extra.CATEGORY_TYPE);
         if (categoryBean != null) {
-            mId = categoryBean.getId();
+            mId = Integer.parseInt(categoryBean.getId());
+            baseActivity.setTitle(categoryBean.getName());
         }
         categoryDetailPresenter = new CategoryDetailPresenter(this);
         new Handler().postDelayed(new Runnable() {

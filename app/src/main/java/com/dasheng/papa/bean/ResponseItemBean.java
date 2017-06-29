@@ -29,6 +29,24 @@ public class ResponseItemBean extends ResBean implements Serializable {
     private String local_time;
     private int vnum;
     private int dnum;
+    private String name;
+    private String picture;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public int getVnum() {
         return vnum;
