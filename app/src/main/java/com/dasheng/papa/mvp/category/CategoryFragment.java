@@ -1,5 +1,6 @@
 package com.dasheng.papa.mvp.category;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.FragmentCategoryBinding;
 import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.mvp.category.child.CategoryDetailFragment;
+import com.dasheng.papa.mvp.weixin.WeiXinActivity;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.GsonUtil;
 import com.dasheng.papa.util.SPUtil;
@@ -42,12 +44,15 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> impl
 
     private void initRecyclerView() {
         binding.recycler.setLayoutManager(new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false));
-        categoryAdapter = new CategoryAdapter();
+        if (categoryAdapter == null) {
+            categoryAdapter = new CategoryAdapter();
+        }
         binding.recycler.setAdapter(categoryAdapter);
         categoryAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
             public void onClick(ResponseItemBean categoryBean, int position) {
                 if ("关注公众号".equals(categoryBean.getName())) {
+                    getActivity().startActivity(new Intent(getActivity(), WeiXinActivity.class));
                     return;
                 }
                 if ("美女图集".equals(categoryBean.getName())) {
@@ -64,6 +69,9 @@ public class CategoryFragment extends BaseFragment<FragmentCategoryBinding> impl
     }
 
     private void initData() {
+        if (categoryAdapter == null) {
+            categoryAdapter = new CategoryAdapter();
+        }
         if (responseItemBeanList != null) {
             for (ResponseItemBean bean : responseItemBeanList) {
                 categoryAdapter.add(bean);
