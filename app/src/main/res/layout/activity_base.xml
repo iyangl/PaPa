@@ -18,14 +18,56 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/toolbar_back">
 
-
-            <ImageView
+            <LinearLayout
                 android:id="@+id/papa_logo"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/papapa_logo"
-                android:scaleType="centerCrop"
-                android:visibility="gone"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingRight="5dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/papapa_logo"
+                    android:scaleType="centerCrop"
+                    android:visibility="visible"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_search"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:background="@drawable/shape_home_search_bg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:visibility="visible">
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/search"
+                        android:background="@null"
+                        android:hint="高考"
+                        android:singleLine="true"/>
+
+                    <ImageView
+                        android:id="@+id/search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/search"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/title"
@@ -36,36 +78,6 @@
                 android:singleLine="true"
                 android:textColor="@color/white"
                 android:textSize="20sp"/>
-
-            <RelativeLayout
-                android:id="@+id/rl_search"
-                android:layout_width="220dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:background="@drawable/shape_home_search_bg"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:visibility="gone">
-
-                <EditText
-                    android:id="@+id/et_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/search"
-                    android:singleLine="true"
-                    android:background="@null"
-                    android:hint="高考"/>
-
-                <ImageView
-                    android:id="@+id/search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/search"/>
-
-            </RelativeLayout>
-
 
         </android.support.v7.widget.Toolbar>
 

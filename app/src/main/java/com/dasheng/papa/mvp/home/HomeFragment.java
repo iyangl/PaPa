@@ -54,6 +54,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements H
             HomeCategoryFragment fragment = new HomeCategoryFragment();
             Bundle bundle = new Bundle();
             bundle.putString(Constant.Intent_Extra.HOME_CATEGORY_TYPE, getItemId(i));
+            bundle.putString(Constant.Intent_Extra.HOME_CATEGORY_NAME, mDefaultItems[i]);
             fragment.setArguments(bundle);
             fragments.add(fragment);
         }

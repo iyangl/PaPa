@@ -10,11 +10,14 @@ import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.MainPagerAdapter;
 import com.dasheng.papa.base.BaseActivity;
 import com.dasheng.papa.base.BaseFragment;
+import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.ActivityMainBinding;
 import com.dasheng.papa.mvp.beauty.BeautyFragment;
 import com.dasheng.papa.mvp.category.CategoryFragment;
+import com.dasheng.papa.mvp.category.child.CategoryDetailFragment;
 import com.dasheng.papa.mvp.home.HomeFragment;
 import com.dasheng.papa.mvp.rank.RankFragment;
+import com.dasheng.papa.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +33,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
     }
 
     @Override
@@ -110,5 +111,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
     @Override
     public int[] hideSoftByEditViewIds() {
         return new int[]{R.id.et_search};
+    }
+
+    public void gotoCategory(String type_id, String type_name) {
+        CategoryDetailFragment categoryDetailFragment = new CategoryDetailFragment();
+        Bundle bundle = new Bundle();
+        ResponseItemBean bean = new ResponseItemBean();
+        bean.setName(type_name);
+        bean.setId(type_id);
+        bundle.putSerializable(Constant.Intent_Extra.CATEGORY_TYPE, bean);
+        categoryDetailFragment.setArguments(bundle);
+        binding.subContent.setCurrentItem(1, false);
+        binding.setState(R.id.category);
+        switchFragment(categoryDetailFragment);
     }
 }

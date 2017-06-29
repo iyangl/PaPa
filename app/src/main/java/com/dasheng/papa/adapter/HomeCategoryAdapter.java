@@ -20,6 +20,7 @@ import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.databinding.ItemHomeCategoryBannerBinding;
 import com.dasheng.papa.databinding.ItemHomeCategoryGridBinding;
 import com.dasheng.papa.databinding.ItemHomeCategoryTitleBinding;
+import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.util.CommonUtils;
 import com.dasheng.papa.util.ImageLoader;
 
@@ -29,6 +30,15 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
     private static final int TYPE_BANNER = 0xffff01;
     private static final int TYPE_GRID = 0xffff02;
     private static final int TYPE_TITLE = 0xffff03;
+    private MainActivity mainActivity;
+    private String type_id;
+    private String type_name;
+
+    public HomeCategoryAdapter(MainActivity mainActivity, String type_id, String type_name) {
+        this.mainActivity = mainActivity;
+        this.type_id = type_id;
+        this.type_name = type_name;
+    }
 
 
     @Override
@@ -49,7 +59,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
         if (viewType == TYPE_TITLE) {
             View title = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_home_category_title, null, false);
-            return new TitleViewHolder(title);
+            return new TitleViewHolder(title, mainActivity, type_id, type_name);
         }
         return null;
     }
@@ -191,11 +201,15 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     class TitleViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryTitleBinding> {
-        private int type_id;
+        private String type_id;
+        private MainActivity mainActivity;
+        private String type_name;
 
-        public TitleViewHolder(View view, int type_id) {
+        public TitleViewHolder(View view, MainActivity mainActivity, String type_id, String type_name) {
             super(view);
             this.type_id = type_id;
+            this.mainActivity = mainActivity;
+            this.type_name = type_name;
         }
 
         public TitleViewHolder(View view) {
@@ -204,10 +218,10 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
 
         @Override
         public void onBindViewHolder(Object object, int position) {
-            binding.iconGoto.setOnClickListener(new View.OnClickListener() {
+            binding.tvGoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    mainActivity.gotoCategory(type_id, type_name);
                 }
             });
         }

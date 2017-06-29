@@ -14,6 +14,7 @@ import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
 import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
+import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.UrlUtils;
 import com.dasheng.papa.widget.springview.DefaultFooter;
@@ -28,6 +29,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
     private HomeCategoryAdapter homeCategoryAdapter;
     private HomeCategoryPresenter homeCategotyPresenter;
     private String type_id;
+    private String type_name;
     private boolean isLoading;
     private int mCurrentPage;
     private int mTotalPages;
@@ -54,7 +56,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     private void initRecyclerView() {
         binding.recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
-        homeCategoryAdapter = new HomeCategoryAdapter();
+        homeCategoryAdapter = new HomeCategoryAdapter((MainActivity) getActivity(), type_id, type_name);
         if (mAcache != null) {
             mCacheApiBean = (ApiListResBean<ResponseItemBean>) mAcache
                     .getAsObject(Constant.Cache.CACHE_HOME_CATEGORY + type_id);
@@ -123,6 +125,7 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
             return type_id;
         }
         Bundle bundle = getArguments();
+        type_name = bundle.getString(Constant.Intent_Extra.HOME_CATEGORY_NAME);
         return bundle.getString(Constant.Intent_Extra.HOME_CATEGORY_TYPE);
     }
 

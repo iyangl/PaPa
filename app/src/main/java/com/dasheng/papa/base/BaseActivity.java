@@ -83,6 +83,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
 
     public void setTitle(CharSequence title) {
         baseBinding.title.setText(title);
+        baseBinding.title.setVisibility(View.VISIBLE);
     }
 
     public void setLogoVisible(int visible) {
