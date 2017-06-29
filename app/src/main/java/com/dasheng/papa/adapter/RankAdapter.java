@@ -31,6 +31,9 @@ public class RankAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> imple
     }
 
     public void addRankItem(List<ResponseItemBean> list, boolean isClear) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
         if (isClear) {
             data.clear();
         }

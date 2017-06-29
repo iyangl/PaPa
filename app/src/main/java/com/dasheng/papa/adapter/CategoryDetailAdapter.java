@@ -30,6 +30,9 @@ public class CategoryDetailAdapter extends BaseRecyclerViewAdapter<ResponseItemB
     }
 
     public void addItems(List<ResponseItemBean> list, boolean isClear) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
         if (isClear) {
             data.clear();
         }

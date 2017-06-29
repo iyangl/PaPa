@@ -65,6 +65,9 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<ResponseItemBean> i
     }
 
     public void addItemList(List<ResponseItemBean> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
         data.clear();
         data.addAll(list);
         data.add(null);

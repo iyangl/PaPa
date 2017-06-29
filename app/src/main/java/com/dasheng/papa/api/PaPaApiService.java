@@ -82,4 +82,8 @@ public interface PaPaApiService {
      */
     @GET("zan")
     Observable<ApiBean> zan(@Query("id") String id, @Query("status") String status);
+
+    @GET("search")
+    Observable<ApiListResBean<ResponseItemBean>> search(@Query("keyword") String keyword,
+                                                        @Query("page") int page);
 }

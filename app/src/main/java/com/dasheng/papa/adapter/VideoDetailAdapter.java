@@ -45,6 +45,9 @@ public class VideoDetailAdapter extends BaseRecyclerViewAdapter<ResponseItemBean
     }
 
     public void addItems(List<ResponseItemBean> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
         data.add(new ResponseItemBean());
         data.addAll(list);
         notifyDataSetChanged();

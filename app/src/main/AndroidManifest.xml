@@ -36,6 +36,9 @@
             android:name=".mvp.article.ArticleDetailActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".mvp.weixin.WeiXinActivity"/>
+        <activity
+            android:name=".mvp.search.SearchActivity"
+            android:launchMode="singleTask"/>
 
         <meta-data
             android:name="design_width"

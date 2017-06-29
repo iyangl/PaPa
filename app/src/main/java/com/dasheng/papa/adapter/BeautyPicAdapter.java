@@ -32,6 +32,9 @@ public class BeautyPicAdapter extends BaseRecyclerViewAdapter<ImgBean.ImginfoBea
     }
 
     public void addImg(List<ImgBean.ImginfoBean> imginfoBeen, boolean isClear) {
+        if (imginfoBeen == null || imginfoBeen.size() == 0) {
+            return;
+        }
         if (isClear) {
             data.clear();
         }

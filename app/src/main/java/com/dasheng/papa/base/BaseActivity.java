@@ -4,13 +4,17 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.cache.ACache;
@@ -49,7 +53,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
             view = new AutoRelativeLayout(context, attrs);
         }
 
-        if (view != null) return view;
+        if (view != null)
+            return view;
 
         return super.onCreateView(name, context, attrs);
     }
@@ -96,7 +101,38 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
                     baseBinding.etSearch.setCursorVisible(true);
                 }
             });
+            baseBinding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        String searchText = baseBinding.etSearch.getText().toString().trim();
+                        if (TextUtils.isEmpty(searchText)) {
+                            searchText = baseBinding.etSearch.getHint().toString();
+                        }
+                        onSearchClicked(searchText);
+                    }
+                    return false;
+                }
+            });
+            baseBinding.search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String searchText = baseBinding.etSearch.getText().toString().trim();
+                    if (TextUtils.isEmpty(searchText)) {
+                        searchText = baseBinding.etSearch.getHint().toString();
+                    }
+                    onSearchClicked(searchText);
+                }
+            });
         }
+    }
+
+    protected void onSearchClicked(String searchText) {
+
+    }
+
+    protected void clearSearchContent() {
+        baseBinding.etSearch.setText("");
     }
 
     public void setNavigationIcon() {

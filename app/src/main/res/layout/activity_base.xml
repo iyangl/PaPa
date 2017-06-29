@@ -63,6 +63,7 @@
                         android:layout_height="match_parent"
                         android:layout_toLeftOf="@+id/search"
                         android:background="@null"
+                        android:imeOptions="actionSearch"
                         android:hint="高考"
                         android:singleLine="true"/>
 

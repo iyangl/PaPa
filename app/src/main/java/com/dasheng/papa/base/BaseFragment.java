@@ -132,7 +132,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends RxFragment
      *
      * @param isReuse
      */
-    protected void reuseView(boolean isReuse) {
+    protected void reUseView(boolean isReuse) {
         isReuseView = isReuse;
     }
 

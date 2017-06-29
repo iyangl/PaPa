@@ -75,5 +75,11 @@ public class ApiFactory {
                 .lift(new BaseValueValidOperator<>())
                 .compose(RxUtils.<ApiBean>rxSchedulerHelper(view));
     }
+
+    public static Observable<ApiListResBean<ResponseItemBean>> search(String keyword, int page, BaseView view) {
+        return getApi().search(keyword, page)
+                .lift(new BaseValueValidOperator<ApiListResBean<ResponseItemBean>>())
+                .compose(RxUtils.<ApiListResBean<ResponseItemBean>>rxSchedulerHelper(view));
+    }
 }
 

@@ -1,10 +1,14 @@
 package com.dasheng.papa.mvp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.MainPagerAdapter;
@@ -17,6 +21,7 @@ import com.dasheng.papa.mvp.category.CategoryFragment;
 import com.dasheng.papa.mvp.category.child.CategoryDetailFragment;
 import com.dasheng.papa.mvp.home.HomeFragment;
 import com.dasheng.papa.mvp.rank.RankFragment;
+import com.dasheng.papa.mvp.search.SearchActivity;
 import com.dasheng.papa.util.Constant;
 
 import java.util.ArrayList;
@@ -124,5 +129,35 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         binding.subContent.setCurrentItem(1, false);
         binding.setState(R.id.category);
         switchFragment(categoryDetailFragment);
+    }
+
+    @Override
+    protected void onSearchClicked(String searchText) {
+        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+        intent.putExtra(Constant.Intent_Extra.SEARCH_CONTENT, searchText);
+        startActivity(intent);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                clearSearchContent();
+            }
+        }, 100);
+    }
+
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -69,6 +69,9 @@ public class BeautyListPagerAdapter extends PagerAdapter {
     }
 
     public void addAll(List<String> data) {
+        if (data == null || data.size() == 0) {
+            return;
+        }
         this.data.addAll(data);
         notifyDataSetChanged();
     }

@@ -102,6 +102,9 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
     }
 
     public void addData(ApiListResBean<ResponseItemBean> apiBean, boolean isClear) {
+        if (apiBean == null) {
+            return;
+        }
         if (isClear) {
             data.clear();
             data.add(apiBean);

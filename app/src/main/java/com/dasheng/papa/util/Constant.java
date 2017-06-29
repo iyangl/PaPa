@@ -23,6 +23,7 @@ public class Constant {
         public static final String RANK_DAY_TYPE = "rank_day_type";
         public static final String VIDEO_DETAIL_INFO = "video_detail_info";
         public static final String HOME_CATEGORY_NAME = "home_category_name";
+        public static final String SEARCH_CONTENT = "search_content";
     }
 
     public static class Cache {
