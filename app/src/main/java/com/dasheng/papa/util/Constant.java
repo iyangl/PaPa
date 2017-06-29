@@ -23,4 +23,12 @@ public class Constant {
         public static final String RANK_DAY_TYPE = "rank_day_type";
         public static final String VIDEO_DETAIL_INFO = "video_detail_info";
     }
+
+    public static class Cache {
+
+        public static final String CACHE_HOME_CATEGORY = "home_category_cache";
+        public static final String CACHE_CATEGORY_DETAIL = "cache_category_detail";
+        public static final String CACHE_BEAUTY = "cache_beauty";
+        public static final String CACHE_RANK_LIST = "cache_rank_list";
+    }
 }

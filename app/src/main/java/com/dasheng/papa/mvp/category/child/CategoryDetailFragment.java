@@ -12,6 +12,7 @@ import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
+import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.FragmentCategoryDetailBinding;
 import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.util.Constant;
@@ -29,6 +30,7 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
     private MainActivity mainActivity;
     private int mId;
     private ResponseItemBean categoryBean;
+    private ApiListResBean<ResponseItemBean> mCacheApiBean;
 
     private boolean isLoading;
     private int mCurrentPage;
@@ -63,6 +65,13 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
         binding.recycler.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false));
         categoryDetailAdapter = new CategoryDetailAdapter();
+        if (mAcache != null) {
+            mCacheApiBean = (ApiListResBean<ResponseItemBean>) mAcache
+                    .getAsObject(Constant.Cache.CACHE_CATEGORY_DETAIL + mId);
+            if (mCacheApiBean != null && mCacheApiBean.getRes() != null && mCacheApiBean.getRes().size() > 0) {
+                categoryDetailAdapter.addItems(mCacheApiBean.getRes(), true);
+            }
+        }
         binding.recycler.setAdapter(categoryDetailAdapter);
         binding.recycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         categoryDetailAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
@@ -146,6 +155,8 @@ public class CategoryDetailFragment extends BaseFragment<FragmentCategoryDetailB
 
     @Override
     public void onRefreshSuccess(ApiListResBean<ResponseItemBean> apiBean) {
+        mAcache.remove(Constant.Cache.CACHE_CATEGORY_DETAIL + mId);
+        mAcache.put(Constant.Cache.CACHE_CATEGORY_DETAIL + mId, apiBean, ACache.TIME_DAY);
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();

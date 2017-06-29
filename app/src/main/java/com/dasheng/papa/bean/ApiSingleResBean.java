@@ -1,6 +1,8 @@
 package com.dasheng.papa.bean;
 
-public class ApiSingleResBean<T extends ResBean> extends ApiBean {
+import java.io.Serializable;
+
+public class ApiSingleResBean<T extends ResBean> extends ApiBean implements Serializable{
 
     private T res;
 

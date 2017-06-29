@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.dasheng.papa.R;
+import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.ActivityBaseBinding;
 import com.dasheng.papa.util.KeyBoardUtils;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -27,6 +28,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
     private ActivityBaseBinding baseBinding;
     protected T binding;
     private CompositeSubscription compositeSubscription;
+    protected ACache mAcache;
 
     private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
     private static final String LAYOUT_FRAMELAYOUT = "FrameLayout";
@@ -54,6 +56,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
+        mAcache = ACache.get(this);
         //使用DataBindingUtil.setContentView()会报Stackoverflow
         baseBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
         binding = DataBindingUtil.inflate(LayoutInflater.from(this), layoutResID, null, false);

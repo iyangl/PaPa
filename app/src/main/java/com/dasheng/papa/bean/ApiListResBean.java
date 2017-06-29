@@ -1,8 +1,9 @@
 package com.dasheng.papa.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ApiListResBean<T extends ResBean> extends ApiBean {
+public class ApiListResBean<T extends ResBean> extends ApiBean implements Serializable{
     private List<T> res;
     private List<T> banner;
 

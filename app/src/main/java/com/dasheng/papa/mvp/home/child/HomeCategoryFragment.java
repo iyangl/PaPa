@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.HomeCategoryAdapter;
@@ -11,6 +12,7 @@ import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
+import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.FragmentHomeCategoryBinding;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.UrlUtils;
@@ -29,16 +31,17 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
     private boolean isLoading;
     private int mCurrentPage;
     private int mTotalPages;
+    private ApiListResBean<ResponseItemBean> mCacheApiBean;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
         initEvent();
-        Timber.d("onActivityCreated");
     }
 
     private void initView() {
+        type_id = initType_Id();
         initRecyclerView();
         initSwipeRefreshLayout();
     }
@@ -52,6 +55,13 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
     private void initRecyclerView() {
         binding.recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         homeCategoryAdapter = new HomeCategoryAdapter();
+        if (mAcache != null) {
+            mCacheApiBean = (ApiListResBean<ResponseItemBean>) mAcache
+                    .getAsObject(Constant.Cache.CACHE_HOME_CATEGORY + type_id);
+            if (mCacheApiBean != null && mCacheApiBean.getRes() != null && mCacheApiBean.getRes().size() > 0) {
+                homeCategoryAdapter.addData(mCacheApiBean, true);
+            }
+        }
         binding.recycler.setAdapter(homeCategoryAdapter);
     }
 
@@ -98,16 +108,22 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     @Override
     protected void onFragmentFirstVisible() {
-        Timber.d("onFragmentFirstVisible %b", getArguments() == null);
         homeCategotyPresenter = new HomeCategoryPresenter(this);
-        Bundle bundle = getArguments();
-        type_id = bundle.getString(Constant.Intent_Extra.HOME_CATEGORY_TYPE);
+        type_id = initType_Id();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 binding.swipe.callFresh();
             }
         }, 300);
+    }
+
+    private String initType_Id() {
+        if (!TextUtils.isEmpty(type_id)) {
+            return type_id;
+        }
+        Bundle bundle = getArguments();
+        return bundle.getString(Constant.Intent_Extra.HOME_CATEGORY_TYPE);
     }
 
     @Override
@@ -127,6 +143,8 @@ public class HomeCategoryFragment extends BaseFragment<FragmentHomeCategoryBindi
 
     @Override
     public void onRefresh(ApiListResBean<ResponseItemBean> apiBean) {
+        mAcache.remove(Constant.Cache.CACHE_HOME_CATEGORY + type_id);
+        mAcache.put(Constant.Cache.CACHE_HOME_CATEGORY + type_id, apiBean, ACache.TIME_DAY);
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();

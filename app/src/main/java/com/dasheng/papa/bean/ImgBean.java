@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class ImgBean extends ResBean {
+public class ImgBean extends ResBean implements Serializable{
 
     private String status;
     private String keywords;

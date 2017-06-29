@@ -12,6 +12,7 @@ import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
 import com.dasheng.papa.bean.ResponseItemBean;
+import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.FragmentRankListBinding;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.FragmentUserVisibleController;
@@ -31,8 +32,9 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     private int mCurrentPage;
     private int mTotalPages;
     private RankPresenter rankPresenter;
-    private int day_type = 1;
+    private int day_type = 0;
     private boolean isParentHasShowed;
+    private ApiListResBean<ResponseItemBean> mCacheApiBean;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -48,8 +50,16 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     }
 
     private void initRecyclerView() {
+        day_type = initDayType();
         binding.recycler.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         rankAdapter = new RankAdapter();
+        if (mAcache != null) {
+            mCacheApiBean = (ApiListResBean<ResponseItemBean>) mAcache
+                    .getAsObject(Constant.Cache.CACHE_RANK_LIST + day_type);
+            if (mCacheApiBean != null && mCacheApiBean.getRes() != null && mCacheApiBean.getRes().size() > 0) {
+                rankAdapter.addRankItem(mCacheApiBean.getRes(), true);
+            }
+        }
         binding.recycler.setAdapter(rankAdapter);
         binding.recycler.addItemDecoration(new DividerItemDecoration(getActivity(), VERTICAL_LIST, 0));
         rankAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
@@ -101,7 +111,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     @Override
     protected void onFragmentFirstVisible() {
         Timber.d("rank  onFragmentFirstVisible");
-        day_type = getArguments().getInt(Constant.Intent_Extra.RANK_DAY_TYPE);
+        day_type = initDayType();
         rankPresenter = new RankPresenter(this);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -109,6 +119,13 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
                 binding.swipe.callFresh();
             }
         }, 300);
+    }
+
+    private int initDayType() {
+        if (day_type != 0) {
+            return day_type;
+        }
+        return getArguments().getInt(Constant.Intent_Extra.RANK_DAY_TYPE);
     }
 
     @Override
@@ -128,6 +145,8 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
 
     @Override
     public void onRefreshSuccess(ApiListResBean<ResponseItemBean> apiBean) {
+        mAcache.remove(Constant.Cache.CACHE_RANK_LIST + day_type);
+        mAcache.put(Constant.Cache.CACHE_RANK_LIST + day_type, apiBean, ACache.TIME_DAY);
         resetLoadingStatus();
         mCurrentPage = 1;
         mTotalPages = apiBean.getTotal();

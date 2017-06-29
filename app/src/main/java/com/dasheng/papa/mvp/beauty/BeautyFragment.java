@@ -13,10 +13,10 @@ import com.dasheng.papa.base.BaseFragment;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.ImgBean;
+import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.FragmentBeautyBinding;
 import com.dasheng.papa.mvp.beauty.child.BeautyListActivity;
 import com.dasheng.papa.util.Constant;
-import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.widget.springview.DefaultFooter;
 import com.dasheng.papa.widget.springview.DefaultHeader;
 import com.dasheng.papa.widget.springview.SpringView;
@@ -30,6 +30,7 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
     private int mCurrentPage;
     private int mTotalPages;
     private BeautyPresenter beautyPresenter;
+    private ApiSingleResBean<ImgBean> mCacheApiBean;
 
 
     @Override
@@ -49,6 +50,15 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
         binding.recycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         binding.recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         beautyPicAdapter = new BeautyPicAdapter();
+        if (mAcache != null) {
+            mCacheApiBean = (ApiSingleResBean<ImgBean>) mAcache.getAsObject(Constant.Cache.CACHE_BEAUTY);
+            Timber.d("mCacheApiBean %s ", mCacheApiBean);
+            if (mCacheApiBean != null && mCacheApiBean.getRes() != null
+                    && mCacheApiBean.getRes().getImginfo() != null
+                    && mCacheApiBean.getRes().getImginfo().size() > 0) {
+                beautyPicAdapter.addImg(mCacheApiBean.getRes().getImginfo(), true);
+            }
+        }
         binding.recycler.setAdapter(beautyPicAdapter);
     }
 
@@ -130,6 +140,8 @@ public class BeautyFragment extends BaseFragment<FragmentBeautyBinding> implemen
 
     @Override
     public void onRefresh(ApiSingleResBean<ImgBean> apiBean) {
+        mAcache.remove(Constant.Cache.CACHE_BEAUTY);
+        mAcache.put(Constant.Cache.CACHE_BEAUTY, apiBean, ACache.TIME_DAY);
         resetLoadingStatus();
         binding.swipe.setDataFinish(false);
         mTotalPages = apiBean.getTotal();

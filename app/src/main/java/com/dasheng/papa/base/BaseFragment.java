@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.dasheng.papa.R;
+import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.FragmentBaseBinding;
 import com.dasheng.papa.util.CommonUtils;
 import com.trello.rxlifecycle.components.support.RxFragment;
@@ -30,6 +31,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends RxFragment
     private FragmentBaseBinding baseBinding;
     protected T binding;
     protected BaseActivity baseActivity;
+    protected ACache mAcache;
 
     private boolean isFragmentVisible;
     private boolean isReuseView;
@@ -66,6 +68,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends RxFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        mAcache = ACache.get(getContext());
         baseBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_base, null, false);
         binding = DataBindingUtil.inflate(inflater, setLayoutId(), null, false);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
