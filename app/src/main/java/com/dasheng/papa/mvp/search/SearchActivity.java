@@ -6,7 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.dasheng.papa.R;
-import com.dasheng.papa.adapter.CategoryDetailAdapter;
+import com.dasheng.papa.adapter.SearchAdapter;
 import com.dasheng.papa.base.BaseActivity;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.bean.ApiListResBean;
@@ -21,7 +21,7 @@ import com.dasheng.papa.widget.springview.SpringView;
 public class SearchActivity extends BaseActivity<ActivitySearchBinding>
         implements SearchContact.View {
 
-    private CategoryDetailAdapter categoryDetailAdapter;
+    private SearchAdapter searchAdapter;
     private String searchContent;
     private int mCurrentPage = 1;
     private int mTotalPages;
@@ -61,7 +61,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding>
             }
         });
 
-        categoryDetailAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
+        searchAdapter.setOnItemClickListener(new OnItemClickListener<ResponseItemBean>() {
             @Override
             public void onClick(ResponseItemBean responseItemBean, int position) {
                 UrlUtils.jumpToArticleOrVideo(SearchActivity.this, responseItemBean);
@@ -79,8 +79,8 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding>
                 LinearLayoutManager.VERTICAL, false));
         binding.recycler.addItemDecoration(new DividerItemDecoration(SearchActivity.this,
                 DividerItemDecoration.VERTICAL));
-        categoryDetailAdapter = new CategoryDetailAdapter();
-        binding.recycler.setAdapter(categoryDetailAdapter);
+        searchAdapter = new SearchAdapter();
+        binding.recycler.setAdapter(searchAdapter);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding>
             ToastUtil.show(SearchActivity.this, "未搜索到内容");
             return;
         }
-        categoryDetailAdapter.addItems(apiBean.getRes());
+        searchAdapter.addItems(apiBean.getRes());
     }
 
     @Override

@@ -20,8 +20,10 @@ import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.GsonUtil;
 import com.dasheng.papa.util.SPUtil;
 
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -31,6 +33,7 @@ public class SplashActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private SharedPreferences.Editor editor;
     private Long requestTime;
+    private CompositeSubscription compositeSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void loadCategoryInfo() {
-        ApiFactory.rank(null, null, null)
+        Subscription subscription = ApiFactory.rank(null, null, null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<ApiListResBean<ResponseItemBean>>() {
@@ -77,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
                         gotoMainActivity(System.currentTimeMillis() - requestTime);
                     }
                 });
+        addSubscription(subscription);
     }
 
     public void gotoMainActivity(long l) {
@@ -108,4 +112,26 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    protected void addSubscription(Subscription subscription) {
+        if (compositeSubscription == null) {
+            compositeSubscription = new CompositeSubscription();
+        }
+        compositeSubscription.add(subscription);
+    }
+
+    /**
+     * 清空Subscription,且之后添加的Subscription也不会立即被注册
+     */
+    protected void removeAllSubscription() {
+        if (compositeSubscription == null) {
+            compositeSubscription = new CompositeSubscription();
+        }
+        compositeSubscription.unsubscribe();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        removeAllSubscription();
+    }
 }

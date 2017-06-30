@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="rank"
+            type="com.dasheng.papa.bean.ResponseItemBean"/>
+
+    </data>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/category_detail_padding_bottom"
+                    android:paddingLeft="@dimen/category_detail_padding_left"
+                    android:paddingRight="@dimen/category_detail_padding_right"
+                    android:paddingTop="@dimen/category_detail_padding_top">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            app:imgurl="@{rank.img}"
+            android:layout_width="@dimen/category_detail_thumbnail_width"
+            android:layout_height="@dimen/category_detail_thumbnail_height"
+            android:layout_marginRight="@dimen/category_detail_thumbnail_margin_right"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/thumbnail"
+            android:layout_toRightOf="@+id/thumbnail"
+            app:search="@{rank.title}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_with_pics"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/thumbnail"
+            android:layout_toRightOf="@+id/thumbnail"
+            app:click="@{rank.click}"
+            android:textColor="@color/text_color_unselected"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/thumbnail"
+            android:layout_alignParentRight="true"
+            android:text="@{rank.addtime}"
+            android:textColor="@color/text_color_unselected"/>
+
+    </RelativeLayout>
+
+</layout>

@@ -1,6 +1,7 @@
 package com.dasheng.papa.util;
 
 import android.databinding.BindingAdapter;
+import android.text.Html;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -68,5 +69,9 @@ public class DataBindingUtil {
         tv.setText(count + "");
     }
 
+    @BindingAdapter("search")
+    public static void setSearchText(TextView tv, String content) {
+        tv.setText(Html.fromHtml(content));
+    }
 
 }
