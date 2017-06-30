@@ -1,6 +1,7 @@
 package com.dasheng.papa.mvp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dasheng.papa.R;
@@ -42,6 +46,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
 
     @Override
     protected void initView() {
+        initStatusBar(R.color.colorAccent);
         initViewPager();
         mFragmentManager = getSupportFragmentManager();
         binding.home.setOnClickListener(this);
@@ -160,5 +165,30 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 状态栏处理：解决全屏切换非全屏页面被压缩问题
+     */
+    public void initStatusBar(int barColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            // 获取状态栏高度
+            int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+            View rectView = new View(this);
+            // 绘制一个和状态栏一样高的矩形，并添加到视图中
+            LinearLayout.LayoutParams params
+                    = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
+            rectView.setLayoutParams(params);
+            //设置状态栏颜色
+            rectView.setBackgroundColor(getResources().getColor(barColor));
+            // 添加矩形View到布局中
+            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+            decorView.addView(rectView);
+            ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+            rootView.setFitsSystemWindows(true);
+            rootView.setClipToPadding(true);
+        }
     }
 }
