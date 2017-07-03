@@ -9,4 +9,5 @@
     <color name="text_color_selected">#E7524D</color>
     <color name="category_divide_color">#E6E6E6</color>
     <color name="rank_title_bg">#F5AE06</color>
+    <color name="tab_layout_back">#EEEEEE</color>
 </resources>

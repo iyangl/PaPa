@@ -23,6 +23,7 @@ import com.dasheng.papa.databinding.ItemHomeCategoryTitleBinding;
 import com.dasheng.papa.mvp.MainActivity;
 import com.dasheng.papa.util.CommonUtils;
 import com.dasheng.papa.util.ImageLoader;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.List;
 
@@ -46,8 +47,10 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
         if (viewType == TYPE_BANNER) {
             View banner = View.inflate(parent.getContext(), R.layout.item_home_category_banner, null);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    CommonUtils.dip2px(banner.getContext(), 110));
-            banner.setLayoutParams(layoutParams);
+                    CommonUtils.dip2px(parent.getContext(), 300));
+            AutoLinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(ViewGroup.LayoutParams
+                    .MATCH_PARENT, 310);
+            banner.setLayoutParams(params);
             return new BannerViewHolder(banner);
         }
         if (viewType == TYPE_GRID) {
