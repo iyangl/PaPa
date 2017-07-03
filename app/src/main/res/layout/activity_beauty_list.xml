@@ -38,11 +38,11 @@
             android:text="@{beauty.addtime}"
             android:textSize="@dimen/beauty_item_date_size"/>
 
-        <android.support.v4.view.ViewPager
+        <com.dasheng.papa.widget.pulltorefreshhorizon.PullRefreshRecyclerView
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"/>
+
 
         <LinearLayout
             android:layout_width="wrap_content"

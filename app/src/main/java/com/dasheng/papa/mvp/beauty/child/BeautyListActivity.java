@@ -1,27 +1,31 @@
 package com.dasheng.papa.mvp.beauty.child;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.dasheng.papa.R;
-import com.dasheng.papa.adapter.BeautyListPagerAdapter;
+import com.dasheng.papa.adapter.BeautyListAdapter;
 import com.dasheng.papa.base.BaseActivity;
 import com.dasheng.papa.bean.ApiSingleResBean;
 import com.dasheng.papa.bean.BeautyPicBean;
 import com.dasheng.papa.bean.ImgBean;
 import com.dasheng.papa.databinding.ActivityBeautyListBinding;
+import com.dasheng.papa.util.CommonUtils;
 import com.dasheng.papa.util.Constant;
-import com.dasheng.papa.util.ToastUtil;
+import com.dasheng.papa.widget.pulltorefreshhorizon.PullToRefreshBase;
+
+import timber.log.Timber;
 
 public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
         implements View.OnClickListener, BeautyListContact.View {
 
-    private BeautyListPagerAdapter beautyListPagerAdapter;
     private String mId;
     private boolean isLoading;
     private BeautyListPresenter beautyListPresenter;
+    private BeautyListAdapter beautyListAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,8 +50,28 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
     }
 
     private void initViewPager() {
-        beautyListPagerAdapter = new BeautyListPagerAdapter();
-        binding.pager.setAdapter(beautyListPagerAdapter);
+        beautyListAdapter = new BeautyListAdapter();
+        binding.pager.setAdapter(beautyListAdapter);
+        binding.pager.setMode(PullToRefreshBase.Mode.BOTH);
+        binding.pager.getLoadingLayoutProxy(true, false).setPullLabel("加载上一篇");
+        binding.pager.getLoadingLayoutProxy(false, true).setPullLabel("加载下一篇");
+        binding.pager.getLoadingLayoutProxy(true, true).setReleaseLabel("松开加载");
+        binding.pager.getLoadingLayoutProxy(true, true).setRefreshingLabel("正在加载");
+        binding.pager.getLoadingLayoutProxy().setLoadingDrawable(
+                CommonUtils.getDrawable(R.drawable.progress));
+        binding.pager.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                if (refreshView.isRefreshing()) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Timber.d("onRefresh");
+                        }
+                    }, 3000);
+                }
+            }
+        });
     }
 
     @Override
@@ -59,47 +83,10 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
         binding.pre.setOnClickListener(this);
         binding.next.setOnClickListener(this);
 
-        binding.pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                binding.setPage(String.format("%s/%s 页", position + 1, beautyListPagerAdapter.getCount()));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
     }
 
     @Override
     public void onClick(View v) {
-        if (isLoading) {
-            return;
-        }
-        int currentItem = binding.pager.getCurrentItem();
-        switch (v.getId()) {
-            case R.id.pre:
-                if (currentItem == 0) {
-                    ToastUtil.show(BeautyListActivity.this, "已是第一张");
-                    return;
-                }
-                binding.pager.setCurrentItem(currentItem - 1);
-                break;
-            case R.id.next:
-                if (currentItem == beautyListPagerAdapter.getCount() - 1) {
-                    ToastUtil.show(BeautyListActivity.this, "没有更多了");
-                    return;
-                }
-                binding.pager.setCurrentItem(currentItem + 1);
-                break;
-        }
     }
 
     @Override
@@ -115,8 +102,7 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
     @Override
     public void onLoadPicsSuccess(ApiSingleResBean<BeautyPicBean> pics) {
         isLoading = false;
-        beautyListPagerAdapter.addAll(pics.getRes().getContent());
-        binding.setPage(String.format("%s/%s 页", 1, beautyListPagerAdapter.getCount()));
+        beautyListAdapter.addPics(pics.getRes().getContent());
     }
 
     @Override
