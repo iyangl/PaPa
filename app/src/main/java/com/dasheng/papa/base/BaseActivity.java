@@ -20,6 +20,7 @@ import com.dasheng.papa.R;
 import com.dasheng.papa.cache.ACache;
 import com.dasheng.papa.databinding.ActivityBaseBinding;
 import com.dasheng.papa.util.KeyBoardUtils;
+import com.dasheng.papa.util.ToastUtil;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.zhy.autolayout.AutoFrameLayout;
 import com.zhy.autolayout.AutoLinearLayout;
@@ -288,4 +289,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
 
     protected abstract void initEvent();
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ToastUtil.hideToast();
+    }
 }
