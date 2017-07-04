@@ -2,9 +2,12 @@ package com.dasheng.papa.mvp.beauty.child;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.adapter.BeautyListPagerAdapter;
@@ -32,6 +35,14 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
     private BeautyPicBean.NextBean nextPic;
     private RxPermissions mRxPermissions;
     private String picTitle;
+    private TranslateAnimation mTopShowAction;
+    private TranslateAnimation mTopHiddenAction;
+    private TranslateAnimation mBottomShowAction;
+    private TranslateAnimation mBottomHiddenAction;
+    private TranslateAnimation mLeftShowAction;
+    private TranslateAnimation mLeftHiddenAction;
+    private TranslateAnimation mRightShowAction;
+    private TranslateAnimation mRightHiddenAction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +65,15 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
         setTitle(R.string.beauty_title);
         setNavigationIcon();
         initViewPager();
+        initAnimation();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideAround();
+            }
+        },300);
     }
+
 
     private void initViewPager() {
         beautyListPagerAdapter = new BeautyListPagerAdapter();
@@ -63,15 +82,9 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
             @Override
             public void onClick(String s, int position) {
                 if (binding.header.getVisibility() == View.VISIBLE) {
-                    binding.header.setVisibility(View.GONE);
-                    binding.footer.setVisibility(View.GONE);
-                    binding.left.setVisibility(View.GONE);
-                    binding.right.setVisibility(View.GONE);
+                    hideAround();
                 } else {
-                    binding.header.setVisibility(View.VISIBLE);
-                    binding.footer.setVisibility(View.VISIBLE);
-                    binding.left.setVisibility(View.VISIBLE);
-                    binding.right.setVisibility(View.VISIBLE);
+                    showAround();
                 }
             }
         });
@@ -186,5 +199,69 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
     @Override
     public void onError(Throwable e) {
         isLoading = false;
+    }
+
+    private void initAnimation() {
+        mTopShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        mTopShowAction.setDuration(300);
+        mTopHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f);
+        mTopHiddenAction.setDuration(300);
+
+        mBottomShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        mBottomShowAction.setDuration(300);
+        mBottomHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                1.0f);
+        mBottomHiddenAction.setDuration(300);
+
+        mLeftShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        mLeftShowAction.setDuration(300);
+        mLeftHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, -1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f);
+        mLeftHiddenAction.setDuration(300);
+
+        mRightShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        mRightShowAction.setDuration(300);
+        mRightHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f);
+        mRightHiddenAction.setDuration(300);
+    }
+
+    private void showAround() {
+        binding.header.setVisibility(View.VISIBLE);
+        binding.header.startAnimation(mTopShowAction);
+        binding.footer.setVisibility(View.VISIBLE);
+        binding.footer.startAnimation(mBottomShowAction);
+        binding.left.setVisibility(View.VISIBLE);
+        binding.left.startAnimation(mLeftShowAction);
+        binding.right.setVisibility(View.VISIBLE);
+        binding.right.startAnimation(mRightShowAction);
+    }
+
+    private void hideAround() {
+        binding.header.setVisibility(View.GONE);
+        binding.header.startAnimation(mTopHiddenAction);
+        binding.footer.setVisibility(View.GONE);
+        binding.footer.startAnimation(mBottomHiddenAction);
+        binding.left.setVisibility(View.GONE);
+        binding.left.startAnimation(mLeftHiddenAction);
+        binding.right.setVisibility(View.GONE);
+        binding.right.startAnimation(mRightHiddenAction);
     }
 }
