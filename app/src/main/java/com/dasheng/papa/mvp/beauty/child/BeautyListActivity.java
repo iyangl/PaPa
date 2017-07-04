@@ -61,7 +61,6 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
         } else {
             finish();
         }
-
         setTitle(R.string.beauty_title);
         setNavigationIcon();
         initViewPager();
