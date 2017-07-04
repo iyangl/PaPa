@@ -2,6 +2,8 @@ package com.dasheng.papa.util;
 
 public class Constant {
 
+    public static final String APP_NAME = "PaPa";
+
     public static class Api {
         public static final String BASE_URL = "http://118.89.233.35:9090/";
         public static final String BASE_API_URL = BASE_URL + "api/";

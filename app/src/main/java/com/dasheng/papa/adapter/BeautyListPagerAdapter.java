@@ -6,10 +6,13 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.OnItemClickListener;
 import com.dasheng.papa.databinding.ItemBeautyListBinding;
+import com.github.chrisbanes.photoview.OnOutsidePhotoTapListener;
+import com.github.chrisbanes.photoview.OnPhotoTapListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ public class BeautyListPagerAdapter extends PagerAdapter {
     private List<String> data;
     private OnItemClickListener<String> listener;
     private SparseArray<View> mCacheView;
+    private int mChildCount;
 
     public BeautyListPagerAdapter() {
         data = new ArrayList<>();
@@ -45,14 +49,20 @@ public class BeautyListPagerAdapter extends PagerAdapter {
         if (view == null) {
             ItemBeautyListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(container.getContext()),
                     R.layout.item_beauty_list, null, false);
-            binding.beautyPic.setOnLongClickListener(new View.OnLongClickListener() {
+            binding.beautyPic.setOnPhotoTapListener(new OnPhotoTapListener() {
                 @Override
-                public boolean onLongClick(View v) {
+                public void onPhotoTap(ImageView view, float x, float y) {
                     if (listener != null) {
-                        listener.onClick(null, position);
-                        return true;
+                        listener.onClick(null, 0);
                     }
-                    return false;
+                }
+            });
+            binding.beautyPic.setOnOutsidePhotoTapListener(new OnOutsidePhotoTapListener() {
+                @Override
+                public void onOutsidePhotoTap(ImageView imageView) {
+                    if (listener != null) {
+                        listener.onClick(null, 0);
+                    }
                 }
             });
             binding.setBeauty(data.get(position));
@@ -68,10 +78,26 @@ public class BeautyListPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        if (mChildCount > 0) {
+            mChildCount--;
+            return POSITION_NONE;
+        }
+        return super.getItemPosition(object);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        mChildCount = getCount();
+        super.notifyDataSetChanged();
+    }
+
     public void addAll(List<String> data) {
         if (data == null || data.size() == 0) {
             return;
         }
+        clear();
         this.data.addAll(data);
         notifyDataSetChanged();
     }
@@ -82,6 +108,8 @@ public class BeautyListPagerAdapter extends PagerAdapter {
 
     public void clear() {
         data.clear();
+        mCacheView.clear();
+        notifyDataSetChanged();
     }
 
     public void remove(String object) {
@@ -98,5 +126,9 @@ public class BeautyListPagerAdapter extends PagerAdapter {
 
     public void setOnItemClickListener(OnItemClickListener<String> listener) {
         this.listener = listener;
+    }
+
+    public String getItem(int position) {
+        return position < getCount() ? data.get(position) : "";
     }
 }

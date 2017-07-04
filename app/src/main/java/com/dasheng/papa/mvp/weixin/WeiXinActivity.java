@@ -15,6 +15,7 @@ import android.view.View;
 import com.dasheng.papa.R;
 import com.dasheng.papa.base.BaseActivity;
 import com.dasheng.papa.databinding.ActivityWeixinBinding;
+import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.PermissionUtil;
 import com.dasheng.papa.util.ToastUtil;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -58,7 +59,7 @@ public class WeiXinActivity extends BaseActivity<ActivityWeixinBinding> {
 
                                     @Override
                                     public void onRequestPermissionFailed() {
-                                        ToastUtil.show(WeiXinActivity.this, "未获取权限，保存失败！");
+                                        ToastUtil.show("未获取权限，保存失败！");
                                     }
                                 }, mRxPermissions);
                             }
@@ -80,7 +81,7 @@ public class WeiXinActivity extends BaseActivity<ActivityWeixinBinding> {
                 File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                         .getAbsoluteFile();
                 //注意小米手机必须这样获得public绝对路径
-                String fileName = "PaPa";
+                String fileName = Constant.APP_NAME;
                 File appDir = new File(file.getParentFile(), fileName);
                 if (!appDir.exists()) {
                     appDir.mkdirs();
@@ -94,7 +95,7 @@ public class WeiXinActivity extends BaseActivity<ActivityWeixinBinding> {
                     new Handler(getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtil.show(WeiXinActivity.this, "保存成功");
+                            ToastUtil.show("保存成功");
                         }
                     });
                 } catch (Exception e) {

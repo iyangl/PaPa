@@ -4,8 +4,12 @@
     <data>
 
         <variable
-            name="beauty"
-            type="com.dasheng.papa.bean.ImgBean.ImginfoBean"/>
+            name="title"
+            type="String"/>
+
+        <variable
+            name="addtime"
+            type="String"/>
 
         <variable
             name="page"
@@ -13,64 +17,94 @@
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:paddingBottom="@dimen/beauty_item_padding_vertical"
-                  android:paddingLeft="@dimen/beauty_item_padding_horizontal"
-                  android:paddingRight="@dimen/beauty_item_padding_horizontal"
-                  android:paddingTop="@dimen/beauty_item_padding_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/beauty_item_text_padding_bottom"
-            android:paddingTop="@dimen/beauty_item_text_padding_top"
-            android:text="@{beauty.title}"
-            android:textColor="@color/black"
-            android:textSize="@dimen/beauty_item_text_size"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/beauty_item_date_padding_top"
-            android:text="@{beauty.addtime}"
-            android:textSize="@dimen/beauty_item_date_size"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:animateLayoutChanges="true"
+            android:id="@+id/header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="@dimen/beauty_item_date_padding_top"
-            android:paddingTop="@dimen/beauty_item_date_padding_top">
+            android:background="@color/black"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <Button
-                android:id="@+id/pre"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pre_page"/>
+                android:paddingBottom="@dimen/beauty_item_text_padding_bottom"
+                android:paddingTop="@dimen/beauty_item_text_padding_top"
+                android:text="@{title}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/beauty_item_text_size"/>
 
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="@{page}"/>
-
-            <Button
-                android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/next_page"/>
+                android:text="@{addtime}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/beauty_item_date_size"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@{page}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/beauty_item_text_size"/>
+
+            <TextView
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="@dimen/beauty_item_text_size"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@color/black"
+            android:padding="10dp"
+            android:text="上一页"
+            android:textColor="@color/white"
+            android:textSize="@dimen/beauty_item_text_size"/>
+
+        <TextView
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/black"
+            android:padding="10dp"
+            android:text="下一页"
+            android:textColor="@color/white"
+            android:textSize="@dimen/beauty_item_text_size"/>
+
+    </RelativeLayout>
 
 </layout>
