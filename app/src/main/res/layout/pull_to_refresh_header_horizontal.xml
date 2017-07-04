@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="#313131"
+                android:textColor="@color/white"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="@dimen/text_size_with_pics"/>
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#313131"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_with_pics"
                 android:visibility="gone"/>
         </LinearLayout>

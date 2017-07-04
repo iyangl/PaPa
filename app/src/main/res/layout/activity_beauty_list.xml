@@ -13,64 +13,72 @@
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:paddingBottom="@dimen/beauty_item_padding_vertical"
-                  android:paddingLeft="@dimen/beauty_item_padding_horizontal"
-                  android:paddingRight="@dimen/beauty_item_padding_horizontal"
-                  android:paddingTop="@dimen/beauty_item_padding_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/beauty_item_text_padding_bottom"
-            android:paddingTop="@dimen/beauty_item_text_padding_top"
-            android:text="@{beauty.title}"
-            android:textColor="@color/black"
-            android:textSize="@dimen/beauty_item_text_size"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/beauty_item_date_padding_top"
-            android:text="@{beauty.addtime}"
-            android:textSize="@dimen/beauty_item_date_size"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#333333">
 
         <com.dasheng.papa.widget.pulltorefreshhorizon.PullRefreshRecyclerView
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:padding="10px"
+            android:id="@+id/header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="@dimen/beauty_item_date_padding_top"
-            android:paddingTop="@dimen/beauty_item_date_padding_top">
+            android:background="@color/black"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/pre"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pre_page"/>
+                android:paddingBottom="@dimen/beauty_item_text_padding_bottom"
+                android:paddingTop="@dimen/beauty_item_text_padding_top"
+                android:text="@{beauty.title}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/beauty_item_text_size"/>
 
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="@{page}"/>
-
-            <Button
-                android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/next_page"/>
+                android:text="@{beauty.addtime}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/beauty_item_date_size"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/black"
+            android:padding="10px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@{page}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/beauty_item_text_size"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/beauty_item_text_size"
+                android:textColor="@color/white"
+                android:text="保存"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </layout>

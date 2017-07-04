@@ -70,6 +70,6 @@
     <dimen name="header_footer_top_bottom_padding">12dp</dimen>
 
     <dimen name="fresh_text_size">18sp</dimen>
-    <dimen name="fresh_textsmall_size">15sp</dimen>
+    <dimen name="fresh_text_small_size">15sp</dimen>
 
 </resources>

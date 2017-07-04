@@ -11,10 +11,11 @@
     </data>
 
     <LinearLayout
+        android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/beauty_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

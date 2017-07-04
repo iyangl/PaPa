@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dasheng.papa.R;
+import com.github.chrisbanes.photoview.PhotoView;
 
 public class DataBindingUtil {
 
@@ -36,7 +37,11 @@ public class DataBindingUtil {
 
     @BindingAdapter("imgurl")
     public static void loadImage(ImageView iv, String imgUrl) {
-        ImageLoader.loadImage(iv.getContext(), imgUrl, iv);
+        if (iv instanceof PhotoView) {
+            ImageLoader.loadXMLImage(iv.getContext(), imgUrl, iv);
+        } else {
+            ImageLoader.loadImage(iv.getContext(), imgUrl, iv);
+        }
     }
 
     @BindingAdapter("category")
