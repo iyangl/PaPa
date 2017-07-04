@@ -36,5 +36,12 @@
         <item name="android:scaleType">centerCrop</item>
     </style>
 
+    <style name="Theme.ToolBar.PaPa" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.PaPa</item>
+    </style>
+
+    <style name="ActionButton.Overflow.PaPa" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/main_menu_more_overflow_mtrl_alpha</item>
+    </style>
 
 </resources>

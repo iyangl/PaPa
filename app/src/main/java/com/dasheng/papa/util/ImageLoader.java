@@ -12,6 +12,9 @@ public class ImageLoader {
     }
 
     public static void loadImageWithoutScale(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(Constant.Api.BASE_URL + url).into(imageView);
+        if (!url.startsWith("http")) {
+            url = Constant.Api.BASE_URL + url;
+        }
+        Glide.with(context).load(url).into(imageView);
     }
 }

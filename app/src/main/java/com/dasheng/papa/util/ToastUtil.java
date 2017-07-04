@@ -16,14 +16,13 @@ public class ToastUtil {
      */
     public static void show(Context context, CharSequence sequence) {
 
-        if (toast == null) {
-            toast = Toast.makeText(context, sequence, Toast.LENGTH_SHORT);
-
-        } else {
-            toast.setText(sequence);
+        if (toast != null) {
+            toast.cancel();
+            toast = null;
         }
+        toast = Toast.makeText(context, sequence, Toast.LENGTH_SHORT);
+        toast.setText(sequence);
         toast.show();
-
     }
 
     public static void show(CharSequence message) {

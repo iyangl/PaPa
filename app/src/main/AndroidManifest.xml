@@ -41,6 +41,7 @@
         <activity
             android:name=".mvp.search.SearchActivity"
             android:launchMode="singleTask"/>
+        <activity android:name=".mvp.article.ShowWebImageActivity"/>
 
         <meta-data
             android:name="design_width"

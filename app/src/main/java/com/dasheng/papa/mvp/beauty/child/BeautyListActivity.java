@@ -147,19 +147,7 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
         PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
             @Override
             public void onRequestPermissionSuccess() {
-                new Thread(new DownLoadImageService(BeautyListActivity.this,
-                        selectItemUrl, picName, new ImageDownLoadCallBack() {
-
-                    @Override
-                    public void onDownLoadSuccess(Bitmap bitmap) {
-                        ToastUtil.show("保存成功");
-                    }
-
-                    @Override
-                    public void onDownLoadFailed(Throwable e) {
-                        ToastUtil.show("保存失败");
-                    }
-                })).start();
+                startSavePic(selectItemUrl, picName);
             }
 
             @Override
@@ -167,6 +155,22 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
                 ToastUtil.show("未获取权限，保存失败！");
             }
         }, mRxPermissions);
+    }
+
+    private void startSavePic(String selectItemUrl, String picName) {
+        new Thread(new DownLoadImageService(this,
+                selectItemUrl, picName, new ImageDownLoadCallBack() {
+
+            @Override
+            public void onDownLoadSuccess(Bitmap bitmap) {
+                ToastUtil.show("保存成功");
+            }
+
+            @Override
+            public void onDownLoadFailed(Throwable e) {
+                ToastUtil.show("保存失败");
+            }
+        })).start();
     }
 
     @Override

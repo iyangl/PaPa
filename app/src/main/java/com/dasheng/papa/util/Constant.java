@@ -26,6 +26,7 @@ public class Constant {
         public static final String VIDEO_DETAIL_INFO = "video_detail_info";
         public static final String HOME_CATEGORY_NAME = "home_category_name";
         public static final String SEARCH_CONTENT = "search_content";
+        public static final String WEB_IMAGE_URL = "web_image_url";
     }
 
     public static class Cache {
