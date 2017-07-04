@@ -65,6 +65,7 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
         setNavigationIcon();
         initViewPager();
         initAnimation();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
