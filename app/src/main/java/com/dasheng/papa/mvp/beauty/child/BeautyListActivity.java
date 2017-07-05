@@ -70,7 +70,7 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
             public void run() {
                 hideAround();
             }
-        },300);
+        }, 300);
     }
 
 
@@ -120,6 +120,9 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
 
     @Override
     public void onClick(View v) {
+        if (isLoading) {
+            return;
+        }
         switch (v.getId()) {
             case R.id.save:
                 String selectItemUrl = Constant.Api.BASE_URL +
