@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/AnimHorizon</item>
     </style>
 
     <!-- 防止欢迎页白屏或者黑屏，设置图片 -->
@@ -15,8 +16,6 @@
         <item name="android:windowBackground">@drawable/app_splash</item>
         <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
-        <!--<item name="android:windowIsTranslucent">false</item>-->
-        <!--<item name="android:windowDisablePreview">true</item>-->
     </style>
 
     <style name="AppTheme" parent="Base.AppTheme"/>
@@ -42,6 +41,13 @@
 
     <style name="ActionButton.Overflow.PaPa" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
         <item name="android:src">@drawable/main_menu_more_overflow_mtrl_alpha</item>
+    </style>
+
+    <style name="AnimHorizon" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
     </style>
 
 </resources>
