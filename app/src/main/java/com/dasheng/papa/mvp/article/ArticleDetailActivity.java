@@ -130,6 +130,7 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
 
     // 注入js函数监听
     private void addImageClickListner() {
+        //网页内容加载完成之后，将真实图片的值替换回src
         binding.web.loadUrl("javascript:(function(){" +
                 "var objs = document.getElementsByTagName(\"img\"); " +
                 "         window.imagelistner.log(objs.length);" +
