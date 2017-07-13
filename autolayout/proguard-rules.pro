@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+#-----------------------------autolayout-----------------------------
+-dontwarn com.zhy.autolayout.**
+-keep class com.zhy.autolayout.**{*;}

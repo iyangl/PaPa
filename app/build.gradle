@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             applicationVariants.all {
@@ -84,8 +84,6 @@ dependencies {
     compile 'fm.jiecao:jiecaovideoplayer:5.5.4'
     //bga_banner
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
-    //xrecyclerview
-    compile 'com.jcodecraeer:xrecyclerview:1.3.2'
     //jsoup
     compile 'org.jsoup:jsoup:1.10.3'
     //RxPermissions
