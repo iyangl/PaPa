@@ -20,6 +20,8 @@ import com.dasheng.papa.databinding.ActivityArticleDetailBinding;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.HtmlUtil;
 
+import timber.log.Timber;
+
 public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBinding>
         implements ArticleDetailContact.View {
     private ResponseItemBean responseItemBean;
@@ -67,8 +69,11 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
             responseItemBean = apiBean.getRes().getHead().get(0);
             binding.title.setText(responseItemBean.getTitle());
             binding.time.setText(String.format("更新时间：%s", responseItemBean.getAddtime()));
-            binding.web.loadData(HtmlUtil.getNewContent(responseItemBean.getArticle()),
-                    "text/html; charset=UTF-8", null);
+            /*binding.web.loadData(HtmlUtil.getNewContent(responseItemBean.getArticle()),
+                    "text/html; charset=UTF-8", null);*/
+            binding.web.loadDataWithBaseURL("file:///android_asset/", HtmlUtil.getNewContent(responseItemBean
+                            .getArticle()),
+                    "text/html; charset=UTF-8", null, null);
         }
     }
 
@@ -84,7 +89,7 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDefaultTextEncodingName("UTF-8");
         //先阻塞加载图片
-        webSettings.setBlockNetworkImage(true);
+        webSettings.setBlockNetworkImage(false);
         // 添加js交互接口类，并起别名 imagelistner
         mWebView.addJavascriptInterface(new JSInterface(this), "imagelistner");
         mWebView.setWebViewClient(new MyWebViewClient());
@@ -125,6 +130,19 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
 
     // 注入js函数监听
     private void addImageClickListner() {
+        binding.web.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName(\"img\"); " +
+                "         window.imagelistner.log(objs.length);" +
+                "for(var i=0;i<objs.length;i++)  " +
+                "{"
+                + "     if(objs[i].src.indexOf(\"click_load_day.png\")<0) {"
+                + "     } else {"
+                + "         objs[i].src = objs[i].alt;"
+                + "     }" +
+                "}" +
+                "})()");
+
+
         // 这段js函数的功能就是，遍历所有的img几点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
         binding.web.loadUrl("javascript:(function(){" +
                 "var objs = document.getElementsByTagName(\"img\"); " +
@@ -149,12 +167,15 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
 
         @JavascriptInterface
         public void openImage(String img) {
-            System.out.println(img);
             Intent intent = new Intent();
             intent.putExtra(Constant.Intent_Extra.WEB_IMAGE_URL, img);
             intent.setClass(context, ShowWebImageActivity.class);
             context.startActivity(intent);
-            System.out.println(img);
+        }
+
+        @JavascriptInterface
+        public void log(String log) {
+            Timber.d("log: %s", log);
         }
     }
 }
