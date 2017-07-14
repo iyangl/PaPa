@@ -136,7 +136,7 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
                 "         window.imagelistner.log(objs.length);" +
                 "for(var i=0;i<objs.length;i++)  " +
                 "{"
-                + "     if(objs[i].src.indexOf(\"click_load_day.png\")<0) {"
+                + "     if(objs[i].src.indexOf(\"loading_image_default.png\")<0) {"
                 + "     } else {"
                 + "         objs[i].src = objs[i].alt;"
                 + "     }" +

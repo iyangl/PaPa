@@ -18,7 +18,7 @@ public class HtmlUtil {
                 element.attr("src", Constant.Api.BASE_URL + img);
             }
             element.attr("alt", element.attr("src"));
-            element.attr("src", "click_load_day.png");
+            element.attr("src", "loading_image_default.png");
         }
         return doc.toString();
     }
