@@ -10,18 +10,12 @@
 
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/ll_web_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
         android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/image_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Theme.ToolBar.PaPa"/>
 
         <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/image"
@@ -30,7 +24,14 @@
             android:scaleType="matrix"
             app:imgurl="@{url}"/>
 
-    </LinearLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/image_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:theme="@style/Theme.ToolBar.PaPa"/>
+
+    </FrameLayout>
 
 
 </layout>

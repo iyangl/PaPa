@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.databinding.ActivityWebImageBinding;
@@ -16,6 +17,8 @@ import com.dasheng.papa.util.PermissionUtil;
 import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.util.glidedownload.DownLoadImageService;
 import com.dasheng.papa.util.glidedownload.ImageDownLoadCallBack;
+import com.github.chrisbanes.photoview.OnOutsidePhotoTapListener;
+import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import timber.log.Timber;
@@ -36,7 +39,6 @@ public class ShowWebImageActivity extends AppCompatActivity {
 
         mRxPermissions = new RxPermissions(this);
         toolbar = binding.imageToolbar;
-        toolbar.setBackgroundColor(CommonUtils.getColor(R.color.black));
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,27 @@ public class ShowWebImageActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        binding.image.setOnPhotoTapListener(new OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(ImageView view, float x, float y) {
+                hideOrShowIsQuesttion();
+            }
+        });
+        binding.image.setOnOutsidePhotoTapListener(new OnOutsidePhotoTapListener() {
+            @Override
+            public void onOutsidePhotoTap(ImageView imageView) {
+                hideOrShowIsQuesttion();
+            }
+        });
+    }
+
+    public void hideOrShowIsQuesttion() {
+        if (toolbar.getVisibility() == View.VISIBLE) {
+            toolbar.setVisibility(View.GONE);
+        } else {
+            toolbar.setVisibility(View.VISIBLE);
+        }
     }
 
     private void downImages(final String url) {

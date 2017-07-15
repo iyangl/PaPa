@@ -35,7 +35,7 @@
         <item name="android:scaleType">centerCrop</item>
     </style>
 
-    <style name="Theme.ToolBar.PaPa" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.ToolBar.PaPa" parent="Base.AppTheme">
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.PaPa</item>
     </style>
 
