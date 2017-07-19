@@ -61,7 +61,7 @@ public class ShowWebImageActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        hideOrShowIsQuestion();
         initSketch();
     }
 
