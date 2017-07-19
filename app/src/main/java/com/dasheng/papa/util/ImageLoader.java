@@ -5,6 +5,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import me.xiaopan.sketch.SketchImageView;
+
 public class ImageLoader {
 
     public static void loadImage(Context context, String url, ImageView imageView) {
@@ -15,6 +17,17 @@ public class ImageLoader {
         if (!url.startsWith("http")) {
             url = Constant.Api.BASE_URL + url;
         }
-        Glide.with(context).load(url).into(imageView);
+        if (url.endsWith(".gif")) {
+            Glide.with(context).load(url).asBitmap().into(imageView);
+        } else {
+            Glide.with(context).load(url).into(imageView);
+        }
+    }
+
+    public static void loadSketch(String url, SketchImageView imageView) {
+        if (!url.startsWith("http")) {
+            url = Constant.Api.BASE_URL + url;
+        }
+        imageView.displayImage(url);
     }
 }

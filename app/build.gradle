@@ -94,6 +94,9 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     //PhotoView
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    //sketch
+    compile 'me.xiaopan:sketch:2.4.1'
+    compile 'me.xiaopan:sketch-gif:2.4.1'
 }
 
 // 定义一个打包时间

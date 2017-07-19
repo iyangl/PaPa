@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.dasheng.papa.R;
 import com.github.chrisbanes.photoview.PhotoView;
 
+import me.xiaopan.sketch.SketchImageView;
+
 public class DataBindingUtil {
 
     @BindingAdapter("state")
@@ -39,6 +41,8 @@ public class DataBindingUtil {
     public static void loadImage(ImageView iv, String imgUrl) {
         if (iv instanceof PhotoView) {
             ImageLoader.loadImageWithoutScale(iv.getContext(), imgUrl, iv);
+        } else if(iv instanceof SketchImageView) {
+            ImageLoader.loadSketch(imgUrl, (SketchImageView) iv);
         } else {
             ImageLoader.loadImage(iv.getContext(), imgUrl, iv);
         }

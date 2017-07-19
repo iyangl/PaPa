@@ -2,12 +2,12 @@ package com.dasheng.papa.mvp.article;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.dasheng.papa.R;
 import com.dasheng.papa.databinding.ActivityWebImageBinding;
@@ -17,10 +17,15 @@ import com.dasheng.papa.util.PermissionUtil;
 import com.dasheng.papa.util.ToastUtil;
 import com.dasheng.papa.util.glidedownload.DownLoadImageService;
 import com.dasheng.papa.util.glidedownload.ImageDownLoadCallBack;
-import com.github.chrisbanes.photoview.OnOutsidePhotoTapListener;
-import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
+import me.xiaopan.sketch.display.FadeInImageDisplayer;
+import me.xiaopan.sketch.drawable.ImageAttrs;
+import me.xiaopan.sketch.request.CancelCause;
+import me.xiaopan.sketch.request.DisplayListener;
+import me.xiaopan.sketch.request.DownloadProgressListener;
+import me.xiaopan.sketch.request.ErrorCause;
+import me.xiaopan.sketch.request.ImageFrom;
 import timber.log.Timber;
 
 
@@ -29,11 +34,12 @@ public class ShowWebImageActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String url;
     private RxPermissions mRxPermissions;
+    private ActivityWebImageBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityWebImageBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_web_image);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_web_image);
         url = getIntent().getStringExtra(Constant.Intent_Extra.WEB_IMAGE_URL);
         binding.setUrl(url);
 
@@ -56,21 +62,54 @@ public class ShowWebImageActivity extends AppCompatActivity {
             }
         });
 
-        binding.image.setOnPhotoTapListener(new OnPhotoTapListener() {
+        initSketch();
+    }
+
+    private void initSketch() {
+        binding.image.getOptions().setDecodeGifImage(true)
+                .setImageDisplayer(new FadeInImageDisplayer());
+        binding.image.setZoomEnabled(true);
+        binding.image.setShowDownloadProgressEnabled(true);
+        binding.image.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPhotoTap(ImageView view, float x, float y) {
-                hideOrShowIsQuesttion();
+            public void onClick(View v) {
+                hideOrShowIsQuestion();
             }
         });
-        binding.image.setOnOutsidePhotoTapListener(new OnOutsidePhotoTapListener() {
+        binding.image.setDownloadProgressListener(new DownloadProgressListener() {
             @Override
-            public void onOutsidePhotoTap(ImageView imageView) {
-                hideOrShowIsQuesttion();
+            public void onUpdateDownloadProgress(int totalLength, int completedLength) {
+                binding.hint.setProgress(totalLength, completedLength);
+            }
+        });
+        binding.image.setDisplayListener(new DisplayListener() {
+            @Override
+            public void onCompleted(Drawable drawable, ImageFrom imageFrom, ImageAttrs imageAttrs) {
+                binding.hint.hidden();
+            }
+
+            @Override
+            public void onStarted() {
+                binding.hint.loading(null);
+            }
+
+            @Override
+            public void onError(ErrorCause errorCause) {
+                binding.hint.hint(R.drawable.ic_error, "图片显示失败", "重新显示", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        binding.setUrl(url);
+                    }
+                });
+            }
+
+            @Override
+            public void onCanceled(CancelCause cancelCause) {
             }
         });
     }
 
-    public void hideOrShowIsQuesttion() {
+    public void hideOrShowIsQuestion() {
         if (toolbar.getVisibility() == View.VISIBLE) {
             toolbar.setVisibility(View.GONE);
         } else {
@@ -108,5 +147,11 @@ public class ShowWebImageActivity extends AppCompatActivity {
                 ToastUtil.show("保存失败");
             }
         })).start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
