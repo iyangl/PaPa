@@ -19,6 +19,7 @@ import com.dasheng.papa.bean.VideoDetailBean;
 import com.dasheng.papa.databinding.ActivityArticleDetailBinding;
 import com.dasheng.papa.util.Constant;
 import com.dasheng.papa.util.HtmlUtil;
+import com.dasheng.papa.util.NetWorkUtil;
 
 import timber.log.Timber;
 
@@ -88,7 +89,12 @@ public class ArticleDetailActivity extends BaseActivity<ActivityArticleDetailBin
         final WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDefaultTextEncodingName("UTF-8");
-        //先阻塞加载图片
+        if(NetWorkUtil.isNetWorkAvailable(this)) {
+            webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        } else {
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
+        //不阻塞加载图片
         webSettings.setBlockNetworkImage(false);
         // 添加js交互接口类，并起别名 imagelistner
         mWebView.addJavascriptInterface(new JSInterface(this), "imagelistner");

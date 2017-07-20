@@ -270,4 +270,26 @@ public class BeautyListActivity extends BaseActivity<ActivityBeautyListBinding>
         binding.right.setVisibility(View.GONE);
         binding.right.startAnimation(mRightHiddenAction);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        release();
+    }
+
+    private void release() {
+        beautyListPagerAdapter = null;
+        beautyListPresenter = null;
+        prePic = null;
+        nextPic = null;
+        mRxPermissions = null;
+        mTopShowAction = null;
+        mTopHiddenAction = null;
+        mBottomShowAction = null;
+        mBottomHiddenAction = null;
+        mLeftShowAction = null;
+        mLeftHiddenAction = null;
+        mRightShowAction = null;
+        mRightHiddenAction = null;
+    }
 }

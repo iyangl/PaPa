@@ -49,7 +49,7 @@ public class BeautyPicAdapter extends BaseRecyclerViewAdapter<ImgBean.ImginfoBea
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    class BeautyPicViewHolder extends BaseRecyclerViewHolder<ImgBean.ImginfoBean, ItemBeautyPicsBinding> {
+    static class BeautyPicViewHolder extends BaseRecyclerViewHolder<ImgBean.ImginfoBean, ItemBeautyPicsBinding> {
 
         public BeautyPicViewHolder(View view) {
             super(view);

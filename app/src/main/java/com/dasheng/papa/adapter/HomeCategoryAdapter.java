@@ -51,7 +51,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
             AutoLinearLayout.LayoutParams params = new AutoLinearLayout.LayoutParams(ViewGroup.LayoutParams
                     .MATCH_PARENT, 310);
             banner.setLayoutParams(params);
-            return new BannerViewHolder(banner);
+            return new BannerViewHolder(banner, listener);
         }
         if (viewType == TYPE_GRID) {
             View grid = LayoutInflater.from(parent.getContext()).inflate(
@@ -134,10 +134,16 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
 
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
-    class BannerViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryBannerBinding> {
+    static class BannerViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryBannerBinding> {
+        private com.dasheng.papa.base.OnItemClickListener<Object> listener;
 
-        public BannerViewHolder(View view) {
+        BannerViewHolder(View view) {
             super(view);
+        }
+
+        BannerViewHolder(View view, com.dasheng.papa.base.OnItemClickListener listener) {
+            this(view);
+            this.listener = listener;
         }
 
         @Override
@@ -165,7 +171,9 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
                 binding.banner.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        listener.onClick(banner.get(position), position);
+                        if (listener != null) {
+                            listener.onClick(banner.get(position), position);
+                        }
                     }
                 });
             }
@@ -190,7 +198,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
 
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
-    class GridViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryGridBinding> {
+    static class GridViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryGridBinding> {
 
         public GridViewHolder(View view) {
             super(view);
@@ -206,7 +214,7 @@ public class HomeCategoryAdapter extends BaseRecyclerViewAdapter<Object> impleme
 
     //////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
-    class TitleViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryTitleBinding> {
+    static class TitleViewHolder extends BaseRecyclerViewHolder<Object, ItemHomeCategoryTitleBinding> {
         private String type_id;
         private MainActivity mainActivity;
         private String type_name;
